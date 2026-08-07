@@ -3,226 +3,189 @@
 
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>FollowUp Pro</title>
+<title>أحمد فايد - متابعة العملاء</title>
 
 <style>
 
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
     font-family:Arial,sans-serif;
 }
 
 body{
-    background:#080d12;
-    color:white;
-    min-height:100vh;
-    padding-bottom:30px;
+    margin:0;
+    background:#071018;
+    color:#fff;
+    padding:14px;
 }
 
-/* Header */
+.wrap{
+    max-width:760px;
+    margin:auto;
+}
 
-.header{
-    width:94%;
-    margin:20px auto;
-    padding:30px 20px;
-    background:#0715b8;
-    border-radius:30px;
+header,
+.box,
+.card{
+    background:#171b20;
+    border-radius:24px;
+    padding:18px;
+    margin-bottom:16px;
+}
+
+header{
+    background:#1524c8;
     text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
-.header h1{
-    font-size:42px;
-    margin-bottom:10px;
+header h1{
+    margin:0 0 8px;
+    font-size:32px;
 }
 
-.header p{
-    font-size:24px;
-}
-
-/* Form */
-
-.form-box{
-    width:94%;
-    max-width:700px;
-    margin:25px auto;
-    padding:28px 20px;
-    background:#171717;
-    border-radius:30px;
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
+header p{
+    margin:0;
+    font-size:19px;
 }
 
 input,
-textarea{
+textarea,
+select{
     width:100%;
-    background:#202020;
-    border:1px solid #444;
-    color:white;
-    padding:18px;
-    border-radius:20px;
-    margin-bottom:15px;
-    font-size:20px;
-    outline:none;
-}
-
-input:focus,
-textarea:focus{
-    border-color:#0b45ff;
+    padding:15px;
+    margin:7px 0;
+    background:#222831;
+    border:1px solid #3c4652;
+    color:#fff;
+    border-radius:15px;
+    font-size:17px;
 }
 
 textarea{
-    height:130px;
-    resize:none;
+    min-height:90px;
+    resize:vertical;
 }
 
-.add-btn{
+.add{
     width:100%;
-    padding:20px;
-    border:none;
-    border-radius:20px;
-    background:#063fe0;
-    color:white;
-    font-size:24px;
+    background:#1455e8;
+    border:0;
+    border-radius:14px;
+    padding:14px;
+    color:#fff;
+    font-size:17px;
     font-weight:bold;
     cursor:pointer;
 }
 
-.add-btn:active{
-    transform:scale(.98);
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:16px;
 }
 
-/* Search */
-
-.search-box{
-    width:94%;
-    max-width:700px;
-    margin:20px auto;
-}
-
-.search-box input{
-    background:#151515;
-}
-
-/* Customers */
-
-#customers{
-    width:94%;
-    max-width:700px;
-    margin:auto;
-}
-
-.empty{
-    background:#111;
-    padding:35px 20px;
-    border-radius:25px;
+.stat{
     text-align:center;
-    font-size:22px;
-    color:#aaa;
+    background:#171b20;
+    border-radius:18px;
+    padding:14px;
 }
 
-/* Card */
-
-.customer{
-    background:#1a1a1a;
-    border-radius:25px;
-    margin-bottom:20px;
-    padding:22px;
-    border-right:7px solid #0646ff;
-    box-shadow:0 8px 20px rgba(0,0,0,.3);
+.stat b{
+    display:block;
+    font-size:25px;
+    margin-bottom:5px;
 }
 
-.customer h2{
-    font-size:27px;
-    margin-bottom:12px;
+.card{
+    border-right:6px solid #275bff;
 }
 
-.phone{
-    font-size:21px;
-    color:#ddd;
+.card.done{
+    border-right-color:#16a34a;
+}
+
+.card.missed{
+    border-right-color:#d00000;
+}
+
+.name{
+    font-size:23px;
+    font-weight:bold;
     margin-bottom:10px;
 }
 
-.note{
-    font-size:19px;
-    color:#bbb;
-    margin-bottom:20px;
-    white-space:pre-wrap;
+.row{
+    margin:8px 0;
+    color:#ddd;
 }
 
-/* Buttons */
-
-.buttons{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+.badge{
+    background:#394150;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:14px;
 }
 
-.buttons button{
-    flex:1;
-    min-width:130px;
-    padding:15px 10px;
-    border:none;
-    border-radius:15px;
-    color:white;
-    font-size:19px;
+.actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:14px;
+}
+
+.actions button{
+    border:0;
+    border-radius:14px;
+    padding:14px;
+    color:#fff;
     font-weight:bold;
+    font-size:16px;
     cursor:pointer;
 }
 
 .call{
-    background:#008f18;
+    background:#0b941f;
 }
 
-.whatsapp{
-    background:#16a34a;
+.wa{
+    background:#14a44b;
 }
 
-.delete{
+.donebtn{
+    background:#1769d1;
+}
+
+.miss{
     background:#b00020;
 }
 
-.buttons button:active{
-    transform:scale(.97);
+.delete{
+    background:#555;
+    grid-column:1/-1;
 }
 
-/* Counter */
-
-.counter{
-    width:94%;
-    max-width:700px;
-    margin:20px auto;
+.empty{
     text-align:center;
-    background:#111;
-    padding:18px;
-    border-radius:20px;
-    color:#ddd;
-    font-size:21px;
+    color:#9aa;
+    padding:30px;
 }
 
-/* Responsive */
+@media(max-width:520px){
 
-@media(max-width:500px){
-
-    .header h1{
-        font-size:34px;
+    .stats{
+        grid-template-columns:1fr 1fr;
     }
 
-    .header p{
-        font-size:20px;
+    .actions{
+        grid-template-columns:1fr;
     }
 
-    .customer h2{
-        font-size:24px;
-    }
-
-    .buttons button{
-        min-width:100%;
+    .delete{
+        grid-column:auto;
     }
 
 }
@@ -233,138 +196,257 @@ textarea{
 
 <body>
 
-<!-- Header -->
-
-<div class="header">
-
-    <h1>📞 FollowUp Pro</h1>
-
-    <p>برنامج متابعة العملاء</p>
-
-</div>
+<div class="wrap">
 
 
-<!-- Add Customer -->
+<header>
 
-<div class="form-box">
+<h1>📞 أحمد فايد</h1>
 
-    <input
-        id="name"
-        type="text"
-        placeholder="اسم العميل"
-    >
+<p>
+متابعة العملاء - تليسلز مخزن الفتح
+</p>
 
-    <input
-        id="phone"
-        type="tel"
-        placeholder="رقم الموبايل"
-    >
-
-    <textarea
-        id="note"
-        placeholder="ملاحظات"
-    ></textarea>
-
-    <button
-        class="add-btn"
-        onclick="addCustomer()"
-    >
-        ➕ إضافة العميل
-    </button>
-
-</div>
+</header>
 
 
-<!-- Search -->
+<!-- إضافة عميل -->
 
-<div class="search-box">
+<section class="box">
 
-    <input
-        id="search"
-        type="text"
-        placeholder="🔎 ابحث عن عميل..."
-        oninput="showCustomers()"
-    >
-
-</div>
-
-
-<!-- Counter -->
-
-<div
-    class="counter"
-    id="counter"
+<input
+    id="name"
+    placeholder="اسم العميل"
 >
-    عدد العملاء: 0
+
+
+<input
+    id="phone"
+    type="tel"
+    placeholder="رقم التلفون"
+>
+
+
+<!-- تصنيف العميل -->
+
+<select id="abc">
+
+<option value="ABC">
+ABC
+</option>
+
+<option value="A">
+A
+</option>
+
+<option value="B">
+B
+</option>
+
+<option value="C">
+C
+</option>
+
+</select>
+
+
+<!-- تاريخ الاتصال -->
+
+<input
+    id="date"
+    type="date"
+>
+
+
+<!-- وقت الاتصال -->
+
+<input
+    id="time"
+    type="time"
+>
+
+
+<!-- ملاحظات -->
+
+<textarea
+    id="note"
+    placeholder="ملاحظات العميل"
+></textarea>
+
+
+<button
+    class="add"
+    onclick="addCustomer()"
+>
+
+➕ إضافة العميل
+
+</button>
+
+</section>
+
+
+
+<!-- البحث والفلاتر -->
+
+<section class="box">
+
+<input
+    id="search"
+    placeholder="🔎 ابحث بالاسم أو الرقم أو الملاحظات..."
+    oninput="render()"
+>
+
+
+<select
+    id="filter"
+    onchange="render()"
+>
+
+<option value="all">
+كل العملاء
+</option>
+
+<option value="today">
+مواعيد اليوم
+</option>
+
+<option value="notcalled">
+لم أتصل به اليوم
+</option>
+
+<option value="called">
+اتصلت به اليوم
+</option>
+
+<option value="missed">
+لم يرد
+</option>
+
+</select>
+
+</section>
+
+
+
+<!-- الإحصائيات -->
+
+<div class="stats">
+
+
+<div class="stat">
+
+<b id="total">
+0
+</b>
+
+كل العملاء
+
 </div>
 
 
-<!-- Customers -->
+<div class="stat">
 
-<div id="customers"></div>
+<b id="called">
+0
+</b>
+
+اتصلت بهم اليوم
+
+</div>
+
+
+<div class="stat">
+
+<b id="pending">
+0
+</b>
+
+لم أتصل بهم
+
+</div>
+
+
+</div>
+
+
+
+<!-- العملاء -->
+
+<section id="list"></section>
+
+
+</div>
+
 
 
 <script>
 
+
 /* =========================================
-   بيانات العملاء
+   حفظ بيانات العملاء
 ========================================= */
 
+const KEY =
+"ahmed_fayed_followup_v2";
+
+
 let customers =
-    JSON.parse(localStorage.getItem("followup_customers")) || [];
+JSON.parse(
+    localStorage.getItem(KEY) || "[]"
+);
+
 
 
 /* =========================================
    حفظ البيانات
 ========================================= */
 
-function saveCustomers(){
+function save(){
 
     localStorage.setItem(
-        "followup_customers",
+        KEY,
         JSON.stringify(customers)
     );
 
 }
 
 
+
 /* =========================================
-   تنظيف رقم الهاتف
+   تاريخ اليوم
 ========================================= */
 
-function cleanPhone(phone){
+function today(){
 
-    phone = phone
-        .replace(/\s/g,"")
-        .replace(/-/g,"")
-        .replace(/[()]/g,"");
-
-    /*
-       لو الرقم مصري:
-       010xxxxxxxx
-       يتحول إلى:
-       2010xxxxxxxx
-    */
-
-    if(phone.startsWith("01")){
-
-        phone = "20" + phone.substring(1);
-
-    }
-
-    /*
-       لو مكتوب +20
-    */
-
-    if(phone.startsWith("+20")){
-
-        phone = phone.substring(1);
-
-    }
-
-    return phone;
+    return new Date()
+        .toISOString()
+        .slice(0,10);
 
 }
+
+
+
+/* =========================================
+   حماية النصوص
+========================================= */
+
+function esc(text){
+
+    return String(text ?? "")
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+
+}
+
 
 
 /* =========================================
@@ -374,27 +456,35 @@ function cleanPhone(phone){
 function addCustomer(){
 
     const name =
-        document.getElementById("name").value.trim();
+        document
+        .getElementById("name")
+        .value
+        .trim();
+
 
     const phone =
-        document.getElementById("phone").value.trim();
+        document
+        .getElementById("phone")
+        .value
+        .trim();
 
-    const note =
-        document.getElementById("note").value.trim();
 
+    if(!name){
 
-    if(name === ""){
-
-        alert("من فضلك اكتب اسم العميل");
+        alert(
+            "اكتب اسم العميل"
+        );
 
         return;
 
     }
 
 
-    if(phone === ""){
+    if(!phone){
 
-        alert("من فضلك اكتب رقم الموبايل");
+        alert(
+            "اكتب رقم التلفون"
+        );
 
         return;
 
@@ -403,187 +493,303 @@ function addCustomer(){
 
     const customer = {
 
-        id: Date.now(),
+        id:Date.now(),
 
-        name: name,
+        name:name,
 
-        phone: phone,
+        phone:phone,
 
-        note: note,
+        abc:
+        document
+        .getElementById("abc")
+        .value,
 
-        createdAt: new Date().toLocaleDateString("ar-EG")
+        date:
+        document
+        .getElementById("date")
+        .value,
+
+        time:
+        document
+        .getElementById("time")
+        .value,
+
+        note:
+        document
+        .getElementById("note")
+        .value
+        .trim(),
+
+        calls:{}
 
     };
 
 
-    customers.push(customer);
-
-    saveCustomers();
-
-    document.getElementById("name").value = "";
-
-    document.getElementById("phone").value = "";
-
-    document.getElementById("note").value = "";
+    customers.unshift(
+        customer
+    );
 
 
-    showCustomers();
+    save();
+
+
+    document
+    .getElementById("name")
+    .value="";
+
+
+    document
+    .getElementById("phone")
+    .value="";
+
+
+    document
+    .getElementById("date")
+    .value="";
+
+
+    document
+    .getElementById("time")
+    .value="";
+
+
+    document
+    .getElementById("note")
+    .value="";
+
+
+    render();
 
 }
 
 
+
 /* =========================================
-   عرض العملاء
+   تحويل رقم الهاتف
 ========================================= */
 
-function showCustomers(){
+function normalize(phone){
 
-    const container =
-        document.getElementById("customers");
-
-    const search =
-        document.getElementById("search")
-        .value
-        .trim()
-        .toLowerCase();
+    let number =
+        String(phone)
+        .replace(/\D/g,"");
 
 
-    let filtered = customers.filter(customer => {
+    /*
+       رقم مصري:
 
-        return (
-            customer.name.toLowerCase().includes(search) ||
-            customer.phone.includes(search)
+       010xxxxxxxx
+
+       يصبح:
+
+       2010xxxxxxxx
+    */
+
+    if(
+        number.startsWith("01")
+    ){
+
+        number =
+            "20" +
+            number.slice(1);
+
+    }
+
+
+    return number;
+
+}
+
+
+
+/* =========================================
+   عدد المكالمات اليوم
+========================================= */
+
+function callsToday(customer){
+
+    if(
+        !customer.calls
+    ){
+
+        return 0;
+
+    }
+
+
+    return (
+        customer.calls[today()]
+        || 0
+    );
+
+}
+
+
+
+/* =========================================
+   الاتصال بالعميل
+========================================= */
+
+function callClient(id){
+
+    const customer =
+        customers.find(
+            x => x.id === id
         );
 
-    });
 
-
-    document.getElementById("counter").innerText =
-        "عدد العملاء: " + customers.length;
-
-
-    if(filtered.length === 0){
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                👥 لا يوجد عملاء
-
-            </div>
-
-        `;
+    if(!customer){
 
         return;
 
     }
 
 
-    container.innerHTML = "";
+    const date =
+        today();
 
 
-    filtered
-        .slice()
-        .reverse()
-        .forEach(customer => {
+    if(!customer.calls){
 
-            const card =
-                document.createElement("div");
+        customer.calls={};
 
-            card.className = "customer";
+    }
 
 
-            card.innerHTML = `
-
-                <h2>
-                    ${escapeHTML(customer.name)}
-                </h2>
-
-                <div class="phone">
-                    📞 ${escapeHTML(customer.phone)}
-                </div>
-
-                <div class="note">
-                    ${escapeHTML(customer.note || "لا توجد ملاحظات")}
-                </div>
-
-                <div class="buttons">
-
-                    <button
-                        class="call"
-                        onclick="callCustomer('${customer.phone}')"
-                    >
-                        📞 اتصال
-                    </button>
+    customer.calls[date] =
+        (
+            customer.calls[date]
+            || 0
+        ) + 1;
 
 
-                    <button
-                        class="whatsapp"
-                        onclick="whatsappCustomer('${customer.phone}')"
-                    >
-                        💬 واتساب
-                    </button>
+    save();
 
 
-                    <button
-                        class="delete"
-                        onclick="deleteCustomer(${customer.id})"
-                    >
-                        🗑 حذف
-                    </button>
-
-                </div>
-
-            `;
+    render();
 
 
-            container.appendChild(card);
-
-        });
-
-}
-
-
-/* =========================================
-   الاتصال
-========================================= */
-
-function callCustomer(phone){
-
-    const clean =
-        cleanPhone(phone);
+    /*
+       فتح تطبيق الاتصال
+    */
 
     window.location.href =
-        "tel:" + clean;
+        "tel:" +
+        customer.phone;
 
 }
+
 
 
 /* =========================================
    واتساب
 ========================================= */
 
-function whatsappCustomer(phone){
+function whatsapp(id){
 
-    const clean =
-        cleanPhone(phone);
-
-    const message =
-        encodeURIComponent(
-            "السلام عليكم، مع حضرتك من FollowUp Pro."
+    const customer =
+        customers.find(
+            x => x.id === id
         );
 
 
-    const url =
+    if(!customer){
+
+        return;
+
+    }
+
+
+    const number =
+        normalize(
+            customer.phone
+        );
+
+
+    window.location.href =
         "https://wa.me/" +
-        clean +
-        "?text=" +
-        message;
-
-
-    window.location.href = url;
+        number;
 
 }
+
+
+
+/* =========================================
+   تسجيل تم الاتصال
+========================================= */
+
+function markCalled(id){
+
+    const customer =
+        customers.find(
+            x => x.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    const date =
+        today();
+
+
+    if(!customer.calls){
+
+        customer.calls={};
+
+    }
+
+
+    customer.calls[date] =
+        (
+            customer.calls[date]
+            || 0
+        ) + 1;
+
+
+    save();
+
+
+    render();
+
+}
+
+
+
+/* =========================================
+   تسجيل لم يرد
+========================================= */
+
+function markMissed(id){
+
+    const customer =
+        customers.find(
+            x => x.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    customer.missedDate =
+        today();
+
+
+    save();
+
+
+    render();
+
+}
+
 
 
 /* =========================================
@@ -592,11 +798,11 @@ function whatsappCustomer(phone){
 
 function deleteCustomer(id){
 
-    const confirmDelete =
-        confirm("هل تريد حذف هذا العميل؟");
-
-
-    if(!confirmDelete){
+    if(
+        !confirm(
+            "هل تريد حذف العميل؟"
+        )
+    ){
 
         return;
 
@@ -605,38 +811,396 @@ function deleteCustomer(id){
 
     customers =
         customers.filter(
-            customer => customer.id !== id
+            x => x.id !== id
         );
 
 
-    saveCustomers();
+    save();
 
-    showCustomers();
+
+    render();
 
 }
+
 
 
 /* =========================================
-   حماية النصوص
+   عرض العملاء
 ========================================= */
 
-function escapeHTML(text){
+function render(){
 
-    return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    const search =
+        document
+        .getElementById("search")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const filter =
+        document
+        .getElementById("filter")
+        .value;
+
+
+    const date =
+        today();
+
+
+    const filtered =
+        customers.filter(
+            customer => {
+
+                const text =
+                    (
+                        customer.name +
+                        " " +
+                        customer.phone +
+                        " " +
+                        (
+                            customer.note
+                            || ""
+                        )
+                    )
+                    .toLowerCase();
+
+
+                const matchesSearch =
+                    text.includes(search);
+
+
+                const calls =
+                    callsToday(
+                        customer
+                    );
+
+
+                if(
+                    filter === "today"
+                ){
+
+                    return (
+                        matchesSearch &&
+                        customer.date === date
+                    );
+
+                }
+
+
+                if(
+                    filter === "notcalled"
+                ){
+
+                    return (
+                        matchesSearch &&
+                        calls === 0
+                    );
+
+                }
+
+
+                if(
+                    filter === "called"
+                ){
+
+                    return (
+                        matchesSearch &&
+                        calls > 0
+                    );
+
+                }
+
+
+                if(
+                    filter === "missed"
+                ){
+
+                    return (
+                        matchesSearch &&
+                        customer.missedDate === date
+                    );
+
+                }
+
+
+                return matchesSearch;
+
+            }
+        );
+
+
+
+    /* الإحصائيات */
+
+    document
+    .getElementById("total")
+    .textContent =
+        customers.length;
+
+
+    document
+    .getElementById("called")
+    .textContent =
+        customers.filter(
+            c =>
+            callsToday(c) > 0
+        ).length;
+
+
+    document
+    .getElementById("pending")
+    .textContent =
+        customers.filter(
+            c =>
+            callsToday(c) === 0
+        ).length;
+
+
+
+    const list =
+        document
+        .getElementById("list");
+
+
+
+    if(
+        filtered.length === 0
+    ){
+
+        list.innerHTML = `
+
+        <div class="box empty">
+
+            👥 لا توجد نتائج
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    list.innerHTML =
+
+        filtered
+        .map(
+            customer => {
+
+                const calls =
+                    callsToday(
+                        customer
+                    );
+
+
+                const done =
+                    calls > 0;
+
+
+                const missed =
+                    customer.missedDate
+                    === date;
+
+
+                return `
+
+<article class="card
+    ${done ? "done" : ""}
+    ${missed ? "missed" : ""}
+">
+
+
+<div class="name">
+
+    ${esc(customer.name)}
+
+    <span class="badge">
+
+        ${esc(
+            customer.abc ||
+            "ABC"
+        )}
+
+    </span>
+
+</div>
+
+
+
+<div class="row">
+
+    📞 ${esc(customer.phone)}
+
+</div>
+
+
+
+<div class="row">
+
+    📅
+
+    ${
+        customer.date
+        ?
+        esc(customer.date)
+        :
+        "بدون موعد"
+    }
+
+    ${
+        customer.time
+        ?
+        " ⏰ " +
+        esc(customer.time)
+        :
+        ""
+    }
+
+</div>
+
+
+
+<div class="row">
+
+    📝
+
+    ${
+        esc(
+            customer.note ||
+            "لا توجد ملاحظات"
+        )
+    }
+
+</div>
+
+
+
+<div class="row">
+
+    <b>
+
+        📊 مرات الاتصال اليوم:
+
+        ${calls}
+
+    </b>
+
+</div>
+
+
+
+<div class="row">
+
+    ${
+        done
+        ?
+        "✅ تم الاتصال اليوم"
+        :
+        "⏳ لم يتم الاتصال اليوم"
+    }
+
+    ${
+        missed
+        ?
+        " | ❌ لم يرد"
+        :
+        ""
+    }
+
+</div>
+
+
+
+<div class="actions">
+
+
+<button
+    class="call"
+    onclick="callClient(
+        ${customer.id}
+    )"
+>
+
+📞 اتصال + تسجيل
+
+</button>
+
+
+
+<button
+    class="wa"
+    onclick="whatsapp(
+        ${customer.id}
+    )"
+>
+
+💬 واتساب
+
+</button>
+
+
+
+<button
+    class="donebtn"
+    onclick="markCalled(
+        ${customer.id}
+    )"
+>
+
+✅ تم الاتصال
+
+</button>
+
+
+
+<button
+    class="miss"
+    onclick="markMissed(
+        ${customer.id}
+    )"
+>
+
+❌ لم يرد
+
+</button>
+
+
+
+<button
+    class="delete"
+    onclick="deleteCustomer(
+        ${customer.id}
+    )"
+>
+
+🗑️ حذف
+
+</button>
+
+
+</div>
+
+
+</article>
+
+`;
+
+            }
+        )
+        .join("");
 
 }
+
 
 
 /* =========================================
    تشغيل البرنامج
 ========================================= */
 
-showCustomers();
+render();
 
 </script>
 
