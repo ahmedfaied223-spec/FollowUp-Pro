@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 
@@ -18,234 +19,357 @@ content="width=device-width, initial-scale=1.0">
 }
 
 body{
-    background:#0d1117;
+    background:#080d12;
     color:white;
-    padding:15px;
+    min-height:100vh;
+    padding-bottom:30px;
 }
 
-.container{
-    max-width:700px;
-    margin:auto;
-}
-
-/* العنوان */
+/* Header */
 
 .header{
-    background:#0626b8;
-    border-radius:25px;
+    width:94%;
+    margin:20px auto;
     padding:30px 20px;
+    background:#0715b8;
+    border-radius:30px;
     text-align:center;
-    margin-bottom:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
 .header h1{
-    font-size:36px;
-    margin-bottom:8px;
+    font-size:42px;
+    margin-bottom:10px;
 }
 
 .header p{
-    font-size:22px;
+    font-size:24px;
 }
 
-/* صندوق الإضافة */
+/* Form */
 
-.add-box{
-    background:#1f1f1f;
-    border-radius:25px;
-    padding:20px;
-    margin-bottom:20px;
+.form-box{
+    width:94%;
+    max-width:700px;
+    margin:25px auto;
+    padding:28px 20px;
+    background:#171717;
+    border-radius:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
 input,
 textarea{
     width:100%;
-    background:#292929;
+    background:#202020;
+    border:1px solid #444;
     color:white;
-    border:1px solid #555;
-    border-radius:15px;
     padding:18px;
-    margin-bottom:12px;
-    font-size:18px;
+    border-radius:20px;
+    margin-bottom:15px;
+    font-size:20px;
     outline:none;
-}
-
-textarea{
-    min-height:100px;
-    resize:vertical;
 }
 
 input:focus,
 textarea:focus{
-    border-color:#315cff;
+    border-color:#0b45ff;
+}
+
+textarea{
+    height:130px;
+    resize:none;
 }
 
 .add-btn{
     width:100%;
-    border:0;
-    border-radius:15px;
-    padding:18px;
-    background:#063fd4;
+    padding:20px;
+    border:none;
+    border-radius:20px;
+    background:#063fe0;
     color:white;
-    font-size:21px;
+    font-size:24px;
     font-weight:bold;
     cursor:pointer;
 }
 
-/* بطاقة العميل */
+.add-btn:active{
+    transform:scale(.98);
+}
+
+/* Search */
+
+.search-box{
+    width:94%;
+    max-width:700px;
+    margin:20px auto;
+}
+
+.search-box input{
+    background:#151515;
+}
+
+/* Customers */
+
+#customers{
+    width:94%;
+    max-width:700px;
+    margin:auto;
+}
+
+.empty{
+    background:#111;
+    padding:35px 20px;
+    border-radius:25px;
+    text-align:center;
+    font-size:22px;
+    color:#aaa;
+}
+
+/* Card */
 
 .customer{
-    background:#1f1f1f;
-    border-right:6px solid #1748ff;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:18px;
+    background:#1a1a1a;
+    border-radius:25px;
+    margin-bottom:20px;
+    padding:22px;
+    border-right:7px solid #0646ff;
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
 }
 
 .customer h2{
-    font-size:24px;
+    font-size:27px;
+    margin-bottom:12px;
+}
+
+.phone{
+    font-size:21px;
+    color:#ddd;
     margin-bottom:10px;
 }
 
-.customer p{
-    font-size:18px;
-    margin:8px 0;
-    color:#ddd;
+.note{
+    font-size:19px;
+    color:#bbb;
+    margin-bottom:20px;
+    white-space:pre-wrap;
 }
 
-/* الأزرار */
+/* Buttons */
 
 .buttons{
     display:flex;
     gap:10px;
-    margin-top:18px;
+    flex-wrap:wrap;
 }
 
-.call,
-.whatsapp,
-.delete{
+.buttons button{
     flex:1;
-    border:0;
-    border-radius:12px;
-    padding:15px 8px;
+    min-width:130px;
+    padding:15px 10px;
+    border:none;
+    border-radius:15px;
     color:white;
-    font-size:17px;
+    font-size:19px;
     font-weight:bold;
     cursor:pointer;
 }
 
 .call{
-    background:#008f16;
+    background:#008f18;
 }
 
 .whatsapp{
-    background:#12a83a;
+    background:#16a34a;
 }
 
 .delete{
     background:#b00020;
 }
 
-/* لا يوجد عملاء */
-
-.empty{
-    text-align:center;
-    background:#1f1f1f;
-    border-radius:20px;
-    padding:30px;
-    color:#aaa;
-    font-size:19px;
+.buttons button:active{
+    transform:scale(.97);
 }
 
-/* موبايل */
+/* Counter */
+
+.counter{
+    width:94%;
+    max-width:700px;
+    margin:20px auto;
+    text-align:center;
+    background:#111;
+    padding:18px;
+    border-radius:20px;
+    color:#ddd;
+    font-size:21px;
+}
+
+/* Responsive */
 
 @media(max-width:500px){
 
-    body{
-        padding:10px;
-    }
-
     .header h1{
-        font-size:30px;
+        font-size:34px;
     }
 
     .header p{
-        font-size:19px;
+        font-size:20px;
     }
 
-    .buttons{
-        flex-direction:column;
+    .customer h2{
+        font-size:24px;
     }
 
-    .call,
-    .whatsapp,
-    .delete{
-        width:100%;
+    .buttons button{
+        min-width:100%;
     }
+
 }
 
 </style>
 </head>
 
+
 <body>
 
-<div class="container">
+<!-- Header -->
 
-    <!-- العنوان -->
+<div class="header">
 
-    <div class="header">
+    <h1>📞 FollowUp Pro</h1>
 
-        <h1>FollowUp Pro 📞</h1>
-
-        <p>برنامج متابعة العملاء</p>
-
-    </div>
-
-
-    <!-- إضافة عميل -->
-
-    <div class="add-box">
-
-        <input
-            type="text"
-            id="name"
-            placeholder="اسم العميل"
-        >
-
-        <input
-            type="tel"
-            id="phone"
-            placeholder="رقم الموبايل"
-        >
-
-        <textarea
-            id="note"
-            placeholder="ملاحظات"
-        ></textarea>
-
-        <button
-            class="add-btn"
-            onclick="addCustomer()"
-        >
-            إضافة العميل ➕
-        </button>
-
-    </div>
-
-
-    <!-- قائمة العملاء -->
-
-    <div id="list"></div>
+    <p>برنامج متابعة العملاء</p>
 
 </div>
 
 
+<!-- Add Customer -->
+
+<div class="form-box">
+
+    <input
+        id="name"
+        type="text"
+        placeholder="اسم العميل"
+    >
+
+    <input
+        id="phone"
+        type="tel"
+        placeholder="رقم الموبايل"
+    >
+
+    <textarea
+        id="note"
+        placeholder="ملاحظات"
+    ></textarea>
+
+    <button
+        class="add-btn"
+        onclick="addCustomer()"
+    >
+        ➕ إضافة العميل
+    </button>
+
+</div>
+
+
+<!-- Search -->
+
+<div class="search-box">
+
+    <input
+        id="search"
+        type="text"
+        placeholder="🔎 ابحث عن عميل..."
+        oninput="showCustomers()"
+    >
+
+</div>
+
+
+<!-- Counter -->
+
+<div
+    class="counter"
+    id="counter"
+>
+    عدد العملاء: 0
+</div>
+
+
+<!-- Customers -->
+
+<div id="customers"></div>
+
+
 <script>
 
+/* =========================================
+   بيانات العملاء
+========================================= */
+
 let customers =
-    JSON.parse(localStorage.getItem("customers")) || [];
+    JSON.parse(localStorage.getItem("followup_customers")) || [];
 
 
-/* إضافة عميل */
+/* =========================================
+   حفظ البيانات
+========================================= */
+
+function saveCustomers(){
+
+    localStorage.setItem(
+        "followup_customers",
+        JSON.stringify(customers)
+    );
+
+}
+
+
+/* =========================================
+   تنظيف رقم الهاتف
+========================================= */
+
+function cleanPhone(phone){
+
+    phone = phone
+        .replace(/\s/g,"")
+        .replace(/-/g,"")
+        .replace(/[()]/g,"");
+
+    /*
+       لو الرقم مصري:
+       010xxxxxxxx
+       يتحول إلى:
+       2010xxxxxxxx
+    */
+
+    if(phone.startsWith("01")){
+
+        phone = "20" + phone.substring(1);
+
+    }
+
+    /*
+       لو مكتوب +20
+    */
+
+    if(phone.startsWith("+20")){
+
+        phone = phone.substring(1);
+
+    }
+
+    return phone;
+
+}
+
+
+/* =========================================
+   إضافة عميل
+========================================= */
 
 function addCustomer(){
 
@@ -259,19 +383,21 @@ function addCustomer(){
         document.getElementById("note").value.trim();
 
 
-    if(!name){
+    if(name === ""){
 
         alert("من فضلك اكتب اسم العميل");
 
         return;
+
     }
 
 
-    if(!phone){
+    if(phone === ""){
 
         alert("من فضلك اكتب رقم الموبايل");
 
         return;
+
     }
 
 
@@ -283,7 +409,9 @@ function addCustomer(){
 
         phone: phone,
 
-        note: note
+        note: note,
+
+        createdAt: new Date().toLocaleDateString("ar-EG")
 
     };
 
@@ -298,78 +426,177 @@ function addCustomer(){
 
     document.getElementById("note").value = "";
 
-    renderCustomers();
+
+    showCustomers();
 
 }
 
 
-/* حفظ العملاء */
+/* =========================================
+   عرض العملاء
+========================================= */
 
-function saveCustomers(){
+function showCustomers(){
 
-    localStorage.setItem(
-        "customers",
-        JSON.stringify(customers)
-    );
+    const container =
+        document.getElementById("customers");
 
-}
-
-
-/* تحويل الرقم لرقم واتساب */
-
-function whatsappNumber(phone){
-
-    let number =
-        phone.replace(/\D/g,"");
+    const search =
+        document.getElementById("search")
+        .value
+        .trim()
+        .toLowerCase();
 
 
-    /*
-       لو الرقم مصري ويبدأ بـ 01
-       نحذف الصفر ونضيف 20
-    */
+    let filtered = customers.filter(customer => {
 
-    if(number.startsWith("01")){
+        return (
+            customer.name.toLowerCase().includes(search) ||
+            customer.phone.includes(search)
+        );
 
-        number =
-            "20" + number.substring(1);
+    });
+
+
+    document.getElementById("counter").innerText =
+        "عدد العملاء: " + customers.length;
+
+
+    if(filtered.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                👥 لا يوجد عملاء
+
+            </div>
+
+        `;
+
+        return;
 
     }
 
-    /*
-       لو مكتوب أصلًا 20
-    */
 
-    else if(number.startsWith("20")){
+    container.innerHTML = "";
 
-        number = number;
 
-    }
+    filtered
+        .slice()
+        .reverse()
+        .forEach(customer => {
 
-    return number;
+            const card =
+                document.createElement("div");
+
+            card.className = "customer";
+
+
+            card.innerHTML = `
+
+                <h2>
+                    ${escapeHTML(customer.name)}
+                </h2>
+
+                <div class="phone">
+                    📞 ${escapeHTML(customer.phone)}
+                </div>
+
+                <div class="note">
+                    ${escapeHTML(customer.note || "لا توجد ملاحظات")}
+                </div>
+
+                <div class="buttons">
+
+                    <button
+                        class="call"
+                        onclick="callCustomer('${customer.phone}')"
+                    >
+                        📞 اتصال
+                    </button>
+
+
+                    <button
+                        class="whatsapp"
+                        onclick="whatsappCustomer('${customer.phone}')"
+                    >
+                        💬 واتساب
+                    </button>
+
+
+                    <button
+                        class="delete"
+                        onclick="deleteCustomer(${customer.id})"
+                    >
+                        🗑 حذف
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        });
 
 }
 
 
-/* فتح واتساب */
+/* =========================================
+   الاتصال
+========================================= */
 
-function openWhatsApp(phone){
+function callCustomer(phone){
 
-    const number =
-        whatsappNumber(phone);
+    const clean =
+        cleanPhone(phone);
+
+    window.location.href =
+        "tel:" + clean;
+
+}
+
+
+/* =========================================
+   واتساب
+========================================= */
+
+function whatsappCustomer(phone){
+
+    const clean =
+        cleanPhone(phone);
+
+    const message =
+        encodeURIComponent(
+            "السلام عليكم، مع حضرتك من FollowUp Pro."
+        );
+
 
     const url =
-        "https://wa.me/" + number;
+        "https://wa.me/" +
+        clean +
+        "?text=" +
+        message;
+
 
     window.location.href = url;
 
 }
 
 
-/* حذف العميل */
+/* =========================================
+   حذف العميل
+========================================= */
 
 function deleteCustomer(id){
 
-    if(!confirm("هل تريد حذف هذا العميل؟")){
+    const confirmDelete =
+        confirm("هل تريد حذف هذا العميل؟");
+
+
+    if(!confirmDelete){
 
         return;
 
@@ -384,85 +611,14 @@ function deleteCustomer(id){
 
     saveCustomers();
 
-    renderCustomers();
+    showCustomers();
 
 }
 
 
-/* عرض العملاء */
-
-function renderCustomers(){
-
-    const list =
-        document.getElementById("list");
-
-
-    if(customers.length === 0){
-
-        list.innerHTML = `
-            <div class="empty">
-                لا يوجد عملاء حتى الآن 👥
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    list.innerHTML =
-        customers.map(customer => `
-
-        <div class="customer">
-
-            <h2>
-                ${escapeHTML(customer.name)}
-            </h2>
-
-            <p>
-                📞 ${escapeHTML(customer.phone)}
-            </p>
-
-            <p>
-                ${escapeHTML(customer.note || "لا توجد ملاحظات")}
-            </p>
-
-
-            <div class="buttons">
-
-                <button
-                    class="call"
-                    onclick="window.location.href='tel:${escapeAttribute(customer.phone)}'"
-                >
-                    اتصال 📞
-                </button>
-
-
-                <button
-                    class="whatsapp"
-                    onclick="openWhatsApp('${escapeAttribute(customer.phone)}')"
-                >
-                    واتساب 💬
-                </button>
-
-
-                <button
-                    class="delete"
-                    onclick="deleteCustomer(${customer.id})"
-                >
-                    حذف 🗑️
-                </button>
-
-            </div>
-
-        </div>
-
-    `).join("");
-
-}
-
-
-/* حماية النصوص */
+/* =========================================
+   حماية النصوص
+========================================= */
 
 function escapeHTML(text){
 
@@ -476,20 +632,14 @@ function escapeHTML(text){
 }
 
 
-function escapeAttribute(text){
+/* =========================================
+   تشغيل البرنامج
+========================================= */
 
-    return String(text)
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
-
-}
-
-
-/* تشغيل البرنامج */
-
-renderCustomers();
+showCustomers();
 
 </script>
 
 </body>
+
 </html>
