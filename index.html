@@ -2,70 +2,138 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>أحمد فايد - متابعة العملاء</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f172a">
+<title>أحمد فايد - إدارة العملاء</title>
 
 <style>
+:root{
+    --bg:#0b1120;
+    --card:#111827;
+    --card2:#1f2937;
+    --input:#0f172a;
+    --border:#334155;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --blue:#2563eb;
+    --green:#16a34a;
+    --red:#dc2626;
+    --orange:#d97706;
+    --purple:#7c3aed;
+    --cyan:#0891b2;
+    --gray:#475569;
+}
+
 *{
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Tahoma,Arial,sans-serif;
 }
 
 body{
-    margin:0;
-    background:#071018;
-    color:#fff;
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    width:100%;
+    max-width:1000px;
+    margin:auto;
     padding:12px;
 }
 
-.container{
-    max-width:850px;
-    margin:auto;
-}
+/* HEADER */
 
 .header{
-    background:#1524c8;
-    border-radius:25px;
-    padding:22px 16px;
+    background:linear-gradient(135deg,#1d4ed8,#312e81);
+    border-radius:24px;
+    padding:22px 15px;
     text-align:center;
     margin-bottom:14px;
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
 }
 
 .header h1{
     margin:0 0 8px;
-    font-size:30px;
+    font-size:28px;
 }
 
 .header p{
     margin:0;
-    opacity:.9;
+    color:#dbeafe;
 }
 
-.section{
-    background:#171b20;
-    border-radius:22px;
+/* CARDS */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
     padding:16px;
     margin-bottom:14px;
 }
 
-.section-title{
-    margin:0 0 12px;
-    font-size:21px;
+.title{
+    margin:0 0 14px;
+    font-size:20px;
+}
+
+/* FORM */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.field{
+    width:100%;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+label{
+    display:block;
+    color:var(--muted);
+    font-size:13px;
+    margin:0 0 5px;
 }
 
 input,
-textarea,
-select{
+select,
+textarea{
     width:100%;
-    padding:14px;
-    margin:5px 0;
-    background:#222831;
-    border:1px solid #3d4652;
-    color:#fff;
-    border-radius:14px;
-    font-size:16px;
+    border:1px solid var(--border);
+    background:var(--input);
+    color:var(--text);
+    border-radius:13px;
+    padding:13px;
     outline:none;
+    font-size:15px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--blue);
 }
 
 textarea{
@@ -73,206 +141,322 @@ textarea{
     resize:vertical;
 }
 
-button{
+.main-btn{
+    width:100%;
     border:0;
-    cursor:pointer;
-    color:#fff;
-    font-weight:bold;
     border-radius:13px;
-    padding:13px;
-    font-size:15px;
+    padding:14px;
+    background:var(--blue);
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    margin-top:12px;
 }
 
-.primary{
-    width:100%;
-    background:#1455e8;
-    margin-top:8px;
+/* SEARCH */
+
+.search-grid{
+    display:grid;
+    grid-template-columns:1fr 200px;
+    gap:10px;
 }
 
-.notification-btn{
-    width:100%;
-    background:#8b5cf6;
-}
+/* STATS */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
     margin-bottom:14px;
 }
 
 .stat{
-    background:#171b20;
-    border-radius:15px;
-    padding:12px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:13px 7px;
     text-align:center;
 }
 
-.stat b{
+.stat-number{
     display:block;
-    font-size:23px;
+    font-size:24px;
+    font-weight:bold;
     margin-bottom:5px;
 }
 
+.stat-label{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* CUSTOMER */
+
 .customer{
-    background:#171b20;
-    border-right:5px solid #285dff;
-    border-radius:22px;
-    padding:17px;
-    margin-bottom:14px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:13px;
 }
 
-.customer.called{
-    border-right-color:#16a34a;
+.customer-head{
+    background:var(--card2);
+    padding:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
 }
 
-.customer h2{
-    margin:0 0 12px;
-    font-size:21px;
+.customer-name{
+    font-size:19px;
+    font-weight:bold;
+}
+
+.type-badge{
+    min-width:34px;
+    text-align:center;
+    background:#334155;
+    padding:5px 9px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.customer-body{
+    padding:15px;
 }
 
 .info{
-    color:#cbd5e1;
-    margin:7px 0;
+    margin-bottom:9px;
+    line-height:1.7;
+}
+
+.info-label{
+    color:var(--muted);
+}
+
+.info-value{
+    color:#fff;
+    font-weight:bold;
+}
+
+.notes{
+    background:#0f172a;
+    border:1px solid var(--border);
+    padding:10px;
+    border-radius:12px;
+    margin:10px 0;
+    white-space:pre-wrap;
     line-height:1.6;
 }
 
-.info strong{
-    color:#fff;
+.badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin:10px 0;
 }
 
 .badge{
     display:inline-block;
-    background:#354052;
-    padding:4px 10px;
-    border-radius:18px;
-    font-size:13px;
+    padding:7px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
 }
 
-.status{
-    display:inline-block;
-    padding:7px 11px;
-    border-radius:18px;
-    margin-top:5px;
-    background:#333;
-    font-size:13px;
+.badge-green{
+    background:#14532d;
+    color:#bbf7d0;
 }
 
-.order-yes{
-    background:#087f23;
+.badge-red{
+    background:#450a0a;
+    color:#fecaca;
 }
 
-.order-no{
-    background:#a00018;
+.badge-orange{
+    background:#451a03;
+    color:#fed7aa;
 }
 
-.follow{
-    background:#895c00;
+.badge-blue{
+    background:#172554;
+    color:#bfdbfe;
 }
 
-.buttons{
+.badge-gray{
+    background:#334155;
+    color:#e2e8f0;
+}
+
+/* BUTTONS */
+
+.actions{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:7px;
-    margin-top:13px;
+    margin-top:12px;
+}
+
+.action{
+    border:0;
+    border-radius:12px;
+    color:white;
+    padding:12px 8px;
+    font-weight:bold;
+    font-size:13px;
 }
 
 .call{
-    background:#07951d;
+    background:var(--green);
 }
 
 .whatsapp{
-    background:#15a84c;
+    background:#16a34a;
 }
 
-.done{
-    background:#1769d1;
+.called{
+    background:var(--cyan);
 }
 
 .no-answer{
-    background:#b00020;
+    background:var(--red);
 }
 
 .order{
-    background:#7b3aed;
+    background:var(--purple);
 }
 
-.follow-up{
-    background:#b36b00;
+.no-order{
+    background:#991b1b;
+}
+
+.follow{
+    background:var(--orange);
 }
 
 .edit{
-    background:#087f8c;
+    background:#0e7490;
 }
 
 .delete{
-    background:#555;
+    background:var(--gray);
 }
+
+/* EMPTY */
 
 .empty{
     text-align:center;
-    padding:30px;
-    color:#8f99a4;
+    color:var(--muted);
+    padding:35px 10px;
 }
+
+/* MODAL */
 
 .modal{
+    display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.78);
-    display:none;
+    background:rgba(0,0,0,.8);
+    z-index:1000;
     align-items:center;
     justify-content:center;
-    padding:14px;
-    z-index:1000;
+    padding:12px;
 }
 
-.modal.show{
+.modal.open{
     display:flex;
 }
 
-.modal-content{
-    background:#171b20;
+.modal-box{
     width:100%;
-    max-width:600px;
-    max-height:90vh;
+    max-width:650px;
+    max-height:92vh;
     overflow:auto;
+    background:var(--card);
+    border:1px solid var(--border);
     border-radius:22px;
-    padding:18px;
+    padding:17px;
 }
 
-.modal-buttons{
+.modal-actions{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
-    margin-top:8px;
+    margin-top:10px;
 }
 
-.save{
-    background:#159447;
+.save-edit{
+    background:var(--green);
 }
 
-.cancel{
-    background:#555;
+.close-edit{
+    background:var(--gray);
 }
 
-.small{
-    color:#9ca3af;
-    font-size:13px;
-    line-height:1.6;
+.notification{
+    width:100%;
+    border:0;
+    border-radius:13px;
+    padding:13px;
+    background:var(--purple);
+    color:white;
+    font-weight:bold;
 }
 
-@media(max-width:520px){
+/* TOAST */
+
+#toast{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#020617;
+    border:1px solid var(--border);
+    color:white;
+    padding:13px 18px;
+    border-radius:14px;
+    display:none;
+    z-index:2000;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+#toast.show{
+    display:block;
+}
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
 
     .stats{
         grid-template-columns:1fr 1fr;
     }
 
-    .buttons{
+    .actions{
         grid-template-columns:1fr;
     }
 
-    .modal-buttons{
+    .modal-actions{
         grid-template-columns:1fr;
+    }
+
+    .header h1{
+        font-size:24px;
     }
 }
 </style>
@@ -280,109 +464,118 @@ button{
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<div class="header">
+<!-- HEADER -->
+
+<header class="header">
     <h1>📞 أحمد فايد</h1>
-    <p>متابعة العملاء - تليسلز مخزن الفتح</p>
-</div>
+    <p>إدارة ومتابعة العملاء - تليسلز مخزن الفتح</p>
+</header>
 
 
-<!-- إضافة عميل -->
+<!-- ADD CUSTOMER -->
 
-<div class="section">
+<section class="card">
 
-<h3 class="section-title">➕ إضافة عميل</h3>
+    <h2 class="title">➕ إضافة عميل جديد</h2>
 
-<input id="name" placeholder="👤 اسم العميل">
+    <div class="form-grid">
 
-<input id="phone" type="tel" placeholder="📞 رقم التلفون">
+        <div class="field">
+            <label>اسم العميل</label>
+            <input id="name" type="text" placeholder="اسم العميل">
+        </div>
 
-<input id="address" placeholder="📍 عنوان العميل">
+        <div class="field">
+            <label>رقم الهاتف</label>
+            <input id="phone" type="tel" placeholder="رقم الهاتف">
+        </div>
 
-<select id="type">
-    <option value="A">A - عميل مهم</option>
-    <option value="B">B - عميل متوسط</option>
-    <option value="C">C - عميل عادي</option>
-</select>
+        <div class="field">
+            <label>عنوان العميل</label>
+            <input id="address" type="text" placeholder="عنوان العميل">
+        </div>
 
-<input id="date" type="date">
+        <div class="field">
+            <label>نوع العميل</label>
+            <select id="type">
+                <option value="A">A - عميل مهم</option>
+                <option value="B">B - عميل متوسط</option>
+                <option value="C">C - عميل عادي</option>
+            </select>
+        </div>
 
-<input id="time" type="time">
+        <div class="field">
+            <label>تاريخ الاتصال</label>
+            <input id="date" type="date">
+        </div>
 
-<textarea id="note" placeholder="📝 ملاحظات العميل"></textarea>
+        <div class="field">
+            <label>ميعاد الاتصال</label>
+            <input id="time" type="time">
+        </div>
 
-<select id="orderStatus">
+        <div class="field full">
+            <label>ملاحظات</label>
+            <textarea id="note" placeholder="اكتب ملاحظات العميل هنا..."></textarea>
+        </div>
 
-    <option value="none">
-        لم يتم تحديد حالة الطلبية
-    </option>
+        <div class="field full">
+            <label>حالة الطلبية</label>
 
-    <option value="yes">
-        📦 أخذ طلبية
-    </option>
+            <select id="orderStatus">
+                <option value="none">لم يتم تحديد الحالة</option>
+                <option value="yes">📦 أخذ طلبية</option>
+                <option value="no">❌ لم يأخذ طلبية</option>
+                <option value="later1">⏰ كلمني بعد ساعة</option>
+                <option value="later2">⏰ كلمني بعد ساعتين</option>
+            </select>
 
-    <option value="no">
-        ❌ لم يأخذ طلبية
-    </option>
+        </div>
 
-    <option value="later1">
-        ⏰ كلمني بعد ساعة
-    </option>
+    </div>
 
-    <option value="later2">
-        ⏰ كلمني بعد ساعتين
-    </option>
+    <button class="main-btn" onclick="addCustomer()">
+        💾 حفظ العميل
+    </button>
 
-</select>
-
-<button class="primary" onclick="addCustomer()">
-    ➕ إضافة العميل
-</button>
-
-</div>
-
-
-<!-- الإشعارات -->
-
-<div class="section">
-
-<h3 class="section-title">
-    🔔 إشعارات المواعيد
-</h3>
-
-<p class="small">
-اضغط على الزر للسماح للبرنامج بإظهار إشعارات مواعيد الاتصال.
-</p>
-
-<button
-class="notification-btn"
-onclick="requestNotifications()"
->
-🔔 تفعيل الإشعارات
-</button>
-
-</div>
+</section>
 
 
-<!-- البحث -->
+<!-- NOTIFICATIONS -->
 
-<div class="section">
+<section class="card">
 
-<h3 class="section-title">
-    🔎 البحث والمتابعة
-</h3>
+    <h2 class="title">🔔 إشعارات المواعيد</h2>
 
-<input
-id="search"
-placeholder="ابحث بالاسم أو الرقم أو العنوان أو الملاحظات..."
-oninput="renderCustomers()"
->
+    <button class="notification" onclick="enableNotifications()">
+        🔔 تفعيل إشعارات مواعيد الاتصال
+    </button>
 
-<select id="filter" onchange="renderCustomers()">
+</section>
 
-<option value="all">
-كل العملاء
-</option>
 
-<option value="notCalled">
+<!-- SEARCH -->
+
+<section class="card">
+
+    <h2 class="title">🔎 البحث والمتابعة</h2>
+
+    <div class="search-grid">
+
+        <input
+            id="search"
+            type="search"
+            placeholder="ابحث بالاسم أو الرقم أو العنوان..."
+            oninput="render()"
+        >
+
+        <select id="filter" onchange="render()">
+            <option value="all">كل العملاء</option>
+            <option value="notCalled">لم أتصل بهم اليوم</option>
+            <option value="called">اتصلت بهم اليوم</option>
+            <option value="noAnswer">لم يردوا اليوم</option>
+            <option value="orders">أخذوا طلبية</option>
+            <option value="noOrders">لم يأخذوا طلبية</option>
+            <option
