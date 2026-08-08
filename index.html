@@ -1,1204 +1,876 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>أحمد فايد - العملاء</title>
-
+<title>أحمد فايد - إدارة العملاء</title>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
 
+:root{
+    --bg:#07111f;
+    --card:#101c2d;
+    --card2:#142238;
+    --border:#263852;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --primary:#2563eb;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#d97706;
+    --purple:#7c3aed;
+}
 
 body{
-
     margin:0;
-
-    background:#07111f;
-
-    color:#fff;
-
-    font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
-
+    background:
+        radial-gradient(circle at top,#172554 0,#07111f 45%);
+    color:var(--text);
+    font-family:Tahoma,Arial,sans-serif;
+    min-height:100vh;
 }
 
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
 
 .container{
-
-    max-width:1200px;
-
+    width:min(1100px,100%);
     margin:auto;
-
     padding:15px;
-
 }
 
+/* ================= HEADER ================= */
 
 .header{
-
     background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #4f46e5
-        );
-
-    border-radius:22px;
-
-    padding:25px;
-
-    text-align:center;
-
+        linear-gradient(135deg,#1d4ed8,#4338ca);
+    border-radius:24px;
+    padding:25px 20px;
     margin-bottom:15px;
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.25);
-
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
 }
 
+.header-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
 
 .header h1{
-
-    margin:0 0 8px;
-
-    font-size:30px;
-
+    margin:0 0 7px;
+    font-size:28px;
 }
-
 
 .header p{
-
     margin:0;
-
-    opacity:.85;
-
+    color:#dbeafe;
 }
 
+.connection{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.2);
+    padding:9px 13px;
+    border-radius:30px;
+    white-space:nowrap;
+    font-size:13px;
+}
+
+/* ================= CARDS ================= */
 
 .card{
-
-    background:#111827;
-
-    border:1px solid #293548;
-
+    background:rgba(16,28,45,.95);
+    border:1px solid var(--border);
     border-radius:20px;
-
-    padding:18px;
-
+    padding:17px;
     margin-bottom:15px;
-
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
 }
-
 
 .card h2{
-
-    margin-top:0;
-
+    margin:0 0 15px;
+    font-size:20px;
 }
 
+/* ================= GRID ================= */
 
 .grid{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
+    grid-template-columns:1fr 1fr;
     gap:12px;
-
 }
-
 
 .full{
-
-    grid-column:
-        1 / -1;
-
+    grid-column:1/-1;
 }
-
 
 label{
-
     display:block;
-
-    margin-bottom:6px;
-
     color:#cbd5e1;
-
-    font-size:14px;
-
+    margin-bottom:6px;
+    font-size:13px;
+    font-weight:bold;
 }
-
 
 input,
 select,
 textarea{
-
     width:100%;
-
-    padding:13px;
-
+    border:1px solid #3b4c65;
+    background:#091525;
+    color:white;
     border-radius:12px;
-
-    border:1px solid #475569;
-
-    background:#0b1322;
-
-    color:#fff;
-
-    font-size:15px;
-
+    padding:13px;
     outline:none;
-
+    font-size:15px;
 }
-
 
 input:focus,
 select:focus,
 textarea:focus{
-
     border-color:#3b82f6;
-
+    box-shadow:0 0 0 3px rgba(37,99,235,.12);
 }
-
 
 textarea{
-
-    min-height:100px;
-
+    min-height:95px;
     resize:vertical;
-
 }
 
+/* ================= BUTTONS ================= */
 
 .btn{
-
     width:100%;
-
     border:0;
-
+    border-radius:13px;
     padding:14px;
-
-    border-radius:12px;
-
-    color:#fff;
-
-    font-size:16px;
-
+    margin-top:14px;
+    color:white;
+    background:var(--primary);
     font-weight:bold;
-
+    font-size:16px;
     cursor:pointer;
-
-    margin-top:12px;
-
-    background:#2563eb;
-
 }
-
 
 .btn:hover{
-
-    opacity:.9;
-
+    filter:brightness(1.08);
 }
 
-
-.search-row{
-
+.tools{
     display:grid;
-
-    grid-template-columns:
-        2fr 1fr;
-
-    gap:10px;
-
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
 }
 
+.tool{
+    border:0;
+    border-radius:12px;
+    padding:12px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.backup{
+    background:#0369a1;
+}
+
+.restore{
+    background:#7c3aed;
+}
+
+.notify{
+    background:#d97706;
+}
+
+/* ================= STATS ================= */
 
 .stats{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
+    grid-template-columns:repeat(5,1fr);
     gap:10px;
-
     margin-bottom:15px;
-
 }
-
 
 .stat{
-
-    background:#111827;
-
-    border:1px solid #293548;
-
+    background:var(--card);
+    border:1px solid var(--border);
     border-radius:16px;
-
-    padding:15px;
-
+    padding:14px 7px;
     text-align:center;
-
 }
-
 
 .stat b{
-
     display:block;
-
     font-size:24px;
-
     margin-bottom:5px;
-
 }
-
 
 .stat span{
-
-    color:#94a3b8;
-
+    color:var(--muted);
     font-size:12px;
-
 }
 
+/* ================= SEARCH ================= */
+
+.search-area{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:10px;
+}
+
+/* ================= CUSTOMER ================= */
 
 .customer{
-
-    background:#111827;
-
-    border:1px solid #293548;
-
+    background:var(--card);
+    border:1px solid var(--border);
     border-radius:20px;
-
-    overflow:hidden;
-
     margin-bottom:14px;
-
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+    scroll-margin-top:15px;
 }
 
+.customer.highlight{
+    border-color:#f59e0b;
+    box-shadow:
+        0 0 0 3px rgba(245,158,11,.18),
+        0 15px 35px rgba(0,0,0,.25);
+}
 
-.customer-header{
-
-    background:#1e293b;
-
+.customer-title{
+    background:linear-gradient(135deg,#17263d,#1e293b);
     padding:15px;
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     gap:10px;
-
 }
-
 
 .customer-name{
-
-    font-size:20px;
-
+    font-size:19px;
     font-weight:bold;
-
 }
-
 
 .type{
-
-    min-width:40px;
-
+    min-width:38px;
     text-align:center;
-
-    padding:6px 10px;
-
+    padding:7px 11px;
     border-radius:20px;
-
-    background:#475569;
-
+    background:#334155;
     font-weight:bold;
-
 }
 
+.type-A{
+    background:#7f1d1d;
+}
+
+.type-B{
+    background:#78350f;
+}
+
+.type-C{
+    background:#14532d;
+}
 
 .customer-body{
-
-    padding:16px;
-
+    padding:15px;
 }
-
 
 .info{
-
-    padding:7px 0;
-
+    margin:8px 0;
+    line-height:1.7;
 }
-
 
 .info span{
-
-    color:#94a3b8;
-
+    color:var(--muted);
 }
-
 
 .notes{
-
-    background:#0b1322;
-
+    margin-top:12px;
+    background:#091525;
+    border:1px solid #1e2d42;
     border-radius:12px;
-
-    padding:12px;
-
-    margin:10px 0;
-
+    padding:11px;
     white-space:pre-wrap;
-
+    line-height:1.7;
 }
-
 
 .badges{
-
     display:flex;
-
     flex-wrap:wrap;
-
     gap:7px;
-
-    margin:12px 0;
-
+    margin:13px 0;
 }
-
 
 .badge{
-
+    padding:7px 10px;
     border-radius:20px;
-
-    padding:7px 11px;
-
     font-size:12px;
-
     font-weight:bold;
-
 }
-
 
 .green{
-
     background:#14532d;
-
 }
-
 
 .red{
-
     background:#7f1d1d;
-
 }
-
 
 .orange{
-
     background:#78350f;
-
 }
-
 
 .blue{
-
     background:#1e3a8a;
-
 }
-
-
-.purple{
-
-    background:#581c87;
-
-}
-
 
 .gray{
-
     background:#334155;
-
 }
 
+.purple{
+    background:#581c87;
+}
+
+/* ================= ACTIONS ================= */
 
 .actions{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    gap:7px;
-
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
 }
-
 
 .action{
-
     border:0;
-
-    border-radius:10px;
-
-    padding:11px 6px;
-
-    color:#fff;
-
+    border-radius:11px;
+    color:white;
+    padding:12px 7px;
     font-weight:bold;
-
     cursor:pointer;
-
 }
-
 
 .call{
-
     background:#16a34a;
-
 }
-
 
 .whatsapp{
-
     background:#15803d;
-
 }
-
 
 .called{
-
     background:#0891b2;
-
 }
-
 
 .noanswer{
-
     background:#dc2626;
-
 }
-
 
 .order{
-
     background:#7c3aed;
-
 }
-
 
 .noorder{
-
     background:#991b1b;
-
 }
-
 
 .follow{
-
     background:#d97706;
-
 }
-
 
 .edit{
-
     background:#0369a1;
-
 }
-
 
 .delete{
-
     background:#475569;
-
 }
 
-
-.empty{
-
-    text-align:center;
-
-    color:#94a3b8;
-
-    padding:40px;
-
+.reminder{
+    background:#9333ea;
 }
 
+/* ================= MODAL ================= */
 
 .modal{
-
     display:none;
-
     position:fixed;
-
     inset:0;
-
-    background:
-        rgba(0,0,0,.8);
-
+    background:rgba(0,0,0,.82);
     z-index:1000;
-
     align-items:center;
-
     justify-content:center;
-
     padding:15px;
-
 }
-
 
 .modal.show{
-
     display:flex;
-
 }
-
 
 .modal-box{
-
+    background:#101c2d;
     width:100%;
-
     max-width:700px;
-
-    max-height:90vh;
-
+    max-height:92vh;
     overflow:auto;
-
-    background:#111827;
-
-    border:1px solid #334155;
-
-    border-radius:20px;
-
+    border:1px solid var(--border);
+    border-radius:22px;
     padding:18px;
-
 }
-
 
 .modal-buttons{
-
     display:grid;
-
     grid-template-columns:1fr 1fr;
-
-    gap:8px;
-
-    margin-top:10px;
-
+    gap:9px;
+    margin-top:12px;
 }
-
 
 .save{
-
     background:#16a34a;
-
 }
-
 
 .close{
-
     background:#475569;
-
 }
 
+/* ================= MESSAGE ================= */
 
 #message{
-
     position:fixed;
-
-    bottom:20px;
-
     left:50%;
-
-    transform:
-        translateX(-50%);
-
+    bottom:22px;
+    transform:translateX(-50%);
     background:#020617;
-
     border:1px solid #475569;
-
-    border-radius:12px;
-
+    color:white;
     padding:13px 20px;
-
+    border-radius:13px;
     display:none;
-
-    z-index:5000;
-
+    z-index:3000;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    max-width:90%;
+    text-align:center;
 }
 
+/* ================= EMPTY ================= */
 
-.notification-test{
-
-    background:#7c3aed;
-
+.empty{
+    text-align:center;
+    color:var(--muted);
+    padding:40px 20px;
 }
 
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:800px){
 
-    .actions{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
+    .stats{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .stats{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
+    .tools{
+        grid-template-columns:1fr;
     }
 
 }
-
 
 @media(max-width:650px){
 
-    .grid{
+    .header-top{
+        flex-direction:column;
+        align-items:flex-start;
+    }
 
+    .grid,
+    .search-area{
         grid-template-columns:1fr;
-
     }
 
     .full{
-
         grid-column:auto;
-
     }
 
-    .search-row{
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
 
+    .actions{
         grid-template-columns:1fr;
-
     }
 
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
-
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 
 <div class="header">
 
-    <h1>📞 أحمد فايد</h1>
+    <div class="header-top">
 
-    <p>
-        برنامج إدارة ومتابعة العملاء
-    </p>
+        <div>
+            <h1>📞 أحمد فايد</h1>
+            <p>نظام إدارة ومتابعة العملاء</p>
+        </div>
+
+        <div class="connection" id="connection">
+            🟢 النظام يعمل
+        </div>
+
+    </div>
 
 </div>
 
 
-<!-- إضافة العميل -->
+<!-- ================= ADD CUSTOMER ================= -->
 
 <div class="card">
 
-<h2>➕ إضافة عميل جديد</h2>
+    <h2>➕ إضافة عميل جديد</h2>
 
+    <div class="grid">
 
-<div class="grid">
+        <div>
+            <label>اسم العميل *</label>
+            <input id="name" placeholder="اسم العميل">
+        </div>
 
+        <div>
+            <label>رقم الهاتف *</label>
+            <input id="phone" type="tel" placeholder="رقم الهاتف">
+        </div>
 
-<div>
+        <div>
+            <label>عنوان العميل</label>
+            <input id="address" placeholder="العنوان">
+        </div>
 
-<label>
-اسم العميل *
-</label>
+        <div>
+            <label>نوع العميل ABC</label>
 
-<input
-    id="name"
-    placeholder="اسم العميل"
->
+            <select id="type">
 
-</div>
+                <option value="A">
+                    A - عميل مهم
+                </option>
 
+                <option value="B">
+                    B - عميل متوسط
+                </option>
 
-<div>
+                <option value="C" selected>
+                    C - عميل عادي
+                </option>
 
-<label>
-رقم الهاتف *
-</label>
+            </select>
 
-<input
-    id="phone"
-    type="tel"
-    placeholder="رقم الهاتف"
->
+        </div>
 
-</div>
+        <div>
+            <label>تاريخ الاتصال</label>
+            <input id="date" type="date">
+        </div>
 
+        <div>
+            <label>ميعاد الاتصال</label>
+            <input id="time" type="time">
+        </div>
 
-<div>
+        <div class="full">
 
-<label>
-عنوان العميل
-</label>
+            <label>ملاحظات</label>
 
-<input
-    id="address"
-    placeholder="العنوان"
->
+            <textarea
+                id="notes"
+                placeholder="اكتب ملاحظات العميل"
+            ></textarea>
 
-</div>
+        </div>
 
+        <div class="full">
 
-<div>
+            <label>حالة الطلبية</label>
 
-<label>
-نوع العميل ABC
-</label>
+            <select id="orderStatus">
 
-<select id="type">
+                <option value="none">
+                    لم يتم تحديدها
+                </option>
 
-<option value="A">
-A - عميل مهم
-</option>
+                <option value="yes">
+                    📦 أخذ طلبية
+                </option>
 
-<option value="B">
-B - عميل متوسط
-</option>
+                <option value="no">
+                    ❌ لم يأخذ طلبية
+                </option>
 
-<option value="C" selected>
-C - عميل عادي
-</option>
+                <option value="later1">
+                    ⏰ كلمني بعد ساعة
+                </option>
 
-</select>
+                <option value="later2">
+                    ⏰ كلمني بعد ساعتين
+                </option>
 
-</div>
+            </select>
 
+        </div>
 
-<div>
+    </div>
 
-<label>
-تاريخ الاتصال
-</label>
-
-<input
-    id="date"
-    type="date"
->
-
-</div>
-
-
-<div>
-
-<label>
-ميعاد الاتصال
-</label>
-
-<input
-    id="time"
-    type="time"
->
+    <button class="btn" onclick="addCustomer()">
+        💾 إضافة وحفظ العميل
+    </button>
 
 </div>
 
 
-<div class="full">
-
-<label>
-ملاحظات
-</label>
-
-<textarea
-    id="notes"
-    placeholder="ملاحظات العميل"
-></textarea>
-
-</div>
-
-
-<div class="full">
-
-<label>
-حالة الطلبية
-</label>
-
-<select id="orderStatus">
-
-<option value="none">
-لم يتم تحديدها
-</option>
-
-<option value="yes">
-📦 أخذ طلبية
-</option>
-
-<option value="no">
-🚫 لم يأخذ طلبية
-</option>
-
-<option value="later1">
-⏰ كلمني بعد ساعة
-</option>
-
-<option value="later2">
-⏰ كلمني بعد ساعتين
-</option>
-
-</select>
-
-</div>
-
-
-</div>
-
-
-<button
-    class="btn"
-    onclick="addCustomer()"
->
-💾 إضافة وحفظ العميل
-</button>
-
-
-<button
-    class="btn notification-test"
-    onclick="testNotification()"
->
-🔔 اختبار الإشعار والصوت
-</button>
-
-
-</div>
-
-
-<!-- البحث -->
+<!-- ================= BACKUP ================= -->
 
 <div class="card">
 
-<h2>🔎 البحث والفلترة</h2>
+    <h2>💾 النسخ الاحتياطي</h2>
 
+    <div class="tools">
 
-<div class="search-row">
+        <button class="tool backup" onclick="exportBackup()">
+            📤 تصدير نسخة احتياطية
+        </button>
 
+        <button class="tool restore" onclick="document.getElementById('restoreFile').click()">
+            📥 استرداد نسخة احتياطية
+        </button>
 
-<input
-    id="search"
-    type="search"
-    placeholder="ابحث بالاسم أو الرقم أو العنوان"
-    oninput="renderCustomers()"
->
+        <button class="tool notify" onclick="enableNotifications()">
+            🔔 تفعيل الإشعارات
+        </button>
 
+    </div>
 
-<select
-    id="filter"
-    onchange="renderCustomers()"
->
-
-<option value="all">
-كل العملاء
-</option>
-
-<option value="notCalled">
-لم أتصل بهم اليوم
-</option>
-
-<option value="called">
-تم الاتصال اليوم
-</option>
-
-<option value="noAnswer">
-لم يردوا
-</option>
-
-<option value="orders">
-أخذوا طلبية
-</option>
-
-<option value="noOrders">
-لم يأخذوا طلبية
-</option>
-
-</select>
-
-
-</div>
+    <input
+        id="restoreFile"
+        type="file"
+        accept=".json,application/json"
+        style="display:none"
+        onchange="restoreBackup(event)"
+    >
 
 </div>
 
 
-<!-- الإحصائيات -->
+<!-- ================= SEARCH ================= -->
+
+<div class="card">
+
+    <h2>🔎 البحث والمتابعة</h2>
+
+    <div class="search-area">
+
+        <input
+            id="search"
+            type="search"
+            placeholder="ابحث باسم العميل أو الهاتف أو العنوان..."
+            oninput="renderCustomers()"
+        >
+
+        <select id="filter" onchange="renderCustomers()">
+
+            <option value="all">
+                كل العملاء
+            </option>
+
+            <option value="notCalled">
+                لم أتصل بهم اليوم
+            </option>
+
+            <option value="called">
+                اتصلت بهم اليوم
+            </option>
+
+            <option value="noAnswer">
+                لم يردوا
+            </option>
+
+            <option value="orders">
+                أخذوا طلبية
+            </option>
+
+            <option value="noOrders">
+                لم يأخذوا طلبية
+            </option>
+
+            <option value="A">
+                عملاء A
+            </option>
+
+            <option value="B">
+                عملاء B
+            </option>
+
+            <option value="C">
+                عملاء C
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<!-- ================= STATS ================= -->
 
 <div class="stats">
 
+    <div class="stat">
+        <b id="total">0</b>
+        <span>كل العملاء</span>
+    </div>
 
-<div class="stat">
+    <div class="stat">
+        <b id="calledCount">0</b>
+        <span>تم الاتصال</span>
+    </div>
 
-<b id="total">
-0
-</b>
+    <div class="stat">
+        <b id="notCalledCount">0</b>
+        <span>لم أتصل</span>
+    </div>
 
-<span>
-كل العملاء
-</span>
+    <div class="stat">
+        <b id="ordersCount">0</b>
+        <span>طلبات</span>
+    </div>
 
-</div>
-
-
-<div class="stat">
-
-<b id="calledCount">
-0
-</b>
-
-<span>
-تم الاتصال
-</span>
-
-</div>
-
-
-<div class="stat">
-
-<b id="notCalledCount">
-0
-</b>
-
-<span>
-لم أتصل
-</span>
+    <div class="stat">
+        <b id="noAnswerCount">0</b>
+        <span>لم يرد</span>
+    </div>
 
 </div>
 
 
-<div class="stat">
-
-<b id="ordersCount">
-0
-</b>
-
-<span>
-طلبات
-</span>
-
-</div>
-
-
-<div class="stat">
-
-<b id="noAnswerCount">
-0
-</b>
-
-<span>
-لم يرد
-</span>
-
-</div>
-
-
-</div>
-
-
-<!-- العملاء -->
+<!-- ================= CUSTOMERS ================= -->
 
 <div id="customers"></div>
 
-
 </div>
 
 
-<!-- نافذة التعديل -->
+<!-- ================= EDIT MODAL ================= -->
 
-<div
-    class="modal"
-    id="editModal"
->
+<div class="modal" id="editModal">
 
 <div class="modal-box">
 
-<h2>
-✏️ تعديل بيانات العميل
-</h2>
+    <h2>✏️ تعديل بيانات العميل</h2>
 
+    <div class="grid">
 
-<div class="grid">
+        <div>
+            <label>اسم العميل</label>
+            <input id="editName">
+        </div>
 
+        <div>
+            <label>رقم الهاتف</label>
+            <input id="editPhone">
+        </div>
 
-<div>
+        <div>
+            <label>العنوان</label>
+            <input id="editAddress">
+        </div>
 
-<label>
-اسم العميل
-</label>
+        <div>
 
-<input id="editName">
+            <label>نوع العميل</label>
 
-</div>
+            <select id="editType">
 
+                <option value="A">A - مهم</option>
+                <option value="B">B - متوسط</option>
+                <option value="C">C - عادي</option>
 
-<div>
+            </select>
 
-<label>
-رقم الهاتف
-</label>
+        </div>
 
-<input id="editPhone">
+        <div>
+            <label>تاريخ الاتصال</label>
+            <input id="editDate" type="date">
+        </div>
 
-</div>
+        <div>
+            <label>ميعاد الاتصال</label>
+            <input id="editTime" type="time">
+        </div>
 
+        <div class="full">
 
-<div>
+            <label>الملاحظات</label>
 
-<label>
-العنوان
-</label>
+            <textarea id="editNotes"></textarea>
 
-<input id="editAddress">
+        </div>
 
-</div>
+        <div class="full">
 
+            <label>حالة الطلبية</label>
 
-<div>
+            <select id="editOrderStatus">
 
-<label>
-نوع العميل
-</label>
+                <option value="none">
+                    لم يتم تحديدها
+                </option>
 
-<select id="editType">
+                <option value="yes">
+                    📦 أخذ طلبية
+                </option>
 
-<option value="A">
-A - مهم
-</option>
+                <option value="no">
+                    ❌ لم يأخذ طلبية
+                </option>
 
-<option value="B">
-B - متوسط
-</option>
+                <option value="later1">
+                    ⏰ بعد ساعة
+                </option>
 
-<option value="C">
-C - عادي
-</option>
+                <option value="later2">
+                    ⏰ بعد ساعتين
+                </option>
 
-</select>
+            </select>
 
-</div>
+        </div>
 
+    </div>
 
-<div>
+    <div class="modal-buttons">
 
-<label>
-التاريخ
-</label>
+        <button class="action save" onclick="saveEdit()">
+            💾 حفظ التعديل
+        </button>
 
-<input
-    id="editDate"
-    type="date"
->
+        <button class="action close" onclick="closeEdit()">
+            إلغاء
+        </button>
 
-</div>
-
-
-<div>
-
-<label>
-الوقت
-</label>
-
-<input
-    id="editTime"
-    type="time"
->
-
-</div>
-
-
-<div class="full">
-
-<label>
-الملاحظات
-</label>
-
-<textarea id="editNotes"></textarea>
-
-</div>
-
-
-<div class="full">
-
-<label>
-حالة الطلبية
-</label>
-
-<select id="editOrderStatus">
-
-<option value="none">
-لم يتم تحديدها
-</option>
-
-<option value="yes">
-📦 أخذ طلبية
-</option>
-
-<option value="no">
-🚫 لم يأخذ طلبية
-</option>
-
-<option value="later1">
-⏰ بعد ساعة
-</option>
-
-<option value="later2">
-⏰ بعد ساعتين
-</option>
-
-</select>
-
-</div>
-
-
-</div>
-
-
-<div class="modal-buttons">
-
-<button
-    class="action save"
-    onclick="saveEdit()"
->
-💾 حفظ
-</button>
-
-
-<button
-    class="action close"
-    onclick="closeEdit()"
->
-إلغاء
-</button>
-
-</div>
-
+    </div>
 
 </div>
 
@@ -1210,14 +882,11 @@ C - عادي
 
 <script>
 
-
 /* =====================================================
-   قاعدة البيانات المحلية
+   DATABASE
 ===================================================== */
 
-const DB_NAME =
-    "AHMED_FAYED_CUSTOMERS_V3";
-
+const DB_KEY = "AHMED_FAYED_CUSTOMERS_PRO_V3";
 
 let customers = [];
 
@@ -1225,112 +894,51 @@ let editId = null;
 
 
 /* =====================================================
-   الرسائل
+   MESSAGE
 ===================================================== */
 
 function showMessage(text){
 
     const box =
-        document.getElementById(
-            "message"
-        );
+        document.getElementById("message");
 
     box.textContent = text;
 
     box.style.display = "block";
 
+    clearTimeout(window.messageTimer);
 
-    setTimeout(
-        () => {
+    window.messageTimer =
+        setTimeout(() => {
 
-            box.style.display =
-                "none";
+            box.style.display = "none";
 
-        },
-        2500
+        },2500);
+
+}
+
+
+/* =====================================================
+   TODAY
+===================================================== */
+
+function getToday(){
+
+    const d = new Date();
+
+    return (
+        d.getFullYear() +
+        "-" +
+        String(d.getMonth()+1).padStart(2,"0") +
+        "-" +
+        String(d.getDate()).padStart(2,"0")
     );
 
 }
 
 
 /* =====================================================
-   الصوت
-===================================================== */
-
-function playAlertSound(){
-
-    try{
-
-        const AudioContext =
-            window.AudioContext ||
-            window.webkitAudioContext;
-
-        if(!AudioContext){
-
-            return;
-
-        }
-
-        const ctx =
-            new AudioContext();
-
-
-        const oscillator =
-            ctx.createOscillator();
-
-        const gain =
-            ctx.createGain();
-
-
-        oscillator.type =
-            "sine";
-
-        oscillator.frequency.value =
-            880;
-
-
-        gain.gain.setValueAtTime(
-            .001,
-            ctx.currentTime
-        );
-
-
-        gain.gain.exponentialRampToValueAtTime(
-            .4,
-            ctx.currentTime + .05
-        );
-
-
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            ctx.currentTime + .8
-        );
-
-
-        oscillator.connect(gain);
-
-        gain.connect(
-            ctx.destination
-        );
-
-
-        oscillator.start();
-
-        oscillator.stop(
-            ctx.currentTime + .8
-        );
-
-    }catch(error){
-
-        console.log(error);
-
-    }
-
-}
-
-
-/* =====================================================
-   تحميل البيانات
+   LOAD
 ===================================================== */
 
 function loadCustomers(){
@@ -1338,52 +946,20 @@ function loadCustomers(){
     try{
 
         const data =
-            localStorage.getItem(
-                DB_NAME
-            );
+            localStorage.getItem(DB_KEY);
 
+        if(data){
 
-        if(!data){
+            const parsed =
+                JSON.parse(data);
 
-            customers = [];
+            if(Array.isArray(parsed)){
 
-            return;
-
-        }
-
-
-        const parsed =
-            JSON.parse(data);
-
-
-        customers =
-            Array.isArray(parsed)
-            ? parsed
-            : [];
-
-
-        /*
-            إصلاح أي بيانات قديمة
-        */
-
-        customers.forEach(
-            customer => {
-
-                if(!customer.calls){
-
-                    customer.calls = {};
-
-                }
-
-                if(!customer.noAnswer){
-
-                    customer.noAnswer = {};
-
-                }
+                customers = parsed;
 
             }
-        );
 
+        }
 
     }catch(error){
 
@@ -1397,7 +973,7 @@ function loadCustomers(){
 
 
 /* =====================================================
-   حفظ البيانات
+   SAVE
 ===================================================== */
 
 function saveCustomers(){
@@ -1405,12 +981,9 @@ function saveCustomers(){
     try{
 
         localStorage.setItem(
-            DB_NAME,
-            JSON.stringify(
-                customers
-            )
+            DB_KEY,
+            JSON.stringify(customers)
         );
-
 
         return true;
 
@@ -1422,7 +995,6 @@ function saveCustomers(){
             "تعذر حفظ البيانات على الجهاز."
         );
 
-
         return false;
 
     }
@@ -1431,130 +1003,52 @@ function saveCustomers(){
 
 
 /* =====================================================
-   التاريخ
-===================================================== */
-
-function getToday(){
-
-    const d =
-        new Date();
-
-
-    return (
-
-        d.getFullYear()
-        +
-        "-"
-        +
-        String(
-            d.getMonth()+1
-        ).padStart(2,"0")
-        +
-        "-"
-        +
-        String(
-            d.getDate()
-        ).padStart(2,"0")
-
-    );
-
-}
-
-
-/* =====================================================
-   ID
-===================================================== */
-
-function createId(){
-
-    return (
-        Date.now()
-        +
-        "-"
-        +
-        Math.random()
-            .toString(36)
-            .substring(2)
-    );
-
-}
-
-
-/* =====================================================
-   حماية HTML
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value){
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
 /* =====================================================
-   إضافة العميل
+   ADD CUSTOMER
 ===================================================== */
 
 function addCustomer(){
 
     const name =
-        document.getElementById(
-            "name"
-        ).value.trim();
-
+        document.getElementById("name")
+        .value
+        .trim();
 
     const phone =
-        document.getElementById(
-            "phone"
-        ).value.trim();
-
+        document.getElementById("phone")
+        .value
+        .trim();
 
     if(!name){
 
-        alert(
-            "اكتب اسم العميل"
-        );
+        alert("اكتب اسم العميل");
 
-        document
-            .getElementById("name")
-            .focus();
+        document.getElementById("name").focus();
 
         return;
 
     }
 
-
     if(!phone){
 
-        alert(
-            "اكتب رقم الهاتف"
-        );
+        alert("اكتب رقم الهاتف");
 
-        document
-            .getElementById("phone")
-            .focus();
+        document.getElementById("phone").focus();
 
         return;
 
@@ -1563,7 +1057,13 @@ function addCustomer(){
 
     const customer = {
 
-        id:createId(),
+        id:
+            "CUS-" +
+            Date.now() +
+            "-" +
+            Math.random()
+            .toString(36)
+            .substring(2,7),
 
         name:name,
 
@@ -1598,16 +1098,14 @@ function addCustomer(){
 
         orderStatus:
             document
-            .getElementById(
-                "orderStatus"
-            )
+            .getElementById("orderStatus")
             .value,
 
         calls:{},
 
         noAnswer:{},
 
-        notified:{},
+        reminderSent:{},
 
         createdAt:
             new Date().toISOString()
@@ -1615,14 +1113,10 @@ function addCustomer(){
     };
 
 
-    customers.push(
-        customer
-    );
+    customers.push(customer);
 
 
-    if(
-        !saveCustomers()
-    ){
+    if(!saveCustomers()){
 
         customers.pop();
 
@@ -1636,63 +1130,39 @@ function addCustomer(){
     renderCustomers();
 
     showMessage(
-        "✅ تم إضافة العميل وحفظه"
+        "✅ تم إضافة العميل وحفظه بنجاح"
     );
-
-
-    /*
-        لو فيه موعد قريب
-        نعيد فحص التنبيهات
-    */
-
-    checkAppointments();
 
 }
 
 
 /* =====================================================
-   تنظيف نموذج الإضافة
+   CLEAR FORM
 ===================================================== */
 
 function clearAddForm(){
 
-    document.getElementById(
-        "name"
-    ).value = "";
+    document.getElementById("name").value = "";
 
-    document.getElementById(
-        "phone"
-    ).value = "";
+    document.getElementById("phone").value = "";
 
-    document.getElementById(
-        "address"
-    ).value = "";
+    document.getElementById("address").value = "";
 
-    document.getElementById(
-        "type"
-    ).value = "C";
+    document.getElementById("type").value = "C";
 
-    document.getElementById(
-        "date"
-    ).value = "";
+    document.getElementById("date").value = "";
 
-    document.getElementById(
-        "time"
-    ).value = "";
+    document.getElementById("time").value = "";
 
-    document.getElementById(
-        "notes"
-    ).value = "";
+    document.getElementById("notes").value = "";
 
-    document.getElementById(
-        "orderStatus"
-    ).value = "none";
+    document.getElementById("orderStatus").value = "none";
 
 }
 
 
 /* =====================================================
-   عدد المكالمات اليوم
+   CALLS
 ===================================================== */
 
 function getCallsToday(customer){
@@ -1703,20 +1173,12 @@ function getCallsToday(customer){
 
     }
 
-
     return Number(
-        customer
-            .calls[
-                getToday()
-            ] || 0
+        customer.calls[getToday()] || 0
     );
 
 }
 
-
-/* =====================================================
-   تسجيل رنة
-===================================================== */
 
 function addCall(id){
 
@@ -1724,7 +1186,6 @@ function addCall(id){
         customers.find(
             c => c.id === id
         );
-
 
     if(!customer){
 
@@ -1745,13 +1206,12 @@ function addCall(id){
 
 
     customer.calls[today] =
-        getCallsToday(customer) + 1;
+        Number(customer.calls[today] || 0) + 1;
 
 
     saveCustomers();
 
     renderCustomers();
-
 
     showMessage(
         "📞 تم تسجيل الرنة رقم " +
@@ -1762,7 +1222,7 @@ function addCall(id){
 
 
 /* =====================================================
-   الاتصال
+   PHONE CALL
 ===================================================== */
 
 function callCustomer(id){
@@ -1772,7 +1232,6 @@ function callCustomer(id){
             c => c.id === id
         );
 
-
     if(!customer){
 
         return;
@@ -1780,27 +1239,55 @@ function callCustomer(id){
     }
 
 
-    /*
-        الرنة تسجل مرة واحدة
-    */
-
     addCall(id);
 
 
-    /*
-        فتح برنامج الاتصال
-    */
+    setTimeout(() => {
 
-    window.location.href =
-        "tel:" +
-        customer.phone;
+        window.location.href =
+            "tel:" +
+            customer.phone;
+
+    },100);
 
 }
 
 
 /* =====================================================
-   واتساب
+   WHATSAPP
 ===================================================== */
+
+function normalizePhone(phone){
+
+    let number =
+        String(phone || "")
+        .replace(/\D/g,"");
+
+
+    if(number.startsWith("01")){
+
+        number =
+            "20" +
+            number.substring(1);
+
+    }
+
+    else if(
+        number.startsWith("1") &&
+        number.length === 10
+    ){
+
+        number =
+            "20" +
+            number;
+
+    }
+
+
+    return number;
+
+}
+
 
 function whatsapp(id){
 
@@ -1809,7 +1296,6 @@ function whatsapp(id){
             c => c.id === id
         );
 
-
     if(!customer){
 
         return;
@@ -1817,42 +1303,41 @@ function whatsapp(id){
     }
 
 
-    let number =
-        String(
+    const number =
+        normalizePhone(
             customer.phone
-        )
-        .replace(
-            /\D/g,
-            ""
         );
 
 
-    if(
-        number.startsWith("01")
-    ){
+    if(!number){
 
-        number =
-            "20" +
-            number.substring(1);
+        alert("رقم الهاتف غير صحيح");
+
+        return;
 
     }
 
 
-    /*
-        واتساب يحتاج إنترنت
-    */
+    const message =
+        "أهلاً " +
+        customer.name +
+        "، معاك أحمد فايد.";
 
-    window.open(
+
+    const url =
         "https://wa.me/" +
-        number,
-        "_blank"
-    );
+        number +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    window.open(url,"_blank");
 
 }
 
 
 /* =====================================================
-   تم الاتصال
+   MARK CALLED
 ===================================================== */
 
 function markCalled(id){
@@ -1863,7 +1348,7 @@ function markCalled(id){
 
 
 /* =====================================================
-   لم يرد
+   NO ANSWER
 ===================================================== */
 
 function markNoAnswer(id){
@@ -1872,7 +1357,6 @@ function markNoAnswer(id){
         customers.find(
             c => c.id === id
         );
-
 
     if(!customer){
 
@@ -1888,37 +1372,30 @@ function markNoAnswer(id){
     }
 
 
-    customer.noAnswer[
-        getToday()
-    ] = true;
+    customer.noAnswer[getToday()] = true;
 
 
     saveCustomers();
 
     renderCustomers();
 
-
     showMessage(
-        "❌ تم تسجيل لم يرد"
+        "❌ تم تسجيل أن العميل لم يرد"
     );
 
 }
 
 
 /* =====================================================
-   الطلبية
+   ORDER STATUS
 ===================================================== */
 
-function setOrder(
-    id,
-    status
-){
+function setOrder(id,status){
 
     const customer =
         customers.find(
             c => c.id === id
         );
-
 
     if(!customer){
 
@@ -1935,7 +1412,6 @@ function setOrder(
 
     renderCustomers();
 
-
     showMessage(
         "📦 تم تحديث حالة الطلبية"
     );
@@ -1944,7 +1420,7 @@ function setOrder(
 
 
 /* =====================================================
-   تعديل
+   EDIT
 ===================================================== */
 
 function editCustomer(id){
@@ -1953,7 +1429,6 @@ function editCustomer(id){
         customers.find(
             c => c.id === id
         );
-
 
     if(!customer){
 
@@ -1965,67 +1440,38 @@ function editCustomer(id){
     editId = id;
 
 
-    document.getElementById(
-        "editName"
-    ).value =
+    document.getElementById("editName").value =
         customer.name || "";
 
-
-    document.getElementById(
-        "editPhone"
-    ).value =
+    document.getElementById("editPhone").value =
         customer.phone || "";
 
-
-    document.getElementById(
-        "editAddress"
-    ).value =
+    document.getElementById("editAddress").value =
         customer.address || "";
 
-
-    document.getElementById(
-        "editType"
-    ).value =
+    document.getElementById("editType").value =
         customer.type || "C";
 
-
-    document.getElementById(
-        "editDate"
-    ).value =
+    document.getElementById("editDate").value =
         customer.date || "";
 
-
-    document.getElementById(
-        "editTime"
-    ).value =
+    document.getElementById("editTime").value =
         customer.time || "";
 
-
-    document.getElementById(
-        "editNotes"
-    ).value =
+    document.getElementById("editNotes").value =
         customer.notes || "";
 
-
-    document.getElementById(
-        "editOrderStatus"
-    ).value =
-        customer.orderStatus ||
-        "none";
+    document.getElementById("editOrderStatus").value =
+        customer.orderStatus || "none";
 
 
-    document.getElementById(
-        "editModal"
-    )
-    .classList
-    .add("show");
+    document
+        .getElementById("editModal")
+        .classList
+        .add("show");
 
 }
 
-
-/* =====================================================
-   حفظ التعديل
-===================================================== */
 
 function saveEdit(){
 
@@ -2033,7 +1479,6 @@ function saveEdit(){
         customers.find(
             c => c.id === editId
         );
-
 
     if(!customer){
 
@@ -2043,22 +1488,21 @@ function saveEdit(){
 
 
     const name =
-        document.getElementById(
-            "editName"
-        ).value.trim();
-
+        document
+        .getElementById("editName")
+        .value
+        .trim();
 
     const phone =
-        document.getElementById(
-            "editPhone"
-        ).value.trim();
+        document
+        .getElementById("editPhone")
+        .value
+        .trim();
 
 
     if(!name){
 
-        alert(
-            "اكتب اسم العميل"
-        );
+        alert("اكتب اسم العميل");
 
         return;
 
@@ -2067,9 +1511,7 @@ function saveEdit(){
 
     if(!phone){
 
-        alert(
-            "اكتب رقم الهاتف"
-        );
+        alert("اكتب رقم الهاتف");
 
         return;
 
@@ -2079,45 +1521,40 @@ function saveEdit(){
     customer.name =
         name;
 
-
     customer.phone =
         phone;
 
-
     customer.address =
-        document.getElementById(
-            "editAddress"
-        ).value.trim();
-
+        document
+        .getElementById("editAddress")
+        .value
+        .trim();
 
     customer.type =
-        document.getElementById(
-            "editType"
-        ).value;
-
+        document
+        .getElementById("editType")
+        .value;
 
     customer.date =
-        document.getElementById(
-            "editDate"
-        ).value;
-
+        document
+        .getElementById("editDate")
+        .value;
 
     customer.time =
-        document.getElementById(
-            "editTime"
-        ).value;
-
+        document
+        .getElementById("editTime")
+        .value;
 
     customer.notes =
-        document.getElementById(
-            "editNotes"
-        ).value.trim();
-
+        document
+        .getElementById("editNotes")
+        .value
+        .trim();
 
     customer.orderStatus =
-        document.getElementById(
-            "editOrderStatus"
-        ).value;
+        document
+        .getElementById("editOrderStatus")
+        .value;
 
 
     saveCustomers();
@@ -2126,7 +1563,6 @@ function saveEdit(){
 
     renderCustomers();
 
-
     showMessage(
         "✅ تم تعديل بيانات العميل"
     );
@@ -2134,26 +1570,20 @@ function saveEdit(){
 }
 
 
-/* =====================================================
-   غلق التعديل
-===================================================== */
-
 function closeEdit(){
 
     editId = null;
 
-
-    document.getElementById(
-        "editModal"
-    )
-    .classList
-    .remove("show");
+    document
+        .getElementById("editModal")
+        .classList
+        .remove("show");
 
 }
 
 
 /* =====================================================
-   حذف
+   DELETE
 ===================================================== */
 
 function deleteCustomer(id){
@@ -2162,7 +1592,6 @@ function deleteCustomer(id){
         customers.find(
             c => c.id === id
         );
-
 
     if(!customer){
 
@@ -2174,7 +1603,8 @@ function deleteCustomer(id){
     if(
         !confirm(
             "هل تريد حذف العميل:\n" +
-            customer.name
+            customer.name +
+            " ؟"
         )
     ){
 
@@ -2193,7 +1623,6 @@ function deleteCustomer(id){
 
     renderCustomers();
 
-
     showMessage(
         "🗑️ تم حذف العميل"
     );
@@ -2202,12 +1631,10 @@ function deleteCustomer(id){
 
 
 /* =====================================================
-   Badge الطلبية
+   ORDER BADGE
 ===================================================== */
 
-function getOrderBadge(
-    status
-){
+function getOrderBadge(status){
 
     if(status === "yes"){
 
@@ -2224,7 +1651,7 @@ function getOrderBadge(
 
         return `
             <span class="badge red">
-                🚫 لم يأخذ طلبية
+                ❌ لم يأخذ طلبية
             </span>
         `;
 
@@ -2259,30 +1686,368 @@ function getOrderBadge(
 
 
 /* =====================================================
-   عرض العملاء
+   REMINDER
+===================================================== */
+
+function reminderText(customer){
+
+    if(
+        !customer.date ||
+        !customer.time
+    ){
+
+        return "غير محدد";
+
+    }
+
+
+    return (
+        customer.date +
+        " - " +
+        customer.time
+    );
+
+}
+
+
+/* =====================================================
+   NOTIFICATION PERMISSION
+===================================================== */
+
+async function enableNotifications(){
+
+    if(!("Notification" in window)){
+
+        alert(
+            "المتصفح الحالي لا يدعم إشعارات النظام."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const permission =
+            await Notification.requestPermission();
+
+
+        if(permission === "granted"){
+
+            showMessage(
+                "🔔 تم تفعيل الإشعارات"
+            );
+
+            playSound();
+
+        }
+
+        else{
+
+            alert(
+                "يجب السماح بالإشعارات من إعدادات المتصفح."
+            );
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   SOUND
+===================================================== */
+
+function playSound(){
+
+    try{
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if(!AudioContext){
+
+            return;
+
+        }
+
+
+        const ctx =
+            new AudioContext();
+
+        const osc =
+            ctx.createOscillator();
+
+        const gain =
+            ctx.createGain();
+
+
+        osc.type = "sine";
+
+        osc.frequency.value = 850;
+
+        gain.gain.setValueAtTime(
+            .0001,
+            ctx.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .25,
+            ctx.currentTime + .03
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .0001,
+            ctx.currentTime + .65
+        );
+
+
+        osc.connect(gain);
+
+        gain.connect(ctx.destination);
+
+        osc.start();
+
+        osc.stop(
+            ctx.currentTime + .7
+        );
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   SEND NOTIFICATION
+===================================================== */
+
+function sendCustomerNotification(customer){
+
+    if(
+        !("Notification" in window) ||
+        Notification.permission !== "granted"
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        !customer.date ||
+        !customer.time
+    ){
+
+        return;
+
+    }
+
+
+    const key =
+        customer.date +
+        "_" +
+        customer.time;
+
+
+    if(!customer.reminderSent){
+
+        customer.reminderSent = {};
+
+    }
+
+
+    if(customer.reminderSent[key]){
+
+        return;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    const target =
+        new Date(
+            customer.date +
+            "T" +
+            customer.time
+        );
+
+
+    const diff =
+        target.getTime() -
+        now.getTime();
+
+
+    /* الإشعار عند الموعد */
+
+    if(
+        diff <= 30000 &&
+        diff >= -60000
+    ){
+
+        customer.reminderSent[key] =
+            true;
+
+
+        saveCustomers();
+
+
+        const notification =
+            new Notification(
+                "📞 موعد الاتصال - أحمد فايد",
+                {
+                    body:
+                        "حان موعد الاتصال بالعميل: " +
+                        customer.name,
+
+                    tag:
+                        "customer-" +
+                        customer.id,
+
+                    data:{
+                        customerId:
+                            customer.id
+                    }
+                }
+            );
+
+
+        notification.onclick =
+            function(){
+
+                window.focus();
+
+                window.location.hash =
+                    "customer-" +
+                    customer.id;
+
+                setTimeout(
+                    () =>
+                        openCustomerCard(
+                            customer.id
+                        ),
+                    100
+                );
+
+                notification.close();
+
+            };
+
+
+        playSound();
+
+        showMessage(
+            "🔔 حان موعد الاتصال بـ " +
+            customer.name
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CHECK REMINDERS
+===================================================== */
+
+function checkReminders(){
+
+    const now =
+        new Date();
+
+
+    customers.forEach(
+        customer => {
+
+            sendCustomerNotification(
+                customer
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   OPEN CUSTOMER CARD
+===================================================== */
+
+function openCustomerCard(id){
+
+    renderCustomers();
+
+
+    setTimeout(() => {
+
+        const element =
+            document.getElementById(
+                "customer-" + id
+            );
+
+
+        if(element){
+
+            element.scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+
+            element.classList.add(
+                "highlight"
+            );
+
+
+            setTimeout(() => {
+
+                element.classList.remove(
+                    "highlight"
+                );
+
+            },4000);
+
+        }
+
+    },100);
+
+}
+
+
+/* =====================================================
+   RENDER
 ===================================================== */
 
 function renderCustomers(){
 
     const container =
-        document.getElementById(
-            "customers"
-        );
+        document.getElementById("customers");
 
 
     const search =
-        document.getElementById(
-            "search"
-        )
+        document
+        .getElementById("search")
         .value
         .trim()
         .toLowerCase();
 
 
     const filter =
-        document.getElementById(
-            "filter"
-        )
+        document
+        .getElementById("filter")
         .value;
 
 
@@ -2290,46 +2055,39 @@ function renderCustomers(){
         getToday();
 
 
-    /*
-        الإحصائيات
-    */
+    /* STATS */
 
-    document.getElementById(
-        "total"
-    ).textContent =
+    document.getElementById("total")
+        .textContent =
         customers.length;
 
 
-    document.getElementById(
-        "calledCount"
-    ).textContent =
+    document.getElementById("calledCount")
+        .textContent =
         customers.filter(
             c =>
                 getCallsToday(c) > 0
         ).length;
 
 
-    document.getElementById(
-        "notCalledCount"
-    ).textContent =
+    document.getElementById("notCalledCount")
+        .textContent =
         customers.filter(
             c =>
                 getCallsToday(c) === 0
         ).length;
 
 
-    document.getElementById(
-        "ordersCount"
-    ).textContent =
+    document.getElementById("ordersCount")
+        .textContent =
         customers.filter(
             c =>
                 c.orderStatus === "yes"
         ).length;
 
 
-    document.getElementById(
-        "noAnswerCount"
-    ).textContent =
+    document.getElementById("noAnswerCount")
+        .textContent =
         customers.filter(
             c =>
                 c.noAnswer &&
@@ -2337,9 +2095,7 @@ function renderCustomers(){
         ).length;
 
 
-    /*
-        البحث والفلترة
-    */
+    /* FILTER */
 
     const result =
         customers.filter(
@@ -2369,14 +2125,11 @@ function renderCustomers(){
 
 
                 const calls =
-                    getCallsToday(
-                        customer
-                    );
+                    getCallsToday(customer);
 
 
                 if(
-                    filter ===
-                    "notCalled" &&
+                    filter === "notCalled" &&
                     calls > 0
                 ){
 
@@ -2386,8 +2139,7 @@ function renderCustomers(){
 
 
                 if(
-                    filter ===
-                    "called" &&
+                    filter === "called" &&
                     calls === 0
                 ){
 
@@ -2397,13 +2149,10 @@ function renderCustomers(){
 
 
                 if(
-                    filter ===
-                    "noAnswer" &&
+                    filter === "noAnswer" &&
                     !(
                         customer.noAnswer &&
-                        customer.noAnswer[
-                            today
-                        ]
+                        customer.noAnswer[today]
                     )
                 ){
 
@@ -2413,10 +2162,8 @@ function renderCustomers(){
 
 
                 if(
-                    filter ===
-                    "orders" &&
-                    customer.orderStatus !==
-                    "yes"
+                    filter === "orders" &&
+                    customer.orderStatus !== "yes"
                 ){
 
                     return false;
@@ -2425,10 +2172,19 @@ function renderCustomers(){
 
 
                 if(
-                    filter ===
-                    "noOrders" &&
-                    customer.orderStatus !==
-                    "no"
+                    filter === "noOrders" &&
+                    customer.orderStatus !== "no"
+                ){
+
+                    return false;
+
+                }
+
+
+                if(
+                    ["A","B","C"]
+                    .includes(filter) &&
+                    customer.type !== filter
                 ){
 
                     return false;
@@ -2445,17 +2201,11 @@ function renderCustomers(){
     if(result.length === 0){
 
         container.innerHTML = `
-
             <div class="card empty">
-
                 👥
-
                 <br><br>
-
-                لا يوجد عملاء
-
+                لا يوجد عملاء مطابقين للبحث
             </div>
-
         `;
 
         return;
@@ -2463,19 +2213,14 @@ function renderCustomers(){
     }
 
 
-    /*
-        عرض العملاء
-    */
+    /* RENDER */
 
     container.innerHTML =
-        result
-        .map(
+        result.map(
             customer => {
 
                 const calls =
-                    getCallsToday(
-                        customer
-                    );
+                    getCallsToday(customer);
 
 
                 const called =
@@ -2484,600 +2229,483 @@ function renderCustomers(){
 
                 const noAnswer =
                     customer.noAnswer &&
-                    customer.noAnswer[
-                        today
-                    ];
+                    customer.noAnswer[today];
+
+
+                const type =
+                    customer.type || "C";
 
 
                 return `
 
 <div
     class="customer"
-    id="customer-${customer.id}"
+    id="customer-${escapeHTML(customer.id)}"
 >
 
+    <div class="customer-title">
 
-<div class="customer-header">
+        <div class="customer-name">
+            👤
+            ${escapeHTML(customer.name)}
+        </div>
 
-<div class="customer-name">
+        <div class="type type-${type}">
+            ${type}
+        </div>
 
-👤
+    </div>
 
-${escapeHTML(
-    customer.name
-)}
+
+    <div class="customer-body">
+
+        <div class="info">
+
+            <span>📞 الهاتف:</span>
+
+            <b>
+                ${escapeHTML(customer.phone)}
+            </b>
+
+        </div>
+
+
+        <div class="info">
+
+            <span>📍 العنوان:</span>
+
+            <b>
+                ${
+                    escapeHTML(
+                        customer.address ||
+                        "غير محدد"
+                    )
+                }
+            </b>
+
+        </div>
+
+
+        <div class="info">
+
+            <span>📅 موعد الاتصال:</span>
+
+            <b>
+
+                ${
+                    reminderText(customer)
+                }
+
+            </b>
+
+        </div>
+
+
+        <div class="notes">
+
+            ${
+                customer.notes
+                ?
+                escapeHTML(customer.notes)
+                :
+                "لا توجد ملاحظات"
+            }
+
+        </div>
+
+
+        <div class="badges">
+
+            <span class="badge ${
+                called
+                ?
+                "green"
+                :
+                "orange"
+            }">
+
+                ${
+                    called
+                    ?
+                    "✅ تم الاتصال اليوم"
+                    :
+                    "⏳ لم أتصل اليوم"
+                }
+
+            </span>
+
+
+            <span class="badge blue">
+
+                📞 عدد الرنات اليوم:
+                ${calls}
+
+            </span>
+
+
+            ${
+                noAnswer
+                ?
+                `
+                <span class="badge red">
+                    ❌ لم يرد
+                </span>
+                `
+                :
+                ""
+            }
+
+
+            ${getOrderBadge(
+                customer.orderStatus
+            )}
+
+        </div>
+
+
+        <div class="actions">
+
+
+            <button
+                class="action call"
+                onclick="callCustomer('${escapeHTML(customer.id)}')"
+            >
+                📞 اتصال + رن
+            </button>
+
+
+            <button
+                class="action whatsapp"
+                onclick="whatsapp('${escapeHTML(customer.id)}')"
+            >
+                💬 واتساب
+            </button>
+
+
+            <button
+                class="action called"
+                onclick="markCalled('${escapeHTML(customer.id)}')"
+            >
+                ✅ تم الاتصال
+            </button>
+
+
+            <button
+                class="action noanswer"
+                onclick="markNoAnswer('${escapeHTML(customer.id)}')"
+            >
+                ❌ لم يرد
+            </button>
+
+
+            <button
+                class="action order"
+                onclick="setOrder('${escapeHTML(customer.id)}','yes')"
+            >
+                📦 أخذ طلبية
+            </button>
+
+
+            <button
+                class="action noorder"
+                onclick="setOrder('${escapeHTML(customer.id)}','no')"
+            >
+                🚫 لم يأخذ
+            </button>
+
+
+            <button
+                class="action follow"
+                onclick="setOrder('${escapeHTML(customer.id)}','later1')"
+            >
+                ⏰ بعد ساعة
+            </button>
+
+
+            <button
+                class="action follow"
+                onclick="setOrder('${escapeHTML(customer.id)}','later2')"
+            >
+                ⏰ بعد ساعتين
+            </button>
+
+
+            <button
+                class="action reminder"
+                onclick="enableNotifications()"
+            >
+                🔔 تفعيل التنبيه
+            </button>
+
+
+            <button
+                class="action edit"
+                onclick="editCustomer('${escapeHTML(customer.id)}')"
+            >
+                ✏️ تعديل
+            </button>
+
+
+            <button
+                class="action delete"
+                onclick="deleteCustomer('${escapeHTML(customer.id)}')"
+            >
+                🗑️ حذف
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-
-<div class="type">
-
-${escapeHTML(
-    customer.type || "C"
-)}
-
-</div>
-
-</div>
-
-
-<div class="customer-body">
-
-
-<div class="info">
-
-<span>
-📞 الهاتف:
-</span>
-
-<b>
-${escapeHTML(
-    customer.phone
-)}
-</b>
-
-</div>
-
-
-<div class="info">
-
-<span>
-📍 العنوان:
-</span>
-
-<b>
-
-${
-    escapeHTML(
-        customer.address ||
-        "غير محدد"
-    )
-}
-
-</b>
-
-</div>
-
-
-<div class="info">
-
-<span>
-📅 موعد الاتصال:
-</span>
-
-<b>
-
-${
-    customer.date
-    ?
-    escapeHTML(
-        customer.date
-    )
-    :
-    "غير محدد"
-}
-
-${
-    customer.time
-    ?
-    " - " +
-    escapeHTML(
-        customer.time
-    )
-    :
-    ""
-}
-
-</b>
-
-</div>
-
-
-<div class="notes">
-
-${
-    customer.notes
-    ?
-    escapeHTML(
-        customer.notes
-    )
-    :
-    "لا توجد ملاحظات"
-}
-
-</div>
-
-
-<div class="badges">
-
-
-<span class="badge ${
-    called
-    ? "green"
-    : "orange"
-}">
-
-${
-    called
-    ?
-    "✅ تم الاتصال اليوم"
-    :
-    "⏳ لم أتصل اليوم"
-}
-
-</span>
-
-
-<span class="badge blue">
-
-📞 رنات اليوم:
-
-${calls}
-
-</span>
-
-
-${
-    noAnswer
-    ?
-    `
-    <span class="badge red">
-        ❌ لم يرد
-    </span>
-    `
-    :
-    ""
-}
-
-
-${getOrderBadge(
-    customer.orderStatus
-)}
-
-
-</div>
-
-
-<div class="actions">
-
-
-<button
-    class="action call"
-    onclick="callCustomer('${customer.id}')"
->
-📞 اتصال + رن
-</button>
-
-
-<button
-    class="action whatsapp"
-    onclick="whatsapp('${customer.id}')"
->
-💬 واتساب
-</button>
-
-
-<button
-    class="action called"
-    onclick="markCalled('${customer.id}')"
->
-✅ تم الاتصال
-</button>
-
-
-<button
-    class="action noanswer"
-    onclick="markNoAnswer('${customer.id}')"
->
-❌ لم يرد
-</button>
-
-
-<button
-    class="action order"
-    onclick="setOrder(
-        '${customer.id}',
-        'yes'
-    )"
->
-📦 أخذ طلبية
-</button>
-
-
-<button
-    class="action noorder"
-    onclick="setOrder(
-        '${customer.id}',
-        'no'
-    )"
->
-🚫 لم يأخذ
-</button>
-
-
-<button
-    class="action follow"
-    onclick="setOrder(
-        '${customer.id}',
-        'later1'
-    )"
->
-⏰ بعد ساعة
-</button>
-
-
-<button
-    class="action follow"
-    onclick="setOrder(
-        '${customer.id}',
-        'later2'
-    )"
->
-⏰ بعد ساعتين
-</button>
-
-
-<button
-    class="action edit"
-    onclick="editCustomer(
-        '${customer.id}'
-    )"
->
-✏️ تعديل
-</button>
-
-
-<button
-    class="action delete"
-    onclick="deleteCustomer(
-        '${customer.id}'
-    )"
->
-🗑️ حذف
-</button>
-
-
-</div>
-
-
-</div>
-
-</div>
-
-`;
+                `;
 
             }
-        )
-        .join("");
+        ).join("");
 
 }
 
 
 /* =====================================================
-   فتح كارت العميل
+   EXPORT BACKUP
 ===================================================== */
 
-function openCustomerCard(id){
+function exportBackup(){
 
-    renderCustomers();
+    const backup = {
+
+        app:
+            "Ahmed Fayed Customer Manager",
+
+        version:
+            "3.0",
+
+        exportedAt:
+            new Date().toISOString(),
+
+        customers:
+            customers
+
+    };
 
 
-    const search =
-        document.getElementById(
-            "search"
+    const json =
+        JSON.stringify(
+            backup,
+            null,
+            2
         );
 
 
-    search.value = "";
-
-
-    document.getElementById(
-        "filter"
-    ).value = "all";
-
-
-    renderCustomers();
-
-
-    setTimeout(
-        () => {
-
-            const card =
-                document.getElementById(
-                    "customer-" + id
-                );
-
-
-            if(card){
-
-                card.scrollIntoView({
-                    behavior:"smooth",
-                    block:"center"
-                });
-
-
-                card.style.outline =
-                    "3px solid #22c55e";
-
-
-                setTimeout(
-                    () => {
-
-                        card.style.outline =
-                            "";
-
-                    },
-                    5000
-                );
-
+    const blob =
+        new Blob(
+            [json],
+            {
+                type:
+                    "application/json"
             }
-
-        },
-        100
-    );
-
-}
+        );
 
 
-/* =====================================================
-   اختبار الإشعار
-===================================================== */
-
-function testNotification(){
-
-    playAlertSound();
+    const url =
+        URL.createObjectURL(blob);
 
 
-    if(
-        window.electronAPI
-    ){
-
-        window.electronAPI
-            .testNotification();
-
-    }
+    const a =
+        document.createElement("a");
 
 
-    showMessage(
-        "🔔 تم اختبار التنبيه"
-    );
-
-}
-
-
-/* =====================================================
-   إشعار موعد العميل
-===================================================== */
-
-function sendAppointmentNotification(
-    customer
-){
-
-    playAlertSound();
-
-
-    if(
-        window.electronAPI
-    ){
-
-        window.electronAPI
-            .showNotification({
-
-                title:
-                    "📞 موعد اتصال",
-
-                body:
-                    "حان موعد الاتصال بالعميل: " +
-                    customer.name,
-
-                customerId:
-                    customer.id
-
-            });
-
-    }
-
-
-    showMessage(
-        "🔔 موعد العميل: " +
-        customer.name
-    );
-
-}
-
-
-/* =====================================================
-   فحص المواعيد
-===================================================== */
-
-function checkAppointments(){
-
-    const now =
-        new Date();
-
-
-    const today =
+    const date =
         getToday();
 
 
-    const currentHour =
-        now.getHours();
+    a.href = url;
+
+    a.download =
+        "Ahmed-Fayed-Backup-" +
+        date +
+        ".json";
 
 
-    const currentMinute =
-        now.getMinutes();
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
 
 
-    customers.forEach(
-        customer => {
-
-            if(
-                !customer.date ||
-                !customer.time
-            ){
-
-                return;
-
-            }
+    URL.revokeObjectURL(url);
 
 
-            if(
-                customer.date !== today
-            ){
-
-                return;
-
-            }
-
-
-            const parts =
-                customer.time
-                    .split(":");
-
-
-            const hour =
-                Number(parts[0]);
-
-
-            const minute =
-                Number(parts[1]);
-
-
-            if(
-                hour !== currentHour ||
-                minute !== currentMinute
-            ){
-
-                return;
-
-            }
-
-
-            if(
-                !customer.notified
-            ){
-
-                customer.notified = {};
-
-            }
-
-
-            const key =
-                today +
-                "_" +
-                customer.time;
-
-
-            if(
-                customer.notified[key]
-            ){
-
-                return;
-
-            }
-
-
-            customer.notified[key] =
-                true;
-
-
-            saveCustomers();
-
-
-            sendAppointmentNotification(
-                customer
-            );
-
-        }
+    showMessage(
+        "📤 تم إنشاء النسخة الاحتياطية"
     );
 
 }
 
 
 /* =====================================================
-   استقبال الضغط على الإشعار
+   RESTORE BACKUP
 ===================================================== */
 
-if(
-    window.electronAPI
-){
+function restoreBackup(event){
 
-    window.electronAPI
-        .onOpenCustomer(
-            id => {
+    const file =
+        event.target.files[0];
 
-                openCustomerCard(id);
+
+    if(!file){
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            try{
+
+                const data =
+                    JSON.parse(
+                        e.target.result
+                    );
+
+
+                let imported;
+
+
+                if(
+                    Array.isArray(data)
+                ){
+
+                    imported = data;
+
+                }
+
+                else if(
+                    Array.isArray(
+                        data.customers
+                    )
+                ){
+
+                    imported =
+                        data.customers;
+
+                }
+
+                else{
+
+                    throw new Error(
+                        "ملف غير صحيح"
+                    );
+
+                }
+
+
+                if(
+                    !confirm(
+                        "سيتم استبدال العملاء الحاليين بالنسخة الاحتياطية.\nهل تريد المتابعة؟"
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                customers =
+                    imported.map(
+                        customer => {
+
+                            if(!customer.id){
+
+                                customer.id =
+                                    "CUS-" +
+                                    Date.now() +
+                                    "-" +
+                                    Math.random()
+                                    .toString(36)
+                                    .substring(2,7);
+
+                            }
+
+
+                            if(!customer.calls){
+
+                                customer.calls = {};
+
+                            }
+
+
+                            if(!customer.noAnswer){
+
+                                customer.noAnswer = {};
+
+                            }
+
+
+                            if(!customer.reminderSent){
+
+                                customer.reminderSent = {};
+
+                            }
+
+
+                            return customer;
+
+                        }
+                    );
+
+
+                if(
+                    saveCustomers()
+                ){
+
+                    renderCustomers();
+
+                    showMessage(
+                        "📥 تم استرداد النسخة الاحتياطية بنجاح"
+                    );
+
+                }
+
+            }catch(error){
+
+                console.error(error);
+
+                alert(
+                    "❌ الملف غير صالح أو تالف."
+                );
 
             }
-        );
+
+            event.target.value = "";
+
+        };
+
+
+    reader.readAsText(file);
 
 }
 
 
 /* =====================================================
-   تشغيل البرنامج
+   CLOSE MODAL
 ===================================================== */
 
-loadCustomers();
-
-renderCustomers();
-
-
-/*
-    فحص المواعيد كل 10 ثواني
-*/
-
-setInterval(
-    checkAppointments,
-    10000
-);
-
-
-/*
-    فحص أولي
-*/
-
-setTimeout(
-    checkAppointments,
-    1000
-);
-
-
-/*
-    إغلاق النافذة
-*/
-
 document
-    .getElementById(
-        "editModal"
-    )
+    .getElementById("editModal")
     .addEventListener(
         "click",
-        function(event){
+        function(e){
 
-            if(
-                event.target === this
-            ){
+            if(e.target === this){
 
                 closeEdit();
 
@@ -3087,8 +2715,117 @@ document
     );
 
 
+/* =====================================================
+   ONLINE STATUS
+===================================================== */
+
+function updateConnection(){
+
+    const box =
+        document.getElementById(
+            "connection"
+        );
+
+
+    if(navigator.onLine){
+
+        box.textContent =
+            "🟢 النظام يعمل";
+
+    }else{
+
+        box.textContent =
+            "🟡 بدون إنترنت - البيانات محفوظة";
+
+    }
+
+}
+
+
+window.addEventListener(
+    "online",
+    updateConnection
+);
+
+
+window.addEventListener(
+    "offline",
+    updateConnection
+);
+
+
+/* =====================================================
+   HASH - OPEN CUSTOMER FROM NOTIFICATION
+===================================================== */
+
+function checkHash(){
+
+    const hash =
+        location.hash;
+
+
+    if(
+        hash.startsWith(
+            "#customer-"
+        )
+    ){
+
+        const id =
+            hash.substring(
+                "#customer-".length
+            );
+
+
+        setTimeout(
+            () =>
+                openCustomerCard(id),
+            300
+        );
+
+    }
+
+}
+
+
+window.addEventListener(
+    "hashchange",
+    checkHash
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadCustomers();
+
+renderCustomers();
+
+updateConnection();
+
+checkHash();
+
+
+/*
+    فحص المواعيد كل 30 ثانية
+*/
+
+setInterval(
+    checkReminders,
+    30000
+);
+
+
+/*
+    فحص أول مرة
+*/
+
+setTimeout(
+    checkReminders,
+    1500
+);
+
 </script>
 
 </body>
-
 </html>
