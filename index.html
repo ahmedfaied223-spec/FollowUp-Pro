@@ -1,1 +1,1665 @@
+package com.ahmedfayed.customers
 
+import android.Manifest
+import android.app.*
+import android.content.*
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import org.json.JSONArray
+import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
+
+data class Customer(
+    val id: Long = System.currentTimeMillis(),
+    var name: String,
+    var phone: String,
+    var whatsapp: String = "",
+    var address: String = "",
+    var notes: String = "",
+    var type: String = "C",
+    var date: String = "",
+    var time: String = "",
+    var order: String = "none",
+    var callsToday: Int = 0,
+    var calledToday: Boolean = false,
+    var noAnswerToday: Boolean = false
+)
+
+class MainActivity : ComponentActivity() {
+
+    private lateinit var prefs: android.content.SharedPreferences
+
+    private val callPermission =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        prefs = getSharedPreferences(
+            "ahmed_fayed_database",
+            MODE_PRIVATE
+        )
+
+        createNotificationChannel()
+
+        setContent {
+            AhmedFayedApp()
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+
+            val channel = NotificationChannel(
+                "customer_calls",
+                "مواعيد العملاء",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+
+            channel.description =
+                "تنبيهات مواعيد الاتصال بالعملاء"
+
+            channel.enableVibration(true)
+
+            val manager =
+                getSystemService(
+                    NotificationManager::class.java
+                )
+
+            manager.createNotificationChannel(channel)
+        }
+    }
+
+    fun makeCall(phone: String) {
+
+        if (
+            checkSelfPermission(
+                Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            callPermission.launch(
+                Manifest.permission.CALL_PHONE
+            )
+
+            return
+        }
+
+        val intent =
+            Intent(
+                Intent.ACTION_CALL,
+                Uri.parse("tel:$phone")
+            )
+
+        startActivity(intent)
+    }
+
+    @Composable
+    fun AhmedFayedApp() {
+
+        MaterialTheme(
+            colorScheme = darkColorScheme(
+                primary = Color(0xFF2563EB),
+                secondary = Color(0xFF4F46E5),
+                background = Color(0xFF08111F),
+                surface = Color(0xFF111827)
+            )
+        ) {
+
+            var customers by remember {
+                mutableStateOf(loadCustomers())
+            }
+
+            var search by remember {
+                mutableStateOf("")
+            }
+
+            var showAdd by remember {
+                mutableStateOf(false)
+            }
+
+            var editCustomer by remember {
+                mutableStateOf<Customer?>(null)
+            }
+
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(
+                            Color(0xFF08111F)
+                        )
+                        .padding(12.dp)
+            ) {
+
+                Header()
+
+                Spacer(
+                    Modifier.height(10.dp)
+                )
+
+                SearchBox(
+                    search = search,
+                    onSearch = {
+                        search = it
+                    }
+                )
+
+                Spacer(
+                    Modifier.height(10.dp)
+                )
+
+                Statistics(customers)
+
+                Spacer(
+                    Modifier.height(10.dp)
+                )
+
+                Button(
+                    modifier =
+                        Modifier.fillMaxWidth(),
+                    onClick = {
+                        showAdd = true
+                    },
+                    shape =
+                        RoundedCornerShape(14.dp)
+                ) {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = null
+                    )
+
+                    Spacer(
+                        Modifier.width(6.dp)
+                    )
+
+                    Text(
+                        "إضافة عميل جديد"
+                    )
+                }
+
+                Spacer(
+                    Modifier.height(10.dp)
+                )
+
+                val filtered =
+                    customers.filter {
+
+                        it.name.contains(
+                            search,
+                            true
+                        ) ||
+
+                        it.phone.contains(
+                            search,
+                            true
+                        ) ||
+
+                        it.address.contains(
+                            search,
+                            true
+                        )
+                    }
+
+                if (filtered.isEmpty()) {
+
+                    Box(
+                        modifier =
+                            Modifier
+                                .fillMaxSize(),
+                        contentAlignment =
+                            Alignment.Center
+                    ) {
+
+                        Text(
+                            "لا يوجد عملاء",
+                            color =
+                                Color.LightGray,
+                            fontSize = 18.sp
+                        )
+                    }
+
+                } else {
+
+                    LazyColumn(
+                        verticalArrangement =
+                            Arrangement.spacedBy(10.dp)
+                    ) {
+
+                        items(
+                            filtered,
+                            key = {
+                                it.id
+                            }
+                        ) { customer ->
+
+                            CustomerCard(
+                                customer = customer,
+
+                                onCall = {
+
+                                    customer.callsToday++
+
+                                    customer.calledToday =
+                                        true
+
+                                    saveCustomers(
+                                        customers
+                                    )
+
+                                    makeCall(
+                                        customer.phone
+                                    )
+
+                                    customers =
+                                        loadCustomers()
+                                },
+
+                                onWhatsApp = {
+
+                                    openWhatsApp(
+                                        customer
+                                    )
+                                },
+
+                                onCalled = {
+
+                                    customer.calledToday =
+                                        true
+
+                                    saveCustomers(
+                                        customers
+                                    )
+
+                                    customers =
+                                        loadCustomers()
+                                },
+
+                                onNoAnswer = {
+
+                                    customer.noAnswerToday =
+                                        true
+
+                                    saveCustomers(
+                                        customers
+                                    )
+
+                                    customers =
+                                        loadCustomers()
+                                },
+
+                                onOrder = {
+
+                                    customer.order =
+                                        "yes"
+
+                                    saveCustomers(
+                                        customers
+                                    )
+
+                                    customers =
+                                        loadCustomers()
+                                },
+
+                                onNoOrder = {
+
+                                    customer.order =
+                                        "no"
+
+                                    saveCustomers(
+                                        customers
+                                    )
+
+                                    customers =
+                                        loadCustomers()
+                                },
+
+                                onLaterOne = {
+
+                                    customer.order =
+                                        "later1"
+
+                                    saveCustomers(
+                                        customers
+                                    )
+
+                                    customers =
+                                        loadCustomers()
+                                },
+
+                                onLaterTwo = {
+
+                                    customer.order =
+                                        "later2"
+
+                                    saveCustomers(
+                                        customers
+                                    )
+
+                                    customers =
+                                        loadCustomers()
+                                },
+
+                                onEdit = {
+
+                                    editCustomer =
+                                        customer
+                                },
+
+                                onDelete = {
+
+                                    customers =
+                                        customers.filter {
+                                            it.id !=
+                                                    customer.id
+                                        }
+
+                                    saveCustomers(
+                                        customers
+                                    )
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+
+            if (showAdd) {
+
+                CustomerEditor(
+                    title =
+                        "إضافة عميل",
+
+                    initial = null,
+
+                    onClose = {
+                        showAdd = false
+                    },
+
+                    onSave = { customer ->
+
+                        customers =
+                            customers +
+                            customer
+
+                        saveCustomers(
+                            customers
+                        )
+
+                        scheduleNotification(
+                            customer
+                        )
+
+                        showAdd = false
+                    }
+                )
+            }
+
+            editCustomer?.let { customer ->
+
+                CustomerEditor(
+                    title =
+                        "تعديل العميل",
+
+                    initial =
+                        customer,
+
+                    onClose = {
+                        editCustomer = null
+                    },
+
+                    onSave = { updated ->
+
+                        customers =
+                            customers.map {
+
+                                if (
+                                    it.id ==
+                                    updated.id
+                                ) {
+                                    updated
+                                } else {
+                                    it
+                                }
+                            }
+
+                        saveCustomers(
+                            customers
+                        )
+
+                        scheduleNotification(
+                            updated
+                        )
+
+                        editCustomer = null
+                    }
+                )
+            }
+        }
+    }
+
+    @Composable
+    fun Header() {
+
+        Card(
+            modifier =
+                Modifier.fillMaxWidth(),
+
+            shape =
+                RoundedCornerShape(22.dp),
+
+            colors =
+                CardDefaults.cardColors(
+                    containerColor =
+                        Color(0xFF2563EB)
+                )
+        ) {
+
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+
+                horizontalAlignment =
+                    Alignment.CenterHorizontally
+            ) {
+
+                Text(
+                    "📞 أحمد فايد",
+                    fontSize = 27.sp,
+                    fontWeight =
+                        FontWeight.Bold
+                )
+
+                Text(
+                    "إدارة ومتابعة العملاء",
+                    color =
+                        Color.White.copy(
+                            alpha = .85f
+                        )
+                )
+            }
+        }
+    }
+
+    @Composable
+    fun SearchBox(
+        search: String,
+        onSearch: (String) -> Unit
+    ) {
+
+        OutlinedTextField(
+            value = search,
+
+            onValueChange = onSearch,
+
+            modifier =
+                Modifier.fillMaxWidth(),
+
+            label = {
+                Text("البحث عن عميل")
+            },
+
+            leadingIcon = {
+                Icon(
+                    Icons.Default.Search,
+                    contentDescription = null
+                )
+            },
+
+            singleLine = true
+        )
+    }
+
+    @Composable
+    fun Statistics(
+        customers: List<Customer>
+    ) {
+
+        val called =
+            customers.count {
+                it.calledToday
+            }
+
+        val notCalled =
+            customers.size -
+                    called
+
+        val orders =
+            customers.count {
+                it.order == "yes"
+            }
+
+        Row(
+            modifier =
+                Modifier.fillMaxWidth(),
+
+            horizontalArrangement =
+                Arrangement.spacedBy(7.dp)
+        ) {
+
+            StatBox(
+                "العملاء",
+                customers.size
+            )
+
+            StatBox(
+                "تم الاتصال",
+                called
+            )
+
+            StatBox(
+                "لم أتصل",
+                notCalled
+            )
+
+            StatBox(
+                "طلبات",
+                orders
+            )
+        }
+    }
+
+    @Composable
+    fun StatBox(
+        title: String,
+        number: Int
+    ) {
+
+        Card(
+            modifier =
+                Modifier.weight(1f),
+
+            shape =
+                RoundedCornerShape(13.dp)
+        ) {
+
+            Column(
+                modifier =
+                    Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth(),
+
+                horizontalAlignment =
+                    Alignment.CenterHorizontally
+            ) {
+
+                Text(
+                    number.toString(),
+                    fontSize = 22.sp,
+                    fontWeight =
+                        FontWeight.Bold
+                )
+
+                Text(
+                    title,
+                    fontSize = 11.sp
+                )
+            }
+        }
+    }
+
+    @Composable
+    fun CustomerCard(
+        customer: Customer,
+        onCall: () -> Unit,
+        onWhatsApp: () -> Unit,
+        onCalled: () -> Unit,
+        onNoAnswer: () -> Unit,
+        onOrder: () -> Unit,
+        onNoOrder: () -> Unit,
+        onLaterOne: () -> Unit,
+        onLaterTwo: () -> Unit,
+        onEdit: () -> Unit,
+        onDelete: () -> Unit
+    ) {
+
+        val typeColor =
+            when (customer.type) {
+
+                "A" ->
+                    Color(0xFFDC2626)
+
+                "B" ->
+                    Color(0xFFD97706)
+
+                else ->
+                    Color(0xFF475569)
+            }
+
+        Card(
+            modifier =
+                Modifier.fillMaxWidth(),
+
+            shape =
+                RoundedCornerShape(18.dp),
+
+            colors =
+                CardDefaults.cardColors(
+                    containerColor =
+                        Color(0xFF111827)
+                )
+        ) {
+
+            Column(
+                modifier =
+                    Modifier.padding(14.dp)
+            ) {
+
+                Row(
+                    modifier =
+                        Modifier.fillMaxWidth(),
+
+                    horizontalArrangement =
+                        Arrangement.SpaceBetween,
+
+                    verticalAlignment =
+                        Alignment.CenterVertically
+                ) {
+
+                    Text(
+                        "👤 ${customer.name}",
+                        fontSize = 19.sp,
+                        fontWeight =
+                            FontWeight.Bold
+                    )
+
+                    Surface(
+                        color = typeColor,
+                        shape =
+                            RoundedCornerShape(
+                                20.dp
+                            )
+                    ) {
+
+                        Text(
+                            customer.type,
+                            modifier =
+                                Modifier.padding(
+                                    horizontal = 12.dp,
+                                    vertical = 6.dp
+                                ),
+
+                            fontWeight =
+                                FontWeight.Bold
+                        )
+                    }
+                }
+
+                Spacer(
+                    Modifier.height(8.dp)
+                )
+
+                Text(
+                    "📞 ${customer.phone}"
+                )
+
+                if (
+                    customer.address
+                        .isNotBlank()
+                ) {
+
+                    Text(
+                        "📍 ${customer.address}"
+                    )
+                }
+
+                if (
+                    customer.date
+                        .isNotBlank()
+                ) {
+
+                    Text(
+                        "⏰ ${customer.date} ${customer.time}"
+                    )
+                }
+
+                Spacer(
+                    Modifier.height(8.dp)
+                )
+
+                Row(
+                    horizontalArrangement =
+                        Arrangement.spacedBy(6.dp)
+                ) {
+
+                    Badge(
+                        "📞 ${customer.callsToday}",
+                        Color(0xFF1E3A8A)
+                    )
+
+                    Badge(
+                        if (
+                            customer.calledToday
+                        )
+                            "✅ تم الاتصال"
+                        else
+                            "⏳ لم أتصل",
+
+                        if (
+                            customer.calledToday
+                        )
+                            Color(0xFF166534)
+                        else
+                            Color(0xFF78350F)
+                    )
+
+                    if (
+                        customer.noAnswerToday
+                    ) {
+
+                        Badge(
+                            "❌ لم يرد",
+                            Color(0xFF7F1D1D)
+                        )
+                    }
+                }
+
+                if (
+                    customer.notes
+                        .isNotBlank()
+                ) {
+
+                    Spacer(
+                        Modifier.height(8.dp)
+                    )
+
+                    Surface(
+                        color =
+                            Color(0xFF0F172A),
+
+                        shape =
+                            RoundedCornerShape(10.dp)
+                    ) {
+
+                        Text(
+                            customer.notes,
+                            modifier =
+                                Modifier.padding(10.dp)
+                        )
+                    }
+                }
+
+                Spacer(
+                    Modifier.height(10.dp)
+                )
+
+                ActionButton(
+                    "📞 اتصال",
+                    onCall,
+                    Color(0xFF16A34A)
+                )
+
+                ActionButton(
+                    "💬 واتساب",
+                    onWhatsApp,
+                    Color(0xFF15803D)
+                )
+
+                ActionButton(
+                    "✅ تم الاتصال",
+                    onCalled,
+                    Color(0xFF0891B2)
+                )
+
+                ActionButton(
+                    "❌ لم يرد",
+                    onNoAnswer,
+                    Color(0xFFDC2626)
+                )
+
+                ActionButton(
+                    "📦 أخذ طلبية",
+                    onOrder,
+                    Color(0xFF7C3AED)
+                )
+
+                ActionButton(
+                    "🚫 لم يأخذ",
+                    onNoOrder,
+                    Color(0xFF991B1B)
+                )
+
+                ActionButton(
+                    "⏰ بعد ساعة",
+                    onLaterOne,
+                    Color(0xFFD97706)
+                )
+
+                ActionButton(
+                    "⏰ بعد ساعتين",
+                    onLaterTwo,
+                    Color(0xFFD97706)
+                )
+
+                Row(
+                    horizontalArrangement =
+                        Arrangement.spacedBy(7.dp)
+                ) {
+
+                    ActionButton(
+                        "✏️ تعديل",
+                        onEdit,
+                        Color(0xFF0369A1),
+                        Modifier.weight(1f)
+                    )
+
+                    ActionButton(
+                        "🗑 حذف",
+                        onDelete,
+                        Color(0xFF475569),
+                        Modifier.weight(1f)
+                    )
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun Badge(
+        text: String,
+        color: Color
+    ) {
+
+        Surface(
+            color = color,
+            shape =
+                RoundedCornerShape(20.dp)
+        ) {
+
+            Text(
+                text,
+                modifier =
+                    Modifier.padding(
+                        horizontal = 9.dp,
+                        vertical = 6.dp
+                    ),
+
+                fontSize = 11.sp
+            )
+        }
+    }
+
+    @Composable
+    fun ActionButton(
+        text: String,
+        onClick: () -> Unit,
+        color: Color,
+        modifier: Modifier =
+            Modifier.fillMaxWidth()
+    ) {
+
+        Button(
+            onClick = onClick,
+
+            modifier =
+                modifier.padding(
+                    top = 4.dp
+                ),
+
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = color
+                ),
+
+            shape =
+                RoundedCornerShape(10.dp)
+        ) {
+
+            Text(text)
+        }
+    }
+
+    @Composable
+    fun CustomerEditor(
+        title: String,
+        initial: Customer?,
+        onClose: () -> Unit,
+        onSave: (Customer) -> Unit
+    ) {
+
+        var name by remember {
+            mutableStateOf(
+                initial?.name ?: ""
+            )
+        }
+
+        var phone by remember {
+            mutableStateOf(
+                initial?.phone ?: ""
+            )
+        }
+
+        var whatsapp by remember {
+            mutableStateOf(
+                initial?.whatsapp ?: ""
+            )
+        }
+
+        var address by remember {
+            mutableStateOf(
+                initial?.address ?: ""
+            )
+        }
+
+        var notes by remember {
+            mutableStateOf(
+                initial?.notes ?: ""
+            )
+        }
+
+        var type by remember {
+            mutableStateOf(
+                initial?.type ?: "C"
+            )
+        }
+
+        var date by remember {
+            mutableStateOf(
+                initial?.date ?: ""
+            )
+        }
+
+        var time by remember {
+            mutableStateOf(
+                initial?.time ?: ""
+            )
+        }
+
+        var order by remember {
+            mutableStateOf(
+                initial?.order ?: "none"
+            )
+        }
+
+        AlertDialog(
+            onDismissRequest = onClose,
+
+            title = {
+                Text(title)
+            },
+
+            text = {
+
+                Column(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .verticalScroll(
+                                androidx.compose.foundation.rememberScrollState()
+                            )
+                ) {
+
+                    Field(
+                        "اسم العميل",
+                        name
+                    ) {
+                        name = it
+                    }
+
+                    Field(
+                        "رقم الهاتف",
+                        phone
+                    ) {
+                        phone = it
+                    }
+
+                    Field(
+                        "رقم واتساب",
+                        whatsapp
+                    ) {
+                        whatsapp = it
+                    }
+
+                    Field(
+                        "العنوان",
+                        address
+                    ) {
+                        address = it
+                    }
+
+                    Field(
+                        "التاريخ YYYY-MM-DD",
+                        date
+                    ) {
+                        date = it
+                    }
+
+                    Field(
+                        "الوقت HH:MM",
+                        time
+                    ) {
+                        time = it
+                    }
+
+                    Field(
+                        "الملاحظات",
+                        notes,
+                        true
+                    ) {
+                        notes = it
+                    }
+
+                    Text(
+                        "نوع العميل"
+                    )
+
+                    Row {
+
+                        listOf(
+                            "A",
+                            "B",
+                            "C"
+                        ).forEach {
+
+                            FilterChip(
+                                selected =
+                                    type == it,
+
+                                onClick = {
+                                    type = it
+                                },
+
+                                label = {
+                                    Text(it)
+                                },
+
+                                modifier =
+                                    Modifier.padding(
+                                        3.dp
+                                    )
+                            )
+                        }
+                    }
+
+                    Text(
+                        "حالة الطلبية"
+                    )
+
+                    listOf(
+                        "none",
+                        "yes",
+                        "no",
+                        "later1",
+                        "later2"
+                    ).forEach {
+
+                        FilterChip(
+                            selected =
+                                order == it,
+
+                            onClick = {
+                                order = it
+                            },
+
+                            label = {
+
+                                Text(
+                                    when(it) {
+
+                                        "yes" ->
+                                            "📦 أخذ طلبية"
+
+                                        "no" ->
+                                            "🚫 لم يأخذ"
+
+                                        "later1" ->
+                                            "⏰ بعد ساعة"
+
+                                        "later2" ->
+                                            "⏰ بعد ساعتين"
+
+                                        else ->
+                                            "لم يحدد"
+                                    }
+                                )
+                            },
+
+                            modifier =
+                                Modifier.padding(
+                                    2.dp
+                                )
+                        )
+                    }
+                }
+            },
+
+            confirmButton = {
+
+                Button(
+                    onClick = {
+
+                        if (
+                            name.isBlank() ||
+                            phone.isBlank()
+                        ) return@Button
+
+                        onSave(
+                            Customer(
+                                id =
+                                    initial?.id
+                                        ?: System.currentTimeMillis(),
+
+                                name = name,
+                                phone = phone,
+                                whatsapp =
+                                    whatsapp.ifBlank {
+                                        phone
+                                    },
+
+                                address =
+                                    address,
+
+                                notes =
+                                    notes,
+
+                                type =
+                                    type,
+
+                                date =
+                                    date,
+
+                                time =
+                                    time,
+
+                                order =
+                                    order,
+
+                                callsToday =
+                                    initial?.callsToday
+                                        ?: 0,
+
+                                calledToday =
+                                    initial?.calledToday
+                                        ?: false,
+
+                                noAnswerToday =
+                                    initial?.noAnswerToday
+                                        ?: false
+                            )
+                        )
+                    }
+                ) {
+
+                    Text("حفظ")
+                }
+            },
+
+            dismissButton = {
+
+                TextButton(
+                    onClick = onClose
+                ) {
+
+                    Text("إلغاء")
+                }
+            }
+        )
+    }
+
+    @Composable
+    fun Field(
+        label: String,
+        value: String,
+        multi: Boolean = false,
+        onChange: (String) -> Unit
+    ) {
+
+        OutlinedTextField(
+            value = value,
+            onValueChange = onChange,
+
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = 4.dp
+                    ),
+
+            label = {
+                Text(label)
+            },
+
+            minLines =
+                if (multi) 3 else 1
+        )
+    }
+
+    private fun saveCustomers(
+        list: List<Customer>
+    ) {
+
+        val array = JSONArray()
+
+        list.forEach {
+
+            val obj =
+                JSONObject()
+
+            obj.put(
+                "id",
+                it.id
+            )
+
+            obj.put(
+                "name",
+                it.name
+            )
+
+            obj.put(
+                "phone",
+                it.phone
+            )
+
+            obj.put(
+                "whatsapp",
+                it.whatsapp
+            )
+
+            obj.put(
+                "address",
+                it.address
+            )
+
+            obj.put(
+                "notes",
+                it.notes
+            )
+
+            obj.put(
+                "type",
+                it.type
+            )
+
+            obj.put(
+                "date",
+                it.date
+            )
+
+            obj.put(
+                "time",
+                it.time
+            )
+
+            obj.put(
+                "order",
+                it.order
+            )
+
+            obj.put(
+                "callsToday",
+                it.callsToday
+            )
+
+            obj.put(
+                "calledToday",
+                it.calledToday
+            )
+
+            obj.put(
+                "noAnswerToday",
+                it.noAnswerToday
+            )
+
+            array.put(obj)
+        }
+
+        prefs.edit()
+            .putString(
+                "customers",
+                array.toString()
+            )
+            .apply()
+    }
+
+    private fun loadCustomers():
+            List<Customer> {
+
+        val data =
+            prefs.getString(
+                "customers",
+                "[]"
+            )
+
+        val array =
+            JSONArray(data)
+
+        val result =
+            mutableListOf<Customer>()
+
+        for (
+            i in 0 until array.length()
+        ) {
+
+            val o =
+                array.getJSONObject(i)
+
+            result.add(
+                Customer(
+
+                    id =
+                        o.optLong(
+                            "id"
+                        ),
+
+                    name =
+                        o.optString(
+                            "name"
+                        ),
+
+                    phone =
+                        o.optString(
+                            "phone"
+                        ),
+
+                    whatsapp =
+                        o.optString(
+                            "whatsapp"
+                        ),
+
+                    address =
+                        o.optString(
+                            "address"
+                        ),
+
+                    notes =
+                        o.optString(
+                            "notes"
+                        ),
+
+                    type =
+                        o.optString(
+                            "type",
+                            "C"
+                        ),
+
+                    date =
+                        o.optString(
+                            "date"
+                        ),
+
+                    time =
+                        o.optString(
+                            "time"
+                        ),
+
+                    order =
+                        o.optString(
+                            "order",
+                            "none"
+                        ),
+
+                    callsToday =
+                        o.optInt(
+                            "callsToday"
+                        ),
+
+                    calledToday =
+                        o.optBoolean(
+                            "calledToday"
+                        ),
+
+                    noAnswerToday =
+                        o.optBoolean(
+                            "noAnswerToday"
+                        )
+                )
+            )
+        }
+
+        return result
+    }
+
+    private fun openWhatsApp(
+        customer: Customer
+    ) {
+
+        var number =
+            customer.whatsapp
+                .ifBlank {
+                    customer.phone
+                }
+                .filter {
+                    it.isDigit()
+                }
+
+        if (
+            number.startsWith("01")
+        ) {
+
+            number =
+                "20" +
+                number.substring(1)
+        }
+
+        val intent =
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(
+                    "https://wa.me/$number"
+                )
+            )
+
+        startActivity(intent)
+    }
+
+    private fun scheduleNotification(
+        customer: Customer
+    ) {
+
+        if (
+            customer.date.isBlank() ||
+            customer.time.isBlank()
+        ) return
+
+        try {
+
+            val format =
+                SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm",
+                    Locale.getDefault()
+                )
+
+            val date =
+                format.parse(
+                    "${customer.date} ${customer.time}"
+                )
+
+            if (date == null) return
+
+            if (
+                date.time <=
+                System.currentTimeMillis()
+            ) return
+
+            val intent =
+                Intent(
+                    this,
+                    ReminderReceiver::class.java
+                )
+
+            intent.putExtra(
+                "id",
+                customer.id
+            )
+
+            intent.putExtra(
+                "name",
+                customer.name
+            )
+
+            intent.putExtra(
+                "phone",
+                customer.phone
+            )
+
+            val pending =
+                PendingIntent.getBroadcast(
+                    this,
+                    customer.id.toInt(),
+                    intent,
+
+                    PendingIntent.FLAG_UPDATE_CURRENT or
+                            PendingIntent.FLAG_IMMUTABLE
+                )
+
+            val alarm =
+                getSystemService(
+                    AlarmManager::class.java
+                )
+
+            alarm.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                date.time,
+                pending
+            )
+
+        } catch (e: Exception) {
+
+            e.printStackTrace()
+        }
+    }
+}
+
+class ReminderReceiver :
+    BroadcastReceiver() {
+
+    override fun onReceive(
+        context: Context,
+        intent: Intent
+    ) {
+
+        val name =
+            intent.getStringExtra(
+                "name"
+            ) ?: "العميل"
+
+        val phone =
+            intent.getStringExtra(
+                "phone"
+            ) ?: ""
+
+        val id =
+            intent.getLongExtra(
+                "id",
+                0
+            )
+
+        val open =
+            Intent(
+                context,
+                MainActivity::class.java
+            )
+
+        open.putExtra(
+            "customerId",
+            id
+        )
+
+        val pending =
+            PendingIntent.getActivity(
+                context,
+                id.toInt(),
+                open,
+
+                PendingIntent.FLAG_UPDATE_CURRENT or
+                        PendingIntent.FLAG_IMMUTABLE
+            )
+
+        val notification =
+            Notification.Builder(
+                context,
+                "customer_calls"
+            )
+
+                .setSmallIcon(
+                    android.R.drawable.ic_menu_call
+                )
+
+                .setContentTitle(
+                    "📞 موعد اتصال العميل"
+                )
+
+                .setContentText(
+                    "$name - $phone"
+                )
+
+                .setStyle(
+                    Notification.BigTextStyle()
+                        .bigText(
+                            "حان موعد الاتصال بالعميل $name\n$phone"
+                        )
+                )
+
+                .setAutoCancel(true)
+
+                .setContentIntent(
+                    pending
+                )
+
+                .setDefaults(
+                    Notification.DEFAULT_ALL
+                )
+
+                .build()
+
+        val manager =
+            context.getSystemService(
+                Context.NOTIFICATION_SERVICE
+            ) as NotificationManager
+
+        manager.notify(
+            id.toInt(),
+            notification
+        )
+
+        /*
+         * فتح شاشة الاتصال تلقائياً من BroadcastReceiver
+         * قد يتم منعه في بعض إصدارات Android بسبب قيود
+         * التشغيل من الخلفية.
+         */
+        try {
+
+            val call =
+                Intent(
+                    Intent.ACTION_DIAL,
+                    Uri.parse("tel:$phone")
+                )
+
+            call.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK
+            )
+
+            context.startActivity(call)
+
+        } catch (e: Exception) {
+
+            e.printStackTrace()
+        }
+    }
+}
