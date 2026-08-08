@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أحمد فايد - العملاء</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>أحمد فايد - إدارة العملاء</title>
 
 <style>
 *{box-sizing:border-box}
@@ -16,7 +16,7 @@ body{
 }
 
 .container{
-    max-width:950px;
+    max-width:1100px;
     margin:auto;
     padding:15px;
 }
@@ -27,23 +27,23 @@ body{
     padding:22px;
     text-align:center;
     margin-bottom:15px;
+    box-shadow:0 8px 25px #0005;
 }
 
-.header h1{
-    margin:0 0 8px;
+.header h1{margin:0 0 8px}
+
+.card,.customer,.stat{
+    background:#111827;
+    border:1px solid #334155;
 }
 
 .card{
-    background:#111827;
-    border:1px solid #334155;
     border-radius:18px;
     padding:16px;
     margin-bottom:15px;
 }
 
-h2{
-    margin-top:0;
-}
+h2{margin-top:0}
 
 .grid{
     display:grid;
@@ -51,9 +51,7 @@ h2{
     gap:10px;
 }
 
-.full{
-    grid-column:1/-1;
-}
+.full{grid-column:1/-1}
 
 label{
     display:block;
@@ -85,19 +83,32 @@ textarea:focus{
 }
 
 .btn{
-    width:100%;
     border:0;
     border-radius:12px;
-    padding:14px;
-    color:white;
+    padding:13px 16px;
+    color:#fff;
     font-weight:bold;
-    font-size:16px;
-    margin-top:12px;
-    background:#2563eb;
+    font-size:15px;
+    cursor:pointer;
 }
 
+.btn-main{
+    background:#2563eb;
+    width:100%;
+    margin-top:12px;
+}
+
+.top-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.backup{background:#7c3aed}
+.restore{background:#0891b2}
+
 .search{
-    margin-bottom:15px;
+    margin-bottom:10px;
 }
 
 .stats{
@@ -108,8 +119,6 @@ textarea:focus{
 }
 
 .stat{
-    background:#111827;
-    border:1px solid #334155;
     border-radius:15px;
     padding:15px 5px;
     text-align:center;
@@ -127,8 +136,6 @@ textarea:focus{
 }
 
 .customer{
-    background:#111827;
-    border:1px solid #334155;
     border-radius:18px;
     margin-bottom:13px;
     overflow:hidden;
@@ -148,18 +155,22 @@ textarea:focus{
 }
 
 .type{
-    background:#475569;
     border-radius:20px;
-    padding:5px 11px;
+    padding:5px 13px;
     font-weight:bold;
 }
+
+.type-A{background:#dc2626}
+.type-B{background:#d97706}
+.type-C{background:#2563eb}
 
 .customer-body{
     padding:15px;
 }
 
 .info{
-    margin:7px 0;
+    margin:8px 0;
+    line-height:1.6;
 }
 
 .info span{
@@ -197,7 +208,7 @@ textarea:focus{
 
 .actions{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
     gap:7px;
 }
 
@@ -207,6 +218,7 @@ textarea:focus{
     color:#fff;
     padding:11px 7px;
     font-weight:bold;
+    cursor:pointer;
 }
 
 .call{background:#16a34a}
@@ -229,7 +241,7 @@ textarea:focus{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.8);
+    background:#000c;
     z-index:999;
     align-items:center;
     justify-content:center;
@@ -255,15 +267,11 @@ textarea:focus{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
+    margin-top:12px;
 }
 
-.save{
-    background:#16a34a;
-}
-
-.close{
-    background:#475569;
-}
+.save{background:#16a34a}
+.close{background:#475569}
 
 #message{
     position:fixed;
@@ -276,6 +284,7 @@ textarea:focus{
     border-radius:12px;
     display:none;
     z-index:2000;
+    box-shadow:0 5px 20px #0008;
 }
 
 @media(max-width:650px){
@@ -296,7 +305,7 @@ textarea:focus{
         grid-template-columns:1fr;
     }
 
-    .modal-buttons{
+    .top-buttons{
         grid-template-columns:1fr;
     }
 }
@@ -307,237 +316,310 @@ textarea:focus{
 
 <div class="container">
 
-    <div class="header">
-        <h1>📞 أحمد فايد</h1>
-        <div>إدارة ومتابعة العملاء</div>
-    </div>
+<div class="header">
+    <h1>📞 أحمد فايد</h1>
+    <div>إدارة ومتابعة العملاء</div>
+</div>
 
 
-    <!-- إضافة العميل -->
+<!-- إدارة البيانات -->
 
-    <div class="card">
+<div class="card">
 
-        <h2>➕ إضافة عميل جديد</h2>
+<h2>💾 إدارة البيانات</h2>
 
-        <div class="grid">
+<div class="top-buttons">
 
-            <div>
-                <label>اسم العميل *</label>
-                <input id="name" type="text" placeholder="اكتب اسم العميل">
-            </div>
+<button class="btn backup" onclick="backupData()">
+💾 حفظ نسخة احتياطية
+</button>
 
-            <div>
-                <label>رقم الهاتف *</label>
-                <input id="phone" type="tel" placeholder="اكتب رقم الهاتف">
-            </div>
+<button class="btn restore" onclick="restoreData()">
+📥 استرجاع نسخة احتياطية
+</button>
 
-            <div>
-                <label>عنوان العميل</label>
-                <input id="address" type="text" placeholder="العنوان">
-            </div>
+</div>
 
-            <div>
-                <label>نوع العميل ABC</label>
-                <select id="type">
-                    <option value="A">A - مهم</option>
-                    <option value="B">B - متوسط</option>
-                    <option value="C" selected>C - عادي</option>
-                </select>
-            </div>
-
-            <div>
-                <label>تاريخ الاتصال</label>
-                <input id="date" type="date">
-            </div>
-
-            <div>
-                <label>ميعاد الاتصال</label>
-                <input id="time" type="time">
-            </div>
-
-            <div class="full">
-                <label>ملاحظات</label>
-                <textarea id="notes" placeholder="اكتب ملاحظات العميل"></textarea>
-            </div>
-
-            <div class="full">
-                <label>حالة الطلبية</label>
-                <select id="orderStatus">
-                    <option value="none">لم يتم تحديدها</option>
-                    <option value="yes">📦 أخذ طلبية</option>
-                    <option value="no">❌ لم يأخذ طلبية</option>
-                    <option value="later1">⏰ كلمني بعد ساعة</option>
-                    <option value="later2">⏰ كلمني بعد ساعتين</option>
-                </select>
-            </div>
-
-        </div>
-
-        <button class="btn" onclick="addCustomer()">
-            💾 إضافة وحفظ العميل
-        </button>
-
-    </div>
-
-
-    <!-- البحث -->
-
-    <div class="card">
-
-        <h2>🔎 البحث</h2>
-
-        <input
-            class="search"
-            id="search"
-            type="search"
-            placeholder="ابحث باسم العميل أو رقم الهاتف أو العنوان"
-            oninput="renderCustomers()"
-        >
-
-        <select id="filter" onchange="renderCustomers()">
-
-            <option value="all">
-                كل العملاء
-            </option>
-
-            <option value="notCalled">
-                لم أتصل بهم اليوم
-            </option>
-
-            <option value="called">
-                اتصلت بهم اليوم
-            </option>
-
-            <option value="noAnswer">
-                لم يردوا
-            </option>
-
-            <option value="orders">
-                أخذوا طلبية
-            </option>
-
-            <option value="noOrders">
-                لم يأخذوا طلبية
-            </option>
-
-        </select>
-
-    </div>
-
-
-    <!-- الإحصائيات -->
-
-    <div class="stats">
-
-        <div class="stat">
-            <b id="total">0</b>
-            <span>كل العملاء</span>
-        </div>
-
-        <div class="stat">
-            <b id="calledCount">0</b>
-            <span>تم الاتصال</span>
-        </div>
-
-        <div class="stat">
-            <b id="notCalledCount">0</b>
-            <span>لم أتصل</span>
-        </div>
-
-        <div class="stat">
-            <b id="ordersCount">0</b>
-            <span>طلبات</span>
-        </div>
-
-    </div>
-
-
-    <!-- العملاء -->
-
-    <div id="customers"></div>
+<p style="color:#94a3b8;font-size:13px">
+البيانات محفوظة على نفس الجهاز والمتصفح.
+</p>
 
 </div>
 
 
-<!-- نافذة التعديل -->
+<!-- إضافة عميل -->
+
+<div class="card">
+
+<h2>➕ إضافة عميل جديد</h2>
+
+<div class="grid">
+
+<div>
+<label>اسم العميل *</label>
+<input id="name" type="text" placeholder="اكتب اسم العميل">
+</div>
+
+<div>
+<label>رقم الهاتف *</label>
+<input id="phone" type="tel" placeholder="اكتب رقم الهاتف">
+</div>
+
+<div>
+<label>عنوان العميل</label>
+<input id="address" type="text" placeholder="عنوان العميل">
+</div>
+
+<div>
+<label>نوع العميل ABC</label>
+
+<select id="type">
+<option value="A">A - مهم</option>
+<option value="B">B - متوسط</option>
+<option value="C" selected>C - عادي</option>
+</select>
+
+</div>
+
+<div>
+<label>تاريخ المتابعة</label>
+<input id="date" type="date">
+</div>
+
+<div>
+<label>ميعاد المتابعة</label>
+<input id="time" type="time">
+</div>
+
+<div class="full">
+<label>ملاحظات</label>
+<textarea id="notes" placeholder="ملاحظات العميل"></textarea>
+</div>
+
+<div class="full">
+
+<label>حالة الطلبية</label>
+
+<select id="orderStatus">
+
+<option value="none">
+لم يتم تحديدها
+</option>
+
+<option value="yes">
+📦 أخذ طلبية
+</option>
+
+<option value="no">
+❌ لم يأخذ طلبية
+</option>
+
+<option value="later1">
+⏰ كلمني بعد ساعة
+</option>
+
+<option value="later2">
+⏰ كلمني بعد ساعتين
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button class="btn btn-main" onclick="addCustomer()">
+💾 إضافة وحفظ العميل
+</button>
+
+</div>
+
+
+<!-- البحث -->
+
+<div class="card">
+
+<h2>🔎 البحث والفلترة</h2>
+
+<input
+class="search"
+id="search"
+type="search"
+placeholder="ابحث باسم العميل أو الرقم أو العنوان أو الملاحظات"
+oninput="renderCustomers()"
+>
+
+<select id="filter" onchange="renderCustomers()">
+
+<option value="all">
+كل العملاء
+</option>
+
+<option value="notCalled">
+لم أتصل بهم اليوم
+</option>
+
+<option value="called">
+اتصلت بهم اليوم
+</option>
+
+<option value="noAnswer">
+لم يردوا اليوم
+</option>
+
+<option value="orders">
+أخذوا طلبية
+</option>
+
+<option value="noOrders">
+لم يأخذوا طلبية
+</option>
+
+<option value="A">
+عملاء A
+</option>
+
+<option value="B">
+عملاء B
+</option>
+
+<option value="C">
+عملاء C
+</option>
+
+</select>
+
+</div>
+
+
+<!-- الإحصائيات -->
+
+<div class="stats">
+
+<div class="stat">
+<b id="total">0</b>
+<span>كل العملاء</span>
+</div>
+
+<div class="stat">
+<b id="calledCount">0</b>
+<span>تم الاتصال اليوم</span>
+</div>
+
+<div class="stat">
+<b id="notCalledCount">0</b>
+<span>لم أتصل اليوم</span>
+</div>
+
+<div class="stat">
+<b id="ordersCount">0</b>
+<span>طلبات</span>
+</div>
+
+</div>
+
+
+<div id="customers"></div>
+
+</div>
+
+
+<!-- نافذة تعديل العميل -->
 
 <div class="modal" id="editModal">
 
-    <div class="modal-box">
+<div class="modal-box">
 
-        <h2>✏️ تعديل العميل</h2>
+<h2>✏️ تعديل بيانات العميل</h2>
 
-        <div class="grid">
+<div class="grid">
 
-            <div>
-                <label>اسم العميل</label>
-                <input id="editName">
-            </div>
+<div>
+<label>اسم العميل</label>
+<input id="editName">
+</div>
 
-            <div>
-                <label>رقم الهاتف</label>
-                <input id="editPhone">
-            </div>
+<div>
+<label>رقم الهاتف</label>
+<input id="editPhone">
+</div>
 
-            <div>
-                <label>العنوان</label>
-                <input id="editAddress">
-            </div>
+<div>
+<label>العنوان</label>
+<input id="editAddress">
+</div>
 
-            <div>
-                <label>نوع العميل</label>
+<div>
+<label>نوع العميل ABC</label>
 
-                <select id="editType">
-                    <option value="A">A - مهم</option>
-                    <option value="B">B - متوسط</option>
-                    <option value="C">C - عادي</option>
-                </select>
+<select id="editType">
+<option value="A">A - مهم</option>
+<option value="B">B - متوسط</option>
+<option value="C">C - عادي</option>
+</select>
 
-            </div>
+</div>
 
-            <div>
-                <label>تاريخ الاتصال</label>
-                <input id="editDate" type="date">
-            </div>
+<div>
+<label>تاريخ المتابعة</label>
+<input id="editDate" type="date">
+</div>
 
-            <div>
-                <label>ميعاد الاتصال</label>
-                <input id="editTime" type="time">
-            </div>
+<div>
+<label>ميعاد المتابعة</label>
+<input id="editTime" type="time">
+</div>
 
-            <div class="full">
-                <label>الملاحظات</label>
-                <textarea id="editNotes"></textarea>
-            </div>
+<div class="full">
+<label>الملاحظات</label>
+<textarea id="editNotes"></textarea>
+</div>
 
-            <div class="full">
-                <label>حالة الطلبية</label>
+<div class="full">
 
-                <select id="editOrderStatus">
-                    <option value="none">لم يتم تحديدها</option>
-                    <option value="yes">📦 أخذ طلبية</option>
-                    <option value="no">❌ لم يأخذ طلبية</option>
-                    <option value="later1">⏰ بعد ساعة</option>
-                    <option value="later2">⏰ بعد ساعتين</option>
-                </select>
+<label>حالة الطلبية</label>
 
-            </div>
+<select id="editOrderStatus">
 
-        </div>
+<option value="none">
+لم يتم تحديدها
+</option>
 
-        <div class="modal-buttons">
+<option value="yes">
+📦 أخذ طلبية
+</option>
 
-            <button class="action save" onclick="saveEdit()">
-                💾 حفظ التعديل
-            </button>
+<option value="no">
+❌ لم يأخذ طلبية
+</option>
 
-            <button class="action close" onclick="closeEdit()">
-                إلغاء
-            </button>
+<option value="later1">
+⏰ بعد ساعة
+</option>
 
-        </div>
+<option value="later2">
+⏰ بعد ساعتين
+</option>
 
-    </div>
+</select>
+
+</div>
+
+</div>
+
+<div class="modal-buttons">
+
+<button class="action save" onclick="saveEdit()">
+💾 حفظ التعديل
+</button>
+
+<button class="action close" onclick="closeEdit()">
+إلغاء
+</button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -547,68 +629,58 @@ textarea:focus{
 
 <script>
 
-/* =====================================================
-   قاعدة البيانات
-===================================================== */
+const DB_NAME="ahmed_fayed_customers_v3";
 
-const DB_NAME = "ahmed_fayed_customers_v1";
+let customers=[];
 
-let customers = [];
-
-let editId = null;
+let editId=null;
 
 
-/* =====================================================
-   رسالة
-===================================================== */
+/* =========================
+   الرسائل
+========================= */
 
 function showMessage(text){
 
-    const box =
-        document.getElementById("message");
+    const box=document.getElementById("message");
 
-    box.textContent = text;
+    box.textContent=text;
 
-    box.style.display = "block";
+    box.style.display="block";
 
     setTimeout(function(){
 
-        box.style.display = "none";
+        box.style.display="none";
 
-    },2200);
+    },2500);
 
 }
 
 
-/* =====================================================
-   تحميل العملاء
-===================================================== */
+/* =========================
+   تحميل البيانات
+========================= */
 
 function loadCustomers(){
 
-    const data =
-        localStorage.getItem(DB_NAME);
-
-    if(!data){
-
-        customers = [];
-
-        return;
-
-    }
-
     try{
 
-        const parsed =
-            JSON.parse(data);
+        const data=
+            localStorage.getItem(DB_NAME);
 
-        if(Array.isArray(parsed)){
+        if(data){
 
-            customers = parsed;
+            customers=JSON.parse(data);
 
         }else{
 
-            customers = [];
+            customers=[];
+
+        }
+
+        if(!Array.isArray(customers)){
+
+            customers=[];
 
         }
 
@@ -616,16 +688,16 @@ function loadCustomers(){
 
         console.error(error);
 
-        customers = [];
+        customers=[];
 
     }
 
 }
 
 
-/* =====================================================
-   حفظ العملاء
-===================================================== */
+/* =========================
+   حفظ البيانات
+========================= */
 
 function saveCustomers(){
 
@@ -640,10 +712,8 @@ function saveCustomers(){
 
     }catch(error){
 
-        console.error(error);
-
         alert(
-            "حصل خطأ في حفظ البيانات."
+            "حدث خطأ أثناء حفظ البيانات."
         );
 
         return false;
@@ -653,89 +723,56 @@ function saveCustomers(){
 }
 
 
-/* =====================================================
+/* =========================
    تاريخ اليوم
-===================================================== */
+========================= */
 
 function getToday(){
 
-    const d = new Date();
+    const d=new Date();
 
-    return (
-        d.getFullYear() +
-        "-" +
-        String(d.getMonth()+1).padStart(2,"0") +
-        "-" +
-        String(d.getDate()).padStart(2,"0")
-    );
+    return d.getFullYear()+
+    "-"+
+    String(d.getMonth()+1).padStart(2,"0")+
+    "-"+
+    String(d.getDate()).padStart(2,"0");
 
 }
 
 
-/* =====================================================
+/* =========================
    تنظيف النص
-===================================================== */
+========================= */
 
 function escapeHTML(value){
 
-    return String(value || "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(value||"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-/* =====================================================
-   إضافة عميل
-===================================================== */
+/* =========================
+   إضافة العميل
+========================= */
 
 function addCustomer(){
 
-    const name =
+    const name=
         document.getElementById("name")
-        .value
-        .trim();
+        .value.trim();
 
-    const phone =
+    const phone=
         document.getElementById("phone")
-        .value
-        .trim();
+        .value.trim();
 
-    const address =
-        document.getElementById("address")
-        .value
-        .trim();
+    if(name===""){
 
-    const type =
-        document.getElementById("type")
-        .value;
-
-    const date =
-        document.getElementById("date")
-        .value;
-
-    const time =
-        document.getElementById("time")
-        .value;
-
-    const notes =
-        document.getElementById("notes")
-        .value
-        .trim();
-
-    const orderStatus =
-        document.getElementById("orderStatus")
-        .value;
-
-
-    /* مهم: الاسم والرقم لازم يكونوا موجودين */
-
-    if(name === ""){
-
-        alert("من فضلك اكتب اسم العميل");
+        alert("اكتب اسم العميل");
 
         document.getElementById("name").focus();
 
@@ -743,10 +780,9 @@ function addCustomer(){
 
     }
 
+    if(phone===""){
 
-    if(phone === ""){
-
-        alert("من فضلك اكتب رقم الهاتف");
+        alert("اكتب رقم الهاتف");
 
         document.getElementById("phone").focus();
 
@@ -755,9 +791,7 @@ function addCustomer(){
     }
 
 
-    /* إنشاء العميل */
-
-    const customer = {
+    const customer={
 
         id:
             Date.now().toString(),
@@ -766,17 +800,35 @@ function addCustomer(){
 
         phone:phone,
 
-        address:address,
+        address:
+            document
+            .getElementById("address")
+            .value.trim(),
 
-        type:type,
+        type:
+            document
+            .getElementById("type")
+            .value,
 
-        date:date,
+        date:
+            document
+            .getElementById("date")
+            .value,
 
-        time:time,
+        time:
+            document
+            .getElementById("time")
+            .value,
 
-        notes:notes,
+        notes:
+            document
+            .getElementById("notes")
+            .value.trim(),
 
-        orderStatus:orderStatus,
+        orderStatus:
+            document
+            .getElementById("orderStatus")
+            .value,
 
         calls:{},
 
@@ -788,20 +840,10 @@ function addCustomer(){
     };
 
 
-    /* إضافة للمصفوفة */
-
     customers.push(customer);
 
 
-    /* حفظ */
-
-    const saved =
-        saveCustomers();
-
-
-    /* لو الحفظ فشل */
-
-    if(!saved){
+    if(!saveCustomers()){
 
         customers.pop();
 
@@ -810,26 +852,22 @@ function addCustomer(){
     }
 
 
-    /* تنظيف الخانات */
+    document.getElementById("name").value="";
 
-    document.getElementById("name").value = "";
+    document.getElementById("phone").value="";
 
-    document.getElementById("phone").value = "";
+    document.getElementById("address").value="";
 
-    document.getElementById("address").value = "";
+    document.getElementById("date").value="";
 
-    document.getElementById("date").value = "";
+    document.getElementById("time").value="";
 
-    document.getElementById("time").value = "";
+    document.getElementById("notes").value="";
 
-    document.getElementById("notes").value = "";
+    document.getElementById("orderStatus").value="none";
 
-    document.getElementById("orderStatus").value = "none";
+    document.getElementById("type").value="C";
 
-    document.getElementById("type").value = "C";
-
-
-    /* عرض العملاء */
 
     renderCustomers();
 
@@ -841,34 +879,34 @@ function addCustomer(){
 }
 
 
-/* =====================================================
-   عدد المكالمات اليوم
-===================================================== */
+/* =========================
+   عدد الرنات اليوم
+========================= */
 
 function getCallsToday(customer){
 
     if(!customer.calls){
 
-        customer.calls = {};
+        customer.calls={};
 
     }
 
     return Number(
-        customer.calls[getToday()] || 0
+        customer.calls[getToday()]||0
     );
 
 }
 
 
-/* =====================================================
-   تسجيل مكالمة
-===================================================== */
+/* =========================
+   تسجيل رنة
+========================= */
 
 function addCall(id){
 
-    const customer =
+    const customer=
         customers.find(
-            item => item.id === id
+            c=>c.id===id
         );
 
     if(!customer){
@@ -880,45 +918,34 @@ function addCall(id){
 
     if(!customer.calls){
 
-        customer.calls = {};
+        customer.calls={};
 
     }
 
 
-    const today =
-        getToday();
+    const today=getToday();
 
 
-    const old =
-        Number(
-            customer.calls[today] || 0
-        );
-
-
-    customer.calls[today] =
-        old + 1;
+    customer.calls[today]=
+        Number(customer.calls[today]||0)+1;
 
 
     saveCustomers();
 
     renderCustomers();
 
-    showMessage(
-        "📞 تم تسجيل المكالمة"
-    );
-
 }
 
 
-/* =====================================================
-   الاتصال
-===================================================== */
+/* =========================
+   اتصال
+========================= */
 
 function callCustomer(id){
 
-    const customer =
+    const customer=
         customers.find(
-            item => item.id === id
+            c=>c.id===id
         );
 
     if(!customer){
@@ -931,22 +958,21 @@ function callCustomer(id){
     addCall(id);
 
 
-    window.location.href =
-        "tel:" +
-        customer.phone;
+    window.location.href=
+        "tel:"+customer.phone;
 
 }
 
 
-/* =====================================================
+/* =========================
    واتساب
-===================================================== */
+========================= */
 
 function whatsapp(id){
 
-    const customer =
+    const customer=
         customers.find(
-            item => item.id === id
+            c=>c.id===id
         );
 
     if(!customer){
@@ -956,48 +982,52 @@ function whatsapp(id){
     }
 
 
-    let number =
-        customer.phone
+    let number=
+        String(customer.phone)
         .replace(/\D/g,"");
 
 
     if(number.startsWith("01")){
 
-        number =
-            "20" +
+        number=
+            "20"+
             number.substring(1);
 
     }
 
 
     window.open(
-        "https://wa.me/" + number,
+        "https://wa.me/"+number,
         "_blank"
     );
 
 }
 
 
-/* =====================================================
+/* =========================
    تم الاتصال
-===================================================== */
+========================= */
 
 function markCalled(id){
 
     addCall(id);
 
+    showMessage(
+        "✅ تم تسجيل الاتصال"
+    );
+
 }
 
 
-/* =====================================================
+/* =========================
    لم يرد
-===================================================== */
+========================= */
 
 function markNoAnswer(id){
 
-    const customer =
+    const customer=
         customers.find(
-            item => item.id === id
+            c=>c.id===id
         );
 
     if(!customer){
@@ -1009,18 +1039,18 @@ function markNoAnswer(id){
 
     if(!customer.noAnswer){
 
-        customer.noAnswer = {};
+        customer.noAnswer={};
 
     }
 
 
-    customer.noAnswer[getToday()] =
-        true;
+    customer.noAnswer[getToday()]=true;
 
 
     saveCustomers();
 
     renderCustomers();
+
 
     showMessage(
         "❌ تم تسجيل لم يرد"
@@ -1029,15 +1059,15 @@ function markNoAnswer(id){
 }
 
 
-/* =====================================================
+/* =========================
    حالة الطلبية
-===================================================== */
+========================= */
 
 function setOrder(id,status){
 
-    const customer =
+    const customer=
         customers.find(
-            item => item.id === id
+            c=>c.id===id
         );
 
     if(!customer){
@@ -1047,13 +1077,13 @@ function setOrder(id,status){
     }
 
 
-    customer.orderStatus =
-        status;
+    customer.orderStatus=status;
 
 
     saveCustomers();
 
     renderCustomers();
+
 
     showMessage(
         "📦 تم تحديث حالة الطلبية"
@@ -1062,15 +1092,15 @@ function setOrder(id,status){
 }
 
 
-/* =====================================================
+/* =========================
    تعديل العميل
-===================================================== */
+========================= */
 
 function editCustomer(id){
 
-    const customer =
+    const customer=
         customers.find(
-            item => item.id === id
+            c=>c.id===id
         );
 
     if(!customer){
@@ -1080,32 +1110,32 @@ function editCustomer(id){
     }
 
 
-    editId = id;
+    editId=id;
 
 
-    document.getElementById("editName").value =
-        customer.name || "";
+    document.getElementById("editName").value=
+        customer.name||"";
 
-    document.getElementById("editPhone").value =
-        customer.phone || "";
+    document.getElementById("editPhone").value=
+        customer.phone||"";
 
-    document.getElementById("editAddress").value =
-        customer.address || "";
+    document.getElementById("editAddress").value=
+        customer.address||"";
 
-    document.getElementById("editType").value =
-        customer.type || "C";
+    document.getElementById("editType").value=
+        customer.type||"C";
 
-    document.getElementById("editDate").value =
-        customer.date || "";
+    document.getElementById("editDate").value=
+        customer.date||"";
 
-    document.getElementById("editTime").value =
-        customer.time || "";
+    document.getElementById("editTime").value=
+        customer.time||"";
 
-    document.getElementById("editNotes").value =
-        customer.notes || "";
+    document.getElementById("editNotes").value=
+        customer.notes||"";
 
-    document.getElementById("editOrderStatus").value =
-        customer.orderStatus || "none";
+    document.getElementById("editOrderStatus").value=
+        customer.orderStatus||"none";
 
 
     document
@@ -1116,15 +1146,15 @@ function editCustomer(id){
 }
 
 
-/* =====================================================
+/* =========================
    حفظ التعديل
-===================================================== */
+========================= */
 
 function saveEdit(){
 
-    const customer =
+    const customer=
         customers.find(
-            item => item.id === editId
+            c=>c.id===editId
         );
 
     if(!customer){
@@ -1134,18 +1164,19 @@ function saveEdit(){
     }
 
 
-    const name =
-        document.getElementById("editName")
-        .value
-        .trim();
-
-    const phone =
-        document.getElementById("editPhone")
-        .value
-        .trim();
+    const name=
+        document
+        .getElementById("editName")
+        .value.trim();
 
 
-    if(name === ""){
+    const phone=
+        document
+        .getElementById("editPhone")
+        .value.trim();
+
+
+    if(name===""){
 
         alert("اكتب اسم العميل");
 
@@ -1154,7 +1185,7 @@ function saveEdit(){
     }
 
 
-    if(phone === ""){
+    if(phone===""){
 
         alert("اكتب رقم الهاتف");
 
@@ -1163,29 +1194,39 @@ function saveEdit(){
     }
 
 
-    customer.name =
-        name;
+    customer.name=name;
 
-    customer.phone =
-        phone;
+    customer.phone=phone;
 
-    customer.address =
-        document.getElementById("editAddress").value.trim();
+    customer.address=
+        document
+        .getElementById("editAddress")
+        .value.trim();
 
-    customer.type =
-        document.getElementById("editType").value;
+    customer.type=
+        document
+        .getElementById("editType")
+        .value;
 
-    customer.date =
-        document.getElementById("editDate").value;
+    customer.date=
+        document
+        .getElementById("editDate")
+        .value;
 
-    customer.time =
-        document.getElementById("editTime").value;
+    customer.time=
+        document
+        .getElementById("editTime")
+        .value;
 
-    customer.notes =
-        document.getElementById("editNotes").value.trim();
+    customer.notes=
+        document
+        .getElementById("editNotes")
+        .value.trim();
 
-    customer.orderStatus =
-        document.getElementById("editOrderStatus").value;
+    customer.orderStatus=
+        document
+        .getElementById("editOrderStatus")
+        .value;
 
 
     saveCustomers();
@@ -1194,6 +1235,7 @@ function saveEdit(){
 
     renderCustomers();
 
+
     showMessage(
         "✅ تم تعديل بيانات العميل"
     );
@@ -1201,13 +1243,13 @@ function saveEdit(){
 }
 
 
-/* =====================================================
-   غلق التعديل
-===================================================== */
+/* =========================
+   إغلاق التعديل
+========================= */
 
 function closeEdit(){
 
-    editId = null;
+    editId=null;
 
     document
         .getElementById("editModal")
@@ -1217,15 +1259,15 @@ function closeEdit(){
 }
 
 
-/* =====================================================
+/* =========================
    حذف العميل
-===================================================== */
+========================= */
 
 function deleteCustomer(id){
 
-    const customer =
+    const customer=
         customers.find(
-            item => item.id === id
+            c=>c.id===id
         );
 
     if(!customer){
@@ -1235,10 +1277,10 @@ function deleteCustomer(id){
     }
 
 
-    const ok =
+    const ok=
         confirm(
-            "هل تريد حذف العميل:\n" +
-            customer.name +
+            "هل تريد حذف العميل:\n"+
+            customer.name+
             " ؟"
         );
 
@@ -1250,15 +1292,16 @@ function deleteCustomer(id){
     }
 
 
-    customers =
+    customers=
         customers.filter(
-            item => item.id !== id
+            c=>c.id!==id
         );
 
 
     saveCustomers();
 
     renderCustomers();
+
 
     showMessage(
         "🗑️ تم حذف العميل"
@@ -1267,214 +1310,226 @@ function deleteCustomer(id){
 }
 
 
-/* =====================================================
-   عرض حالة الطلبية
-===================================================== */
+/* =========================
+   حالة الطلبية
+========================= */
 
 function getOrderBadge(status){
 
-    if(status === "yes"){
+    if(status==="yes"){
 
         return `
-            <span class="badge blue">
-                📦 أخذ طلبية
-            </span>
+        <span class="badge blue">
+        📦 أخذ طلبية
+        </span>
         `;
 
     }
 
-    if(status === "no"){
+
+    if(status==="no"){
 
         return `
-            <span class="badge red">
-                ❌ لم يأخذ طلبية
-            </span>
+        <span class="badge red">
+        ❌ لم يأخذ طلبية
+        </span>
         `;
 
     }
 
-    if(status === "later1"){
+
+    if(status==="later1"){
 
         return `
-            <span class="badge orange">
-                ⏰ كلمني بعد ساعة
-            </span>
+        <span class="badge orange">
+        ⏰ كلمني بعد ساعة
+        </span>
         `;
 
     }
 
-    if(status === "later2"){
+
+    if(status==="later2"){
 
         return `
-            <span class="badge orange">
-                ⏰ كلمني بعد ساعتين
-            </span>
+        <span class="badge orange">
+        ⏰ كلمني بعد ساعتين
+        </span>
         `;
 
     }
+
 
     return "";
 
 }
 
 
-/* =====================================================
+/* =========================
    عرض العملاء
-===================================================== */
+========================= */
 
 function renderCustomers(){
 
-    const container =
+    const container=
         document.getElementById("customers");
 
-    const search =
-        document.getElementById("search")
+
+    const search=
+        document
+        .getElementById("search")
         .value
         .trim()
         .toLowerCase();
 
-    const filter =
-        document.getElementById("filter")
+
+    const filter=
+        document
+        .getElementById("filter")
         .value;
 
-    const today =
-        getToday();
 
+    const today=getToday();
 
-    /* الإحصائيات */
 
     document.getElementById("total")
-        .textContent =
+        .textContent=
         customers.length;
 
 
     document.getElementById("calledCount")
-        .textContent =
+        .textContent=
         customers.filter(
-            customer =>
-                getCallsToday(customer) > 0
+            c=>getCallsToday(c)>0
         ).length;
 
 
     document.getElementById("notCalledCount")
-        .textContent =
+        .textContent=
         customers.filter(
-            customer =>
-                getCallsToday(customer) === 0
+            c=>getCallsToday(c)===0
         ).length;
 
 
     document.getElementById("ordersCount")
-        .textContent =
+        .textContent=
         customers.filter(
-            customer =>
-                customer.orderStatus === "yes"
+            c=>c.orderStatus==="yes"
         ).length;
 
 
-    /* الفلترة */
+    const result=
+        customers.filter(customer=>{
 
-    const result =
-        customers.filter(
-            customer => {
-
-
-                const text =
-                    (
-                        customer.name +
-                        " " +
-                        customer.phone +
-                        " " +
-                        (customer.address || "") +
-                        " " +
-                        (customer.notes || "")
-                    )
-                    .toLowerCase();
+            const text=
+                (
+                    customer.name+
+                    " "+
+                    customer.phone+
+                    " "+
+                    (customer.address||"")+
+                    " "+
+                    (customer.notes||"")
+                )
+                .toLowerCase();
 
 
-                if(
-                    search &&
-                    !text.includes(search)
-                ){
+            if(
+                search &&
+                !text.includes(search)
+            ){
 
-                    return false;
-
-                }
-
-
-                const calls =
-                    getCallsToday(customer);
-
-
-                if(
-                    filter === "notCalled" &&
-                    calls > 0
-                ){
-
-                    return false;
-
-                }
-
-
-                if(
-                    filter === "called" &&
-                    calls === 0
-                ){
-
-                    return false;
-
-                }
-
-
-                if(
-                    filter === "noAnswer" &&
-                    !(
-                        customer.noAnswer &&
-                        customer.noAnswer[today]
-                    )
-                ){
-
-                    return false;
-
-                }
-
-
-                if(
-                    filter === "orders" &&
-                    customer.orderStatus !== "yes"
-                ){
-
-                    return false;
-
-                }
-
-
-                if(
-                    filter === "noOrders" &&
-                    customer.orderStatus !== "no"
-                ){
-
-                    return false;
-
-                }
-
-
-                return true;
+                return false;
 
             }
-        );
 
 
-    /* لا يوجد */
+            const calls=
+                getCallsToday(customer);
 
-    if(result.length === 0){
 
-        container.innerHTML = `
-            <div class="card empty">
-                👥
-                <br><br>
-                لا يوجد عملاء حالياً
-            </div>
+            if(
+                filter==="notCalled" &&
+                calls>0
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                filter==="called" &&
+                calls===0
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                filter==="noAnswer" &&
+                !(
+                    customer.noAnswer &&
+                    customer.noAnswer[today]
+                )
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                filter==="orders" &&
+                customer.orderStatus!=="yes"
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                filter==="noOrders" &&
+                customer.orderStatus!=="no"
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                ["A","B","C"].includes(filter) &&
+                customer.type!==filter
+            ){
+
+                return false;
+
+            }
+
+
+            return true;
+
+        });
+
+
+    if(result.length===0){
+
+        container.innerHTML=`
+
+        <div class="card empty">
+
+        👥
+
+        <br><br>
+
+        لا يوجد عملاء مطابقون للبحث
+
+        </div>
+
         `;
 
         return;
@@ -1482,281 +1537,56 @@ function renderCustomers(){
     }
 
 
-    /* العملاء */
+    container.innerHTML=
+        result.map(customer=>{
 
-    container.innerHTML =
-        result.map(
-            customer => {
+            const calls=
+                getCallsToday(customer);
 
 
-                const calls =
-                    getCallsToday(customer);
+            const called=
+                calls>0;
 
 
-                const called =
-                    calls > 0;
+            const noAnswer=
+                customer.noAnswer &&
+                customer.noAnswer[today];
 
 
-                const noAnswer =
-                    customer.noAnswer &&
-                    customer.noAnswer[today];
+            return `
 
+<div class="customer">
 
-                return `
+<div class="customer-title">
 
-                <div class="customer">
+<div class="customer-name">
 
-                    <div class="customer-title">
+👤
+${escapeHTML(customer.name)}
 
-                        <div class="customer-name">
-                            👤
-                            ${escapeHTML(customer.name)}
-                        </div>
+</div>
 
-                        <div class="type">
-                            ${escapeHTML(customer.type || "C")}
-                        </div>
+<div class="type type-${escapeHTML(customer.type||"C")}">
 
-                    </div>
+${escapeHTML(customer.type||"C")}
 
+</div>
 
-                    <div class="customer-body">
+</div>
 
 
-                        <div class="info">
-                            <span>📞 الهاتف:</span>
-                            <b>
-                                ${escapeHTML(customer.phone)}
-                            </b>
-                        </div>
+<div class="customer-body">
 
 
-                        <div class="info">
-                            <span>📍 العنوان:</span>
-                            <b>
-                                ${
-                                    escapeHTML(
-                                        customer.address ||
-                                        "غير محدد"
-                                    )
-                                }
-                            </b>
-                        </div>
+<div class="info">
 
+<span>📞 الهاتف:</span>
 
-                        <div class="info">
-                            <span>📅 موعد الاتصال:</span>
-                            <b>
+<b>
+${escapeHTML(customer.phone)}
+</b>
 
-                                ${
-                                    customer.date
-                                    ?
-                                    escapeHTML(customer.date)
-                                    :
-                                    "غير محدد"
-                                }
+</div>
 
-                                ${
-                                    customer.time
-                                    ?
-                                    " - " +
-                                    escapeHTML(customer.time)
-                                    :
-                                    ""
-                                }
 
-                            </b>
-                        </div>
-
-
-                        <div class="notes">
-
-                            ${
-                                customer.notes
-                                ?
-                                escapeHTML(customer.notes)
-                                :
-                                "لا توجد ملاحظات"
-                            }
-
-                        </div>
-
-
-                        <div class="badges">
-
-                            <span class="badge ${
-                                called
-                                ?
-                                "green"
-                                :
-                                "orange"
-                            }">
-
-                                ${
-                                    called
-                                    ?
-                                    "✅ تم الاتصال اليوم"
-                                    :
-                                    "⏳ لم أتصل اليوم"
-                                }
-
-                            </span>
-
-
-                            <span class="badge blue">
-
-                                📞 رنات اليوم:
-                                ${calls}
-
-                            </span>
-
-
-                            ${
-                                noAnswer
-                                ?
-                                `
-                                <span class="badge red">
-                                    ❌ لم يرد
-                                </span>
-                                `
-                                :
-                                ""
-                            }
-
-
-                            ${getOrderBadge(
-                                customer.orderStatus
-                            )}
-
-                        </div>
-
-
-                        <div class="actions">
-
-
-                            <button
-                                class="action call"
-                                onclick="callCustomer('${customer.id}')"
-                            >
-                                📞 اتصال + رن
-                            </button>
-
-
-                            <button
-                                class="action whatsapp"
-                                onclick="whatsapp('${customer.id}')"
-                            >
-                                💬 واتساب
-                            </button>
-
-
-                            <button
-                                class="action called"
-                                onclick="markCalled('${customer.id}')"
-                            >
-                                ✅ تم الاتصال
-                            </button>
-
-
-                            <button
-                                class="action noanswer"
-                                onclick="markNoAnswer('${customer.id}')"
-                            >
-                                ❌ لم يرد
-                            </button>
-
-
-                            <button
-                                class="action order"
-                                onclick="setOrder('${customer.id}','yes')"
-                            >
-                                📦 أخذ طلبية
-                            </button>
-
-
-                            <button
-                                class="action noorder"
-                                onclick="setOrder('${customer.id}','no')"
-                            >
-                                🚫 لم يأخذ
-                            </button>
-
-
-                            <button
-                                class="action follow"
-                                onclick="setOrder('${customer.id}','later1')"
-                            >
-                                ⏰ بعد ساعة
-                            </button>
-
-
-                            <button
-                                class="action follow"
-                                onclick="setOrder('${customer.id}','later2')"
-                            >
-                                ⏰ بعد ساعتين
-                            </button>
-
-
-                            <button
-                                class="action edit"
-                                onclick="editCustomer('${customer.id}')"
-                            >
-                                ✏️ تعديل
-                            </button>
-
-
-                            <button
-                                class="action delete"
-                                onclick="deleteCustomer('${customer.id}')"
-                            >
-                                🗑️ حذف
-                            </button>
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                `;
-
-            }
-        ).join("");
-
-}
-
-
-/* =====================================================
-   بدء البرنامج
-===================================================== */
-
-loadCustomers();
-
-renderCustomers();
-
-
-/* =====================================================
-   إغلاق نافذة التعديل
-===================================================== */
-
-document
-    .getElementById("editModal")
-    .addEventListener(
-        "click",
-        function(event){
-
-            if(event.target === this){
-
-                closeEdit();
-
-            }
-
-        }
-    );
-
-</script>
-
-</body>
-</html>
+<div class="info">
