@@ -1,1 +1,2278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#07111f">
+<title>أحمد فايد - إدارة العملاء</title>
 
+<style>
+*{box-sizing:border-box}
+
+:root{
+ --bg:#07111f;
+ --card:#101c2d;
+ --card2:#16243a;
+ --border:#263750;
+ --text:#f8fafc;
+ --muted:#94a3b8;
+ --blue:#2563eb;
+ --green:#16a34a;
+ --red:#dc2626;
+ --orange:#d97706;
+ --purple:#7c3aed;
+ --cyan:#0891b2;
+}
+
+body{
+ margin:0;
+ background:
+ radial-gradient(circle at top,#172554 0,#07111f 38%);
+ color:var(--text);
+ font-family:Tahoma,Arial,sans-serif;
+ min-height:100vh;
+}
+
+button,input,select,textarea{font-family:inherit}
+
+.container{
+ width:100%;
+ max-width:1100px;
+ margin:auto;
+ padding:12px;
+}
+
+.header{
+ background:linear-gradient(135deg,#1d4ed8,#4f46e5);
+ border-radius:24px;
+ padding:22px 18px;
+ margin-bottom:14px;
+ box-shadow:0 15px 35px #0005;
+}
+
+.header-top{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+}
+
+.header h1{
+ margin:0;
+ font-size:25px;
+}
+
+.header p{
+ margin:8px 0 0;
+ color:#dbeafe;
+}
+
+.header-buttons{
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
+}
+
+.small-btn{
+ border:0;
+ border-radius:12px;
+ padding:10px 12px;
+ background:#ffffff20;
+ color:white;
+ font-weight:bold;
+}
+
+.card{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:20px;
+ padding:16px;
+ margin-bottom:14px;
+ box-shadow:0 8px 25px #0002;
+}
+
+.card h2{
+ margin:0 0 14px;
+ font-size:18px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:11px;
+}
+
+.full{
+ grid-column:1/-1;
+}
+
+label{
+ display:block;
+ color:#cbd5e1;
+ margin-bottom:6px;
+ font-size:13px;
+}
+
+input,select,textarea{
+ width:100%;
+ background:#081426;
+ color:white;
+ border:1px solid #334155;
+ border-radius:13px;
+ padding:13px;
+ outline:none;
+ font-size:15px;
+}
+
+input:focus,select:focus,textarea:focus{
+ border-color:#3b82f6;
+ box-shadow:0 0 0 3px #2563eb22;
+}
+
+textarea{
+ min-height:85px;
+ resize:vertical;
+}
+
+.main-btn{
+ width:100%;
+ border:0;
+ border-radius:14px;
+ padding:14px;
+ background:linear-gradient(135deg,#2563eb,#4f46e5);
+ color:white;
+ font-size:16px;
+ font-weight:bold;
+ margin-top:13px;
+}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:8px;
+ margin-bottom:14px;
+}
+
+.stat{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:13px 5px;
+ text-align:center;
+}
+
+.stat b{
+ display:block;
+ font-size:22px;
+}
+
+.stat span{
+ color:var(--muted);
+ font-size:11px;
+}
+
+.search-row{
+ display:grid;
+ grid-template-columns:2fr 1fr;
+ gap:9px;
+}
+
+.customer{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:20px;
+ overflow:hidden;
+ margin-bottom:12px;
+}
+
+.customer-head{
+ background:linear-gradient(135deg,#17243a,#1e293b);
+ padding:14px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+}
+
+.customer-name{
+ font-size:18px;
+ font-weight:bold;
+}
+
+.type{
+ min-width:40px;
+ text-align:center;
+ border-radius:20px;
+ padding:6px 11px;
+ font-weight:bold;
+}
+
+.type-A{background:#7f1d1d}
+.type-B{background:#78350f}
+.type-C{background:#14532d}
+
+.customer-body{
+ padding:14px;
+}
+
+.info-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+}
+
+.info{
+ background:#0b1627;
+ border:1px solid #1e3049;
+ border-radius:12px;
+ padding:10px;
+}
+
+.info small{
+ display:block;
+ color:var(--muted);
+ margin-bottom:3px;
+}
+
+.info b{
+ word-break:break-word;
+}
+
+.badges{
+ display:flex;
+ flex-wrap:wrap;
+ gap:6px;
+ margin:12px 0;
+}
+
+.badge{
+ border-radius:20px;
+ padding:7px 10px;
+ font-size:12px;
+ font-weight:bold;
+}
+
+.green{background:#14532d}
+.red{background:#7f1d1d}
+.orange{background:#78350f}
+.blue{background:#1e3a8a}
+.purple{background:#581c87}
+.gray{background:#334155}
+.cyan{background:#164e63}
+
+.notes{
+ background:#081426;
+ border-radius:13px;
+ padding:11px;
+ color:#cbd5e1;
+ white-space:pre-wrap;
+ margin:10px 0;
+}
+
+.actions{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:7px;
+}
+
+.action{
+ border:0;
+ border-radius:11px;
+ color:white;
+ padding:11px 6px;
+ font-weight:bold;
+}
+
+.call{background:var(--green)}
+.whatsapp{background:#15803d}
+.called{background:var(--cyan)}
+.noanswer{background:var(--red)}
+.order{background:var(--purple)}
+.noorder{background:#991b1b}
+.follow{background:var(--orange)}
+.edit{background:#0369a1}
+.delete{background:#475569}
+
+.empty{
+ text-align:center;
+ padding:40px;
+ color:var(--muted);
+}
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:#000b;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ z-index:1000;
+ padding:12px;
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+ width:100%;
+ max-width:700px;
+ max-height:92vh;
+ overflow:auto;
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:22px;
+ padding:17px;
+}
+
+.modal-actions{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
+ margin-top:12px;
+}
+
+.save{background:var(--green)}
+.close{background:#475569}
+
+#importFile{
+ display:none;
+}
+
+#message{
+ position:fixed;
+ bottom:20px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#020617;
+ border:1px solid #475569;
+ padding:12px 18px;
+ border-radius:14px;
+ display:none;
+ z-index:3000;
+ box-shadow:0 8px 30px #0008;
+ white-space:nowrap;
+}
+
+.notice{
+ background:#172554;
+ border:1px solid #1d4ed8;
+ color:#dbeafe;
+ border-radius:14px;
+ padding:12px;
+ margin-top:12px;
+ font-size:13px;
+}
+
+@media(max-width:700px){
+ .header-top{
+  flex-direction:column;
+  align-items:stretch;
+ }
+ .header-buttons{
+  justify-content:center;
+ }
+ .grid,
+ .info-grid,
+ .search-row{
+  grid-template-columns:1fr;
+ }
+ .full{
+  grid-column:auto;
+ }
+ .stats{
+  grid-template-columns:repeat(2,1fr);
+ }
+ .actions{
+  grid-template-columns:1fr;
+ }
+}
+
+@media(min-width:701px){
+ .actions{
+  grid-template-columns:repeat(5,1fr);
+ }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+ <div class="header-top">
+  <div>
+   <h1>📞 أحمد فايد</h1>
+   <p>نظام إدارة ومتابعة العملاء</p>
+  </div>
+
+  <div class="header-buttons">
+   <button class="small-btn" onclick="requestNotifications()">🔔 الإشعارات</button>
+   <button class="small-btn" onclick="exportBackup()">💾 نسخة احتياطية</button>
+   <button class="small-btn" onclick="document.getElementById('importFile').click()">📥 استرداد</button>
+  </div>
+ </div>
+
+ <div class="notice">
+  💡 البيانات محفوظة على هذا الجهاز وتعمل بدون إنترنت.
+ </div>
+</div>
+
+
+<!-- إضافة عميل -->
+
+<div class="card">
+
+<h2>➕ إضافة عميل جديد</h2>
+
+<div class="grid">
+
+<div>
+<label>مسلسل العميل</label>
+<input id="serial" inputmode="numeric" placeholder="مثال: 2601">
+</div>
+
+<div>
+<label>اسم العميل *</label>
+<input id="name" placeholder="اسم العميل بالعربي">
+</div>
+
+<div>
+<label>رقم التليفون</label>
+<input id="phone" inputmode="tel" placeholder="0123456789">
+</div>
+
+<div>
+<label>كود الصيدلية 🏥 *</label>
+<input id="pharmacyCode" inputmode="numeric" placeholder="مثال: 5715">
+</div>
+
+<div>
+<label>عنوان العميل 📍</label>
+<input id="address" placeholder="عنوان العميل">
+</div>
+
+<div>
+<label>نوع العميل ABC</label>
+<select id="type">
+<option value="A">A - مهم</option>
+<option value="B">B - متوسط</option>
+<option value="C" selected>C - عادي</option>
+</select>
+</div>
+
+<div>
+<label>تاريخ الاتصال</label>
+<input id="date" type="date">
+</div>
+
+<div>
+<label>ميعاد الاتصال</label>
+<input id="time" type="time">
+</div>
+
+<div class="full">
+<label>ملاحظات</label>
+<textarea id="notes" placeholder="اكتب ملاحظات العميل"></textarea>
+</div>
+
+<div class="full">
+<label>حالة الطلبية</label>
+<select id="orderStatus">
+<option value="none">لم يتم تحديدها</option>
+<option value="yes">📦 أخذ طلبية</option>
+<option value="no">❌ لم يأخذ طلبية</option>
+<option value="later1">⏰ كلمني بعد ساعة</option>
+<option value="later2">⏰ كلمني بعد ساعتين</option>
+</select>
+</div>
+
+</div>
+
+<button class="main-btn" onclick="addCustomer()">
+💾 إضافة وحفظ العميل
+</button>
+
+</div>
+
+
+<!-- البحث -->
+
+<div class="card">
+
+<h2>🔎 البحث والتصفية</h2>
+
+<div class="search-row">
+
+<input
+ id="search"
+ type="search"
+ placeholder="ابحث بالاسم أو الهاتف أو كود الصيدلية أو العنوان..."
+ oninput="renderCustomers()"
+>
+
+<select id="filter" onchange="renderCustomers()">
+<option value="all">كل العملاء</option>
+<option value="notCalled">⏳ لم أتصل بهم اليوم</option>
+<option value="called">✅ اتصلت بهم اليوم</option>
+<option value="noAnswer">❌ لم يردوا</option>
+<option value="orders">📦 أخذوا طلبية</option>
+<option value="noOrders">🚫 لم يأخذوا طلبية</option>
+<option value="A">🔴 عملاء A</option>
+<option value="B">🟠 عملاء B</option>
+<option value="C">🟢 عملاء C</option>
+</select>
+
+</div>
+
+</div>
+
+
+<!-- الإحصائيات -->
+
+<div class="stats">
+
+<div class="stat">
+<b id="total">0</b>
+<span>كل العملاء</span>
+</div>
+
+<div class="stat">
+<b id="calledCount">0</b>
+<span>تم الاتصال</span>
+</div>
+
+<div class="stat">
+<b id="notCalledCount">0</b>
+<span>لم أتصل</span>
+</div>
+
+<div class="stat">
+<b id="ordersCount">0</b>
+<span>طلبات</span>
+</div>
+
+<div class="stat">
+<b id="noAnswerCount">0</b>
+<span>لم يرد</span>
+</div>
+
+</div>
+
+
+<div id="customers"></div>
+
+</div>
+
+
+<!-- نافذة التعديل -->
+
+<div class="modal" id="editModal">
+
+<div class="modal-box">
+
+<h2>✏️ تعديل بيانات العميل</h2>
+
+<div class="grid">
+
+<div>
+<label>مسلسل</label>
+<input id="editSerial" inputmode="numeric">
+</div>
+
+<div>
+<label>اسم العميل</label>
+<input id="editName">
+</div>
+
+<div>
+<label>رقم التليفون</label>
+<input id="editPhone" inputmode="tel">
+</div>
+
+<div>
+<label>كود الصيدلية</label>
+<input id="editPharmacyCode" inputmode="numeric">
+</div>
+
+<div>
+<label>العنوان</label>
+<input id="editAddress">
+</div>
+
+<div>
+<label>نوع العميل</label>
+<select id="editType">
+<option value="A">A - مهم</option>
+<option value="B">B - متوسط</option>
+<option value="C">C - عادي</option>
+</select>
+</div>
+
+<div>
+<label>تاريخ الاتصال</label>
+<input id="editDate" type="date">
+</div>
+
+<div>
+<label>ميعاد الاتصال</label>
+<input id="editTime" type="time">
+</div>
+
+<div class="full">
+<label>الملاحظات</label>
+<textarea id="editNotes"></textarea>
+</div>
+
+<div class="full">
+<label>حالة الطلبية</label>
+<select id="editOrderStatus">
+<option value="none">لم يتم تحديدها</option>
+<option value="yes">📦 أخذ طلبية</option>
+<option value="no">❌ لم يأخذ طلبية</option>
+<option value="later1">⏰ بعد ساعة</option>
+<option value="later2">⏰ بعد ساعتين</option>
+</select>
+</div>
+
+</div>
+
+<div class="modal-actions">
+<button class="action save" onclick="saveEdit()">💾 حفظ</button>
+<button class="action close" onclick="closeEdit()">إلغاء</button>
+</div>
+
+</div>
+</div>
+
+
+<!-- ملف النسخة الاحتياطية -->
+
+<input
+ id="importFile"
+ type="file"
+ accept=".json,application/json"
+ onchange="importBackup(event)"
+>
+
+
+<div id="message"></div>
+
+
+<script>
+
+/* =========================================================
+   قاعدة البيانات
+========================================================= */
+
+const DB_KEY = "ahmed_fayed_customers_final_v3";
+
+let customers = [];
+
+let editId = null;
+
+
+/* =========================================================
+   العملاء الأساسيون الذين أرسلتهم
+========================================================= */
+
+const initialCustomers = [
+
+{
+ serial:"2601",
+ name:"ص د ابو المكارم الزحالي",
+ phone:"2799272",
+ pharmacyCode:"5715"
+},
+
+{
+ serial:"5715",
+ name:"ص د احمد منصور الجديد / الحامول",
+ phone:"01065205327",
+ pharmacyCode:"6456"
+},
+
+{
+ serial:"6456",
+ name:"ص د اسامة احمد /// الدكـي",
+ phone:"01225065158",
+ pharmacyCode:"4699"
+},
+
+{
+ serial:"4699",
+ name:"ص د اسماء كريستين رشيد",
+ phone:"01092378708",
+ pharmacyCode:"4772"
+},
+
+{
+ serial:"4772",
+ name:"ص د الاء درويش الحمراوي",
+ phone:"01003262324",
+ pharmacyCode:"7987"
+},
+
+{
+ serial:"7987",
+ name:"ص د انعام المسكاوي / الرحمانية",
+ phone:"01012240515",
+ pharmacyCode:"4331"
+},
+
+{
+ serial:"4331",
+ name:"ص د ايمان جبل / الطرفاية",
+ phone:"01099512171",
+ pharmacyCode:"5850"
+},
+
+{
+ serial:"5850",
+ name:"ص د ايناس خطاب العمارة الجديدة",
+ phone:"01098866613",
+ pharmacyCode:"3288"
+},
+
+{
+ serial:"3288",
+ name:"ص د بسام الدباغ / قطور",
+ phone:"01012600410",
+ pharmacyCode:"5162"
+},
+
+{
+ serial:"5162",
+ name:"ص د رامي جمال الجديدة / محلة ابو علي",
+ phone:"01064378312",
+ pharmacyCode:"7307"
+},
+
+{
+ serial:"7307",
+ name:"ص د رانيا عبد الجواد زايد",
+ phone:"01027550887",
+ pharmacyCode:"1614"
+},
+
+{
+ serial:"1614",
+ name:"ص د سارة الشريف / جمجمون",
+ phone:"2595026/2591668",
+ pharmacyCode:"2306"
+},
+
+{
+ serial:"2306",
+ name:"ص د سامح ابو العطا خميس الكبرى",
+ phone:"01002775433",
+ pharmacyCode:"6205"
+},
+
+{
+ serial:"6205",
+ name:"ص د شيماء عادل موسى / السجـاد",
+ phone:"01096056679",
+ pharmacyCode:"6264"
+},
+
+{
+ serial:"6264",
+ name:"ص د شيماء محمد ابو الحسن / 54",
+ phone:"01000931885",
+ pharmacyCode:"8271"
+},
+
+{
+ serial:"8271",
+ name:"ص د صفية كمال الدين (عثمان) / مطبوس",
+ phone:"01019614433",
+ pharmacyCode:"1564"
+},
+
+{
+ serial:"1564",
+ name:"ص د ضحى عبد الواحد / القن",
+ phone:"01024614518",
+ pharmacyCode:"7966"
+},
+
+{
+ serial:"7966",
+ name:"ص د عبد السلام تبر / نبروه",
+ phone:"01226818402",
+ pharmacyCode:"4294"
+},
+
+{
+ serial:"4294",
+ name:"ص د عبد الله منصور مكة",
+ phone:"01092081073",
+ pharmacyCode:"5615"
+},
+
+{
+ serial:"5615",
+ name:"ص د عماد الدين / مطبوس",
+ phone:"01094050839",
+ pharmacyCode:"4356"
+},
+
+{
+ serial:"4356",
+ name:"ص د عمر مرزوق / ليلا",
+ phone:"01090794504",
+ pharmacyCode:"3495"
+},
+
+{
+ serial:"3495",
+ name:"ص د غادة كمال سيدي سالم",
+ phone:"01023220455",
+ pharmacyCode:"4144"
+},
+
+{
+ serial:"4144",
+ name:"ص د غادة شاكر / الرياض",
+ phone:"01009288683",
+ pharmacyCode:"4823"
+},
+
+{
+ serial:"4823",
+ name:"ص د محمد اسماعيل / المنصورة",
+ phone:"01024460458",
+ pharmacyCode:"7933"
+},
+
+{
+ serial:"7933",
+ name:"ص د محمد جمعة / اول طريق الحامول بطنـيم",
+ phone:"01016483709",
+ pharmacyCode:"5526"
+},
+
+{
+ serial:"5526",
+ name:"ص د محمد عبد الرحيم / الملاحة",
+ phone:"01009058458",
+ pharmacyCode:"6185"
+},
+
+{
+ serial:"6185",
+ name:"ص د محمد علي بسيوني",
+ phone:"01001910186",
+ pharmacyCode:"4810"
+},
+
+{
+ serial:"4810",
+ name:"ص د محمد عنتر / الفرسيك",
+ phone:"01061016654",
+ pharmacyCode:"8253"
+},
+
+{
+ serial:"8253",
+ name:"ص د محمد فتحي عطا الله / بسيون",
+ phone:"01019848076",
+ pharmacyCode:"882"
+},
+
+{
+ serial:"882",
+ name:"ص د محمود ابراهيم الصافية / الصافية",
+ phone:"0472592607",
+ pharmacyCode:"8103"
+},
+
+{
+ serial:"8103",
+ name:"ص د محمود زيتون",
+ phone:"01148308016",
+ pharmacyCode:"950"
+},
+
+{
+ serial:"950",
+ name:"ص د مصطفى المنسي / ام الكبرى",
+ phone:"01063898580",
+ pharmacyCode:"4704"
+},
+
+{
+ serial:"4704",
+ name:"ص د منى فؤاد /// رشيد",
+ phone:"01011399984",
+ pharmacyCode:"6712"
+},
+
+{
+ serial:"6712",
+ name:"ص د نعيم سعيد السيد / اكوى",
+ phone:"01118075730",
+ pharmacyCode:"5210"
+},
+
+{
+ serial:"5210",
+ name:"ص د هاجر هاشم / ابو عيسى",
+ phone:"",
+ pharmacyCode:"1074"
+},
+
+{
+ serial:"1074",
+ name:"ص د هشام شاهين / قلين",
+ phone:"",
+ pharmacyCode:"6017"
+},
+
+{
+ serial:"6017",
+ name:"ص د هيثم مبروك / المنصورة",
+ phone:"01097579201",
+ pharmacyCode:"791"
+},
+
+{
+ serial:"791",
+ name:"ص د ياسر عبدام / ابو علي",
+ phone:"0472591264",
+ pharmacyCode:""
+}
+
+];
+
+
+/* =========================================================
+   رسالة
+========================================================= */
+
+function showMessage(text){
+
+ const box=document.getElementById("message");
+
+ box.textContent=text;
+ box.style.display="block";
+
+ clearTimeout(window.messageTimer);
+
+ window.messageTimer=setTimeout(()=>{
+  box.style.display="none";
+ },2500);
+}
+
+
+/* =========================================================
+   تاريخ اليوم
+========================================================= */
+
+function today(){
+
+ const d=new Date();
+
+ return d.getFullYear()+"-"+
+ String(d.getMonth()+1).padStart(2,"0")+"-"+
+ String(d.getDate()).padStart(2,"0");
+}
+
+
+/* =========================================================
+   رقم ID
+========================================================= */
+
+function newId(){
+
+ return Date.now().toString()+"_"+Math.random()
+ .toString(36).substring(2,8);
+
+}
+
+
+/* =========================================================
+   تنظيف HTML
+========================================================= */
+
+function escapeHTML(value){
+
+ return String(value || "")
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   تحميل البيانات
+========================================================= */
+
+function loadCustomers(){
+
+ const raw=localStorage.getItem(DB_KEY);
+
+ if(raw){
+
+  try{
+
+   const data=JSON.parse(raw);
+
+   if(Array.isArray(data)){
+
+    customers=data;
+
+    normalizeCustomers();
+
+    return;
+
+   }
+
+  }catch(e){
+
+   console.error(e);
+
+  }
+
+ }
+
+
+ /*
+   أول تشغيل:
+   ندخل العملاء اللي بعتهم المستخدم
+ */
+
+ customers=initialCustomers.map(item=>({
+
+  id:newId(),
+
+  serial:item.serial || "",
+
+  name:item.name || "",
+
+  phone:item.phone || "",
+
+  pharmacyCode:item.pharmacyCode || "",
+
+  address:"",
+
+  type:"C",
+
+  date:"",
+
+  time:"",
+
+  notes:"",
+
+  orderStatus:"none",
+
+  calls:{},
+
+  noAnswer:{},
+
+  reminderKey:""
+
+ }));
+
+ saveCustomers();
+
+}
+
+
+/* =========================================================
+   توحيد البيانات القديمة
+========================================================= */
+
+function normalizeCustomers(){
+
+ customers.forEach(c=>{
+
+  if(!c.id)c.id=newId();
+
+  if(!c.calls)c.calls={};
+
+  if(!c.noAnswer)c.noAnswer={};
+
+  if(c.pharmacyCode===undefined)c.pharmacyCode="";
+
+  if(c.serial===undefined)c.serial="";
+
+  if(c.address===undefined)c.address="";
+
+  if(c.type===undefined)c.type="C";
+
+  if(c.orderStatus===undefined)c.orderStatus="none";
+
+  if(c.notes===undefined)c.notes="";
+
+  if(c.date===undefined)c.date="";
+
+  if(c.time===undefined)c.time="";
+
+ });
+
+ saveCustomers();
+
+}
+
+
+/* =========================================================
+   حفظ البيانات
+========================================================= */
+
+function saveCustomers(){
+
+ try{
+
+  localStorage.setItem(
+   DB_KEY,
+   JSON.stringify(customers)
+  );
+
+  return true;
+
+ }catch(e){
+
+  console.error(e);
+
+  alert(
+   "تعذر حفظ البيانات. تأكد أن مساحة التخزين متاحة."
+  );
+
+  return false;
+
+ }
+
+}
+
+
+/* =========================================================
+   إضافة عميل
+========================================================= */
+
+function addCustomer(){
+
+ const name=document.getElementById("name").value.trim();
+
+ const pharmacyCode=
+ document.getElementById("pharmacyCode").value.trim();
+
+ if(!name){
+
+  alert("اكتب اسم العميل");
+
+  document.getElementById("name").focus();
+
+  return;
+
+ }
+
+ if(!pharmacyCode){
+
+  alert("اكتب كود الصيدلية");
+
+  document.getElementById("pharmacyCode").focus();
+
+  return;
+
+ }
+
+
+ const customer={
+
+  id:newId(),
+
+  serial:document.getElementById("serial").value.trim(),
+
+  name:name,
+
+  phone:document.getElementById("phone").value.trim(),
+
+  pharmacyCode:pharmacyCode,
+
+  address:document.getElementById("address").value.trim(),
+
+  type:document.getElementById("type").value,
+
+  date:document.getElementById("date").value,
+
+  time:document.getElementById("time").value,
+
+  notes:document.getElementById("notes").value.trim(),
+
+  orderStatus:document.getElementById("orderStatus").value,
+
+  calls:{},
+
+  noAnswer:{},
+
+  reminderKey:"",
+
+  createdAt:new Date().toISOString()
+
+ };
+
+
+ customers.unshift(customer);
+
+ if(!saveCustomers()){
+
+  customers.shift();
+
+  return;
+
+ }
+
+
+ clearAddForm();
+
+ renderCustomers();
+
+ showMessage("✅ تم إضافة العميل وحفظه");
+
+}
+
+
+/* =========================================================
+   تنظيف نموذج الإضافة
+========================================================= */
+
+function clearAddForm(){
+
+ [
+  "serial",
+  "name",
+  "phone",
+  "pharmacyCode",
+  "address",
+  "date",
+  "time",
+  "notes"
+ ].forEach(id=>{
+
+  document.getElementById(id).value="";
+
+ });
+
+ document.getElementById("type").value="C";
+
+ document.getElementById("orderStatus").value="none";
+
+}
+
+
+/* =========================================================
+   عدد المكالمات اليوم
+========================================================= */
+
+function callsToday(customer){
+
+ if(!customer.calls)customer.calls={};
+
+ return Number(
+  customer.calls[today()] || 0
+ );
+
+}
+
+
+/* =========================================================
+   تسجيل مكالمة
+========================================================= */
+
+function addCall(id){
+
+ const c=customers.find(x=>x.id===id);
+
+ if(!c)return;
+
+ if(!c.calls)c.calls={};
+
+ const d=today();
+
+ c.calls[d]=Number(c.calls[d] || 0)+1;
+
+ /*
+   بمجرد تسجيل مكالمة،
+   نعتبر العميل تم الاتصال به.
+ */
+
+ if(c.noAnswer)c.noAnswer[d]=false;
+
+ saveCustomers();
+
+ renderCustomers();
+
+ showMessage(
+  "📞 تم تسجيل المكالمة رقم "+c.calls[d]+" اليوم"
+ );
+
+}
+
+
+/* =========================================================
+   الاتصال
+========================================================= */
+
+function callCustomer(id){
+
+ const c=customers.find(x=>x.id===id);
+
+ if(!c)return;
+
+ if(!c.phone){
+
+  alert("لا يوجد رقم هاتف مسجل لهذا العميل");
+
+  return;
+
+ }
+
+ addCall(id);
+
+ /*
+   لو فيه أكثر من رقم:
+   يفتح اختيار الرقم.
+ */
+
+ const numbers=c.phone
+ .split(/[\/,]/)
+ .map(x=>x.trim())
+ .filter(Boolean);
+
+ if(numbers.length===1){
+
+  window.location.href="tel:"+numbers[0];
+
+ }else{
+
+  const choice=prompt(
+   "اختر الرقم:\n\n"+
+   numbers.map((n,i)=>(i+1)+" - "+n).join("\n")
+  );
+
+  const index=Number(choice)-1;
+
+  if(numbers[index]){
+
+   window.location.href="tel:"+numbers[index];
+
+  }
+
+ }
+
+}
+
+
+/* =========================================================
+   واتساب
+========================================================= */
+
+function whatsapp(id){
+
+ const c=customers.find(x=>x.id===id);
+
+ if(!c || !c.phone){
+
+  alert("لا يوجد رقم هاتف لهذا العميل");
+
+  return;
+
+ }
+
+ const numbers=c.phone
+ .split(/[\/,]/)
+ .map(x=>x.trim())
+ .filter(Boolean);
+
+ let number=numbers[0].replace(/\D/g,"");
+
+ if(number.startsWith("01")){
+
+  number="20"+number.substring(1);
+
+ }
+
+ window.open(
+  "https://wa.me/"+number,
+  "_blank"
+ );
+
+}
+
+
+/* =========================================================
+   تم الاتصال
+========================================================= */
+
+function markCalled(id){
+
+ addCall(id);
+
+}
+
+
+/* =========================================================
+   لم يرد
+========================================================= */
+
+function markNoAnswer(id){
+
+ const c=customers.find(x=>x.id===id);
+
+ if(!c)return;
+
+ if(!c.noAnswer)c.noAnswer={};
+
+ c.noAnswer[today()]=true;
+
+ saveCustomers();
+
+ renderCustomers();
+
+ showMessage("❌ تم تسجيل: لم يرد");
+
+
+}
+
+
+/* =========================================================
+   حالة الطلبية
+========================================================= */
+
+function setOrder(id,status){
+
+ const c=customers.find(x=>x.id===id);
+
+ if(!c)return;
+
+ c.orderStatus=status;
+
+ saveCustomers();
+
+ renderCustomers();
+
+ showMessage("📦 تم تحديث حالة الطلبية");
+
+}
+
+
+/* =========================================================
+   تعديل العميل
+========================================================= */
+
+function editCustomer(id){
+
+ const c=customers.find(x=>x.id===id);
+
+ if(!c)return;
+
+ editId=id;
+
+ document.getElementById("editSerial").value=c.serial || "";
+
+ document.getElementById("editName").value=c.name || "";
+
+ document.getElementById("editPhone").value=c.phone || "";
+
+ document.getElementById("editPharmacyCode").value=
+ c.pharmacyCode || "";
+
+ document.getElementById("editAddress").value=
+ c.address || "";
+
+ document.getElementById("editType").value=
+ c.type || "C";
+
+ document.getElementById("editDate").value=
+ c.date || "";
+
+ document.getElementById("editTime").value=
+ c.time || "";
+
+ document.getElementById("editNotes").value=
+ c.notes || "";
+
+ document.getElementById("editOrderStatus").value=
+ c.orderStatus || "none";
+
+ document.getElementById("editModal")
+ .classList.add("show");
+
+}
+
+
+/* =========================================================
+   حفظ التعديل
+========================================================= */
+
+function saveEdit(){
+
+ const c=customers.find(x=>x.id===editId);
+
+ if(!c)return;
+
+ const name=
+ document.getElementById("editName")
+ .value.trim();
+
+ const code=
+ document.getElementById("editPharmacyCode")
+ .value.trim();
+
+ if(!name){
+
+  alert("اكتب اسم العميل");
+
+  return;
+
+ }
+
+ if(!code){
+
+  alert("اكتب كود الصيدلية");
+
+  return;
+
+ }
+
+ c.serial=
+ document.getElementById("editSerial").value.trim();
+
+ c.name=name;
+
+ c.phone=
+ document.getElementById("editPhone").value.trim();
+
+ c.pharmacyCode=code;
+
+ c.address=
+ document.getElementById("editAddress").value.trim();
+
+ c.type=
+ document.getElementById("editType").value;
+
+ c.date=
+ document.getElementById("editDate").value;
+
+ c.time=
+ document.getElementById("editTime").value;
+
+ c.notes=
+ document.getElementById("editNotes").value.trim();
+
+ c.orderStatus=
+ document.getElementById("editOrderStatus").value;
+
+ saveCustomers();
+
+ closeEdit();
+
+ renderCustomers();
+
+ showMessage("✅ تم تعديل العميل");
+
+}
+
+
+/* =========================================================
+   غلق التعديل
+========================================================= */
+
+function closeEdit(){
+
+ editId=null;
+
+ document.getElementById("editModal")
+ .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   حذف
+========================================================= */
+
+function deleteCustomer(id){
+
+ const c=customers.find(x=>x.id===id);
+
+ if(!c)return;
+
+ if(!confirm(
+  "هل تريد حذف العميل:\n"+
+  c.name+
+  "\nكود الصيدلية: "+
+  c.pharmacyCode+
+  " ؟"
+ ))return;
+
+ customers=
+ customers.filter(x=>x.id!==id);
+
+ saveCustomers();
+
+ renderCustomers();
+
+ showMessage("🗑️ تم حذف العميل");
+
+}
+
+
+/* =========================================================
+   حالة الطلبية
+========================================================= */
+
+function orderBadge(status){
+
+ if(status==="yes")
+ return `<span class="badge blue">📦 أخذ طلبية</span>`;
+
+ if(status==="no")
+ return `<span class="badge red">🚫 لم يأخذ طلبية</span>`;
+
+ if(status==="later1")
+ return `<span class="badge orange">⏰ بعد ساعة</span>`;
+
+ if(status==="later2")
+ return `<span class="badge orange">⏰ بعد ساعتين</span>`;
+
+ return "";
+
+}
+
+
+/* =========================================================
+   عرض العملاء
+========================================================= */
+
+function renderCustomers(){
+
+ const container=document.getElementById("customers");
+
+ const search=
+ document.getElementById("search")
+ .value.trim().toLowerCase();
+
+ const filter=
+ document.getElementById("filter").value;
+
+ const d=today();
+
+
+ /* إحصائيات */
+
+ document.getElementById("total")
+ .textContent=customers.length;
+
+ document.getElementById("calledCount")
+ .textContent=
+ customers.filter(x=>callsToday(x)>0).length;
+
+ document.getElementById("notCalledCount")
+ .textContent=
+ customers.filter(x=>callsToday(x)===0).length;
+
+ document.getElementById("ordersCount")
+ .textContent=
+ customers.filter(x=>x.orderStatus==="yes").length;
+
+ document.getElementById("noAnswerCount")
+ .textContent=
+ customers.filter(x=>
+  x.noAnswer && x.noAnswer[d]
+ ).length;
+
+
+ /* فلترة */
+
+ const result=customers.filter(c=>{
+
+  const text=(
+   (c.serial||"")+" "+
+   (c.name||"")+" "+
+   (c.phone||"")+" "+
+   (c.pharmacyCode||"")+" "+
+   (c.address||"")+" "+
+   (c.notes||"")
+  ).toLowerCase();
+
+  if(search && !text.includes(search))
+   return false;
+
+  const calls=callsToday(c);
+
+  if(filter==="notCalled" && calls>0)
+   return false;
+
+  if(filter==="called" && calls===0)
+   return false;
+
+  if(filter==="noAnswer" &&
+     !(c.noAnswer && c.noAnswer[d]))
+   return false;
+
+  if(filter==="orders" && c.orderStatus!=="yes")
+   return false;
+
+  if(filter==="noOrders" && c.orderStatus!=="no")
+   return false;
+
+  if(["A","B","C"].includes(filter) &&
+     c.type!==filter)
+   return false;
+
+  return true;
+
+ });
+
+
+ if(result.length===0){
+
+  container.innerHTML=`
+   <div class="card empty">
+    👥<br><br>
+    لا يوجد عملاء مطابقون للبحث
+   </div>
+  `;
+
+  return;
+
+ }
+
+
+ container.innerHTML=result.map(c=>{
+
+  const calls=callsToday(c);
+
+  const called=calls>0;
+
+  const noAnswer=
+   c.noAnswer &&
+   c.noAnswer[d];
+
+
+  return `
+
+  <div class="customer">
+
+   <div class="customer-head">
+
+    <div class="customer-name">
+     👤 ${escapeHTML(c.name)}
+    </div>
+
+    <div class="type type-${escapeHTML(c.type||"C")}">
+     ${escapeHTML(c.type||"C")}
+    </div>
+
+   </div>
+
+
+   <div class="customer-body">
+
+    <div class="info-grid">
+
+     <div class="info">
+      <small>🔢 مسلسل</small>
+      <b>${escapeHTML(c.serial||"—")}</b>
+     </div>
+
+     <div class="info">
+      <small>🏥 كود الصيدلية</small>
+      <b>${escapeHTML(c.pharmacyCode||"—")}</b>
+     </div>
+
+     <div class="info">
+      <small>📞 التليفون</small>
+      <b>${escapeHTML(c.phone||"غير مسجل")}</b>
+     </div>
+
+     <div class="info">
+      <small>📍 العنوان</small>
+      <b>${escapeHTML(c.address||"غير محدد")}</b>
+     </div>
+
+     <div class="info">
+      <small>📅 تاريخ الاتصال</small>
+      <b>${escapeHTML(c.date||"غير محدد")}</b>
+     </div>
+
+     <div class="info">
+      <small>⏰ الموعد</small>
+      <b>${escapeHTML(c.time||"غير محدد")}</b>
+     </div>
+
+    </div>
+
+
+    <div class="badges">
+
+     <span class="badge ${called?"green":"orange"}">
+      ${called?"✅ تم الاتصال اليوم":"⏳ لم أتصل اليوم"}
+     </span>
+
+     <span class="badge cyan">
+      📞 رنات اليوم: ${calls}
+     </span>
+
+     ${
+      noAnswer
+      ?
+      `<span class="badge red">❌ لم يرد</span>`
+      :
+      ""
+     }
+
+     ${orderBadge(c.orderStatus)}
+
+    </div>
+
+
+    <div class="notes">
+     ${
+      c.notes
+      ?
+      escapeHTML(c.notes)
+      :
+      "لا توجد ملاحظات"
+     }
+    </div>
+
+
+    <div class="actions">
+
+     <button
+      class="action call"
+      onclick="callCustomer('${c.id}')">
+      📞 اتصال + تسجيل رنة
+     </button>
+
+     <button
+      class="action whatsapp"
+      onclick="whatsapp('${c.id}')">
+      💬 واتساب
+     </button>
+
+     <button
+      class="action called"
+      onclick="markCalled('${c.id}')">
+      ✅ تم الاتصال
+     </button>
+
+     <button
+      class="action noanswer"
+      onclick="markNoAnswer('${c.id}')">
+      ❌ لم يرد
+     </button>
+
+     <button
+      class="action order"
+      onclick="setOrder('${c.id}','yes')">
+      📦 أخذ طلبية
+     </button>
+
+     <button
+      class="action noorder"
+      onclick="setOrder('${c.id}','no')">
+      🚫 لم يأخذ
+     </button>
+
+     <button
+      class="action follow"
+      onclick="setOrder('${c.id}','later1')">
+      ⏰ بعد ساعة
+     </button>
+
+     <button
+      class="action follow"
+      onclick="setOrder('${c.id}','later2')">
+      ⏰ بعد ساعتين
+     </button>
+
+     <button
+      class="action edit"
+      onclick="editCustomer('${c.id}')">
+      ✏️ تعديل
+     </button>
+
+     <button
+      class="action delete"
+      onclick="deleteCustomer('${c.id}')">
+      🗑️ حذف
+     </button>
+
+    </div>
+
+   </div>
+
+  </div>
+
+  `;
+
+ }).join("");
+
+}
+
+
+/* =========================================================
+   النسخة الاحتياطية
+========================================================= */
+
+function exportBackup(){
+
+ if(!customers.length){
+
+  alert("لا توجد بيانات لعمل نسخة احتياطية");
+
+  return;
+
+ }
+
+ const data={
+  app:"Ahmed Fayed Customers",
+  version:3,
+  exportedAt:new Date().toISOString(),
+  customers:customers
+ };
+
+ const blob=new Blob(
+  [JSON.stringify(data,null,2)],
+  {type:"application/json"}
+ );
+
+ const url=URL.createObjectURL(blob);
+
+ const a=document.createElement("a");
+
+ a.href=url;
+
+ a.download=
+ "Ahmed-Fayed-Backup-"+
+ today()+
+ ".json";
+
+ document.body.appendChild(a);
+
+ a.click();
+
+ a.remove();
+
+ URL.revokeObjectURL(url);
+
+ showMessage("💾 تم إنشاء النسخة الاحتياطية");
+
+}
+
+
+/* =========================================================
+   استرداد النسخة
+========================================================= */
+
+function importBackup(event){
+
+ const file=event.target.files[0];
+
+ if(!file)return;
+
+ const reader=new FileReader();
+
+ reader.onload=function(){
+
+  try{
+
+   const data=JSON.parse(reader.result);
+
+   let imported=
+    Array.isArray(data)
+    ?
+    data
+    :
+    data.customers;
+
+   if(!Array.isArray(imported)){
+
+    throw new Error("invalid");
+
+   }
+
+
+   if(!confirm(
+    "سيتم استبدال البيانات الحالية بالنسخة الاحتياطية.\n\nمتأكد؟"
+   )){
+
+    event.target.value="";
+
+    return;
+
+   }
+
+
+   customers=imported;
+
+   normalizeCustomers();
+
+   saveCustomers();
+
+   renderCustomers();
+
+   showMessage(
+    "✅ تم استرداد البيانات بنجاح"
+   );
+
+  }catch(e){
+
+   alert(
+    "ملف النسخة الاحتياطية غير صحيح."
+   );
+
+  }
+
+  event.target.value="";
+
+ };
+
+ reader.readAsText(file);
+
+}
+
+
+/* =========================================================
+   الإشعارات
+========================================================= */
+
+async function requestNotifications(){
+
+ if(!("Notification" in window)){
+
+  alert(
+   "المتصفح الحالي لا يدعم إشعارات الويب."
+  );
+
+  return;
+
+ }
+
+ const permission=
+  await Notification.requestPermission();
+
+ if(permission==="granted"){
+
+  showMessage("🔔 تم تفعيل الإشعارات");
+
+  notify(
+   "أحمد فايد",
+   "تم تفعيل إشعارات مواعيد العملاء"
+  );
+
+ }else{
+
+  alert(
+   "لم يتم السماح بالإشعارات."
+  );
+
+ }
+
+}
+
+
+/* =========================================================
+   إشعار
+========================================================= */
+
+function notify(title,body){
+
+ if(
+  "Notification" in window &&
+  Notification.permission==="granted"
+ ){
+
+  const n=new Notification(
+   title,
+   {
+    body:body,
+    icon:""
+   }
+  );
+
+  n.onclick=function(){
+
+   window.focus();
+
+   n.close();
+
+  };
+
+ }
+
+}
+
+
+/* =========================================================
+   صوت التنبيه
+========================================================= */
+
+function notificationSound(){
+
+ try{
+
+  const AudioContext=
+   window.AudioContext ||
+   window.webkitAudioContext;
+
+  if(!AudioContext)return;
+
+  const ctx=new AudioContext();
+
+  const osc=ctx.createOscillator();
+
+  const gain=ctx.createGain();
+
+  osc.connect(gain);
+
+  gain.connect(ctx.destination);
+
+  osc.frequency.value=880;
+
+  gain.gain.value=.12;
+
+  osc.start();
+
+  setTimeout(()=>{
+
+   osc.frequency.value=660;
+
+  },180);
+
+  setTimeout(()=>{
+
+   osc.stop();
+
+   ctx.close();
+
+  },400);
+
+ }catch(e){}
+
+}
+
+
+/* =========================================================
+   فحص مواعيد العملاء
+========================================================= */
+
+function checkReminders(){
+
+ const now=new Date();
+
+ const date=
+  now.getFullYear()+"-"+
+  String(now.getMonth()+1).padStart(2,"0")+"-"+
+  String(now.getDate()).padStart(2,"0");
+
+ const time=
+  String(now.getHours()).padStart(2,"0")+":"+
+  String(now.getMinutes()).padStart(2,"0");
+
+
+ customers.forEach(c=>{
+
+  if(!c.date || !c.time)return;
+
+  if(c.date!==date)return;
+
+  if(c.time!==time)return;
+
+  const key=date+"_"+time;
+
+  if(c.reminderKey===key)return;
+
+  c.reminderKey=key;
+
+  saveCustomers();
+
+  notificationSound();
+
+  notify(
+   "📞 موعد اتصال",
+   "حان موعد الاتصال بالعميل: "+
+   c.name+
+   " - كود الصيدلية: "+
+   c.pharmacyCode
+  );
+
+
+  /*
+   محاولة فتح كارت العميل مباشرة
+   إذا كان المتصفح يسمح.
+  */
+
+  renderCustomers();
+
+  showMessage(
+   "🔔 حان موعد: "+c.name
+  );
+
+ });
+
+}
+
+
+/* =========================================================
+   تذكير مستمر
+========================================================= */
+
+setInterval(
+ checkReminders,
+ 10000
+);
+
+
+/* =========================================================
+   فتح الكارت عند الضغط على الإشعار
+========================================================= */
+
+/*
+  إشعار المتصفح نفسه لا يستطيع إجبار المتصفح
+  على فتح كارت HTML محدد في كل الهواتف،
+  لذلك نعرض التنبيه داخل البرنامج أيضاً.
+*/
+
+
+/* =========================================================
+   إغلاق المودال بالضغط خارجه
+========================================================= */
+
+document
+.getElementById("editModal")
+.addEventListener(
+ "click",
+ function(e){
+
+  if(e.target===this){
+
+   closeEdit();
+
+  }
+
+ }
+);
+
+
+/* =========================================================
+   تشغيل
+========================================================= */
+
+loadCustomers();
+
+renderCustomers();
+
+checkReminders();
+
+</script>
+
+</body>
+  </html>
