@@ -1,1 +1,2639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>أحمد فايد - إدارة العملاء</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#07111f;
+    color:#fff;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:15px;
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    border-radius:22px;
+    padding:25px 18px;
+    text-align:center;
+    margin-bottom:15px;
+    box-shadow:0 10px 30px rgba(37,99,235,.20);
+}
+
+.header h1{
+    margin:0 0 8px;
+    font-size:27px;
+}
+
+.header div{
+    color:#e0e7ff;
+}
+
+.card{
+    background:#0f1a2b;
+    border:1px solid #26364f;
+    border-radius:20px;
+    padding:17px;
+    margin-bottom:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+h2{
+    margin-top:0;
+    font-size:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:11px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+label{
+    display:block;
+    color:#cbd5e1;
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    border:1px solid #3b4b65;
+    background:#081221;
+    color:#fff;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#3b82f6;
+    box-shadow:0 0 0 2px rgba(59,130,246,.12);
+}
+
+textarea{
+    min-height:95px;
+    resize:vertical;
+}
+
+.btn{
+    width:100%;
+    border:0;
+    border-radius:13px;
+    padding:14px;
+    color:#fff;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:13px;
+    background:#2563eb;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.search{
+    margin-bottom:10px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.stat{
+    background:#0f1a2b;
+    border:1px solid #26364f;
+    border-radius:17px;
+    padding:15px 5px;
+    text-align:center;
+}
+
+.stat b{
+    display:block;
+    font-size:24px;
+    margin-bottom:5px;
+}
+
+.stat span{
+    color:#94a3b8;
+    font-size:12px;
+}
+
+.customer{
+    background:#0f1a2b;
+    border:1px solid #26364f;
+    border-radius:20px;
+    margin-bottom:14px;
+    overflow:hidden;
+    box-shadow:0 7px 20px rgba(0,0,0,.15);
+}
+
+.customer-title{
+    background:#17243a;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.customer-name{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.type{
+    min-width:38px;
+    text-align:center;
+    background:#475569;
+    border-radius:20px;
+    padding:6px 11px;
+    font-weight:bold;
+}
+
+.type-A{
+    background:#b91c1c;
+}
+
+.type-B{
+    background:#d97706;
+}
+
+.type-C{
+    background:#2563eb;
+}
+
+.customer-body{
+    padding:15px;
+}
+
+.info{
+    margin:8px 0;
+    line-height:1.7;
+}
+
+.info span{
+    color:#94a3b8;
+}
+
+.info b{
+    color:#fff;
+}
+
+.notes{
+    background:#081221;
+    border-radius:13px;
+    padding:11px;
+    margin-top:11px;
+    white-space:pre-wrap;
+    color:#e2e8f0;
+}
+
+.badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin:13px 0;
+}
+
+.badge{
+    padding:7px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.green{
+    background:#14532d;
+}
+
+.red{
+    background:#7f1d1d;
+}
+
+.orange{
+    background:#78350f;
+}
+
+.blue{
+    background:#1e3a8a;
+}
+
+.gray{
+    background:#334155;
+}
+
+.purple{
+    background:#581c87;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.action{
+    border:0;
+    border-radius:11px;
+    color:#fff;
+    padding:11px 7px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.call{
+    background:#16a34a;
+}
+
+.whatsapp{
+    background:#15803d;
+}
+
+.called{
+    background:#0891b2;
+}
+
+.noanswer{
+    background:#dc2626;
+}
+
+.order{
+    background:#7c3aed;
+}
+
+.noorder{
+    background:#991b1b;
+}
+
+.follow{
+    background:#d97706;
+}
+
+.edit{
+    background:#0369a1;
+}
+
+.delete{
+    background:#475569;
+}
+
+.empty{
+    text-align:center;
+    color:#94a3b8;
+    padding:40px;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.82);
+    z-index:999;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    background:#0f1a2b;
+    width:100%;
+    max-width:680px;
+    max-height:90vh;
+    overflow:auto;
+    border-radius:22px;
+    padding:18px;
+    border:1px solid #334155;
+}
+
+.modal-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+}
+
+.save{
+    background:#16a34a;
+}
+
+.close{
+    background:#475569;
+}
+
+#message{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#020617;
+    border:1px solid #475569;
+    padding:13px 20px;
+    border-radius:13px;
+    display:none;
+    z-index:2000;
+    box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+
+@media(max-width:650px){
+
+    .container{
+        padding:10px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+    .modal-buttons{
+        grid-template-columns:1fr;
+    }
+
+    .customer-title{
+        align-items:flex-start;
+    }
+
+    .customer-name{
+        font-size:16px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header">
+
+        <h1>📞 أحمد فايد</h1>
+
+        <div>
+            إدارة ومتابعة العملاء
+        </div>
+
+    </div>
+
+
+    <!-- ================= إضافة عميل ================= -->
+
+    <div class="card">
+
+        <h2>➕ إضافة عميل جديد</h2>
+
+        <div class="grid">
+
+            <div>
+
+                <label>
+                    اسم العميل *
+                </label>
+
+                <input
+                    id="name"
+                    type="text"
+                    placeholder="اكتب اسم العميل"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    رقم الهاتف *
+                </label>
+
+                <input
+                    id="phone"
+                    type="tel"
+                    inputmode="numeric"
+                    placeholder="اكتب رقم الهاتف"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    عنوان العميل
+                </label>
+
+                <input
+                    id="address"
+                    type="text"
+                    placeholder="عنوان العميل"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    نوع العميل ABC
+                </label>
+
+                <select id="type">
+
+                    <option value="A">
+                        A - مهم
+                    </option>
+
+                    <option value="B">
+                        B - متوسط
+                    </option>
+
+                    <option value="C" selected>
+                        C - عادي
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    تاريخ الاتصال
+                </label>
+
+                <input
+                    id="date"
+                    type="date"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    ميعاد الاتصال
+                </label>
+
+                <input
+                    id="time"
+                    type="time"
+                >
+
+            </div>
+
+
+            <div class="full">
+
+                <label>
+                    ملاحظات
+                </label>
+
+                <textarea
+                    id="notes"
+                    placeholder="اكتب ملاحظات العميل"
+                ></textarea>
+
+            </div>
+
+
+            <div class="full">
+
+                <label>
+                    حالة الطلبية
+                </label>
+
+                <select id="orderStatus">
+
+                    <option value="none">
+                        لم يتم تحديدها
+                    </option>
+
+                    <option value="yes">
+                        📦 أخذ طلبية
+                    </option>
+
+                    <option value="no">
+                        ❌ لم يأخذ طلبية
+                    </option>
+
+                    <option value="later1">
+                        ⏰ كلمني بعد ساعة
+                    </option>
+
+                    <option value="later2">
+                        ⏰ كلمني بعد ساعتين
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn"
+            onclick="addCustomer()"
+        >
+            💾 إضافة وحفظ العميل
+        </button>
+
+    </div>
+
+
+    <!-- ================= البحث ================= -->
+
+    <div class="card">
+
+        <h2>
+            🔎 البحث والمتابعة
+        </h2>
+
+
+        <input
+            class="search"
+            id="search"
+            type="search"
+            placeholder="ابحث باسم العميل أو رقم الهاتف أو العنوان"
+            oninput="renderCustomers()"
+        >
+
+
+        <select
+            id="filter"
+            onchange="renderCustomers()"
+        >
+
+            <option value="all">
+                كل العملاء
+            </option>
+
+            <option value="notCalled">
+                لم أتصل بهم اليوم
+            </option>
+
+            <option value="called">
+                اتصلت بهم اليوم
+            </option>
+
+            <option value="noAnswer">
+                لم يردوا
+            </option>
+
+            <option value="orders">
+                أخذوا طلبية
+            </option>
+
+            <option value="noOrders">
+                لم يأخذوا طلبية
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- ================= الإحصائيات ================= -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <b id="total">
+                0
+            </b>
+
+            <span>
+                كل العملاء
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <b id="calledCount">
+                0
+            </b>
+
+            <span>
+                تم الاتصال
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <b id="notCalledCount">
+                0
+            </b>
+
+            <span>
+                لم أتصل
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <b id="ordersCount">
+                0
+            </b>
+
+            <span>
+                طلبات
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= العملاء ================= -->
+
+    <div id="customers"></div>
+
+</div>
+
+
+
+<!-- ================= نافذة التعديل ================= -->
+
+<div
+    class="modal"
+    id="editModal"
+>
+
+    <div class="modal-box">
+
+        <h2>
+            ✏️ تعديل بيانات العميل
+        </h2>
+
+
+        <div class="grid">
+
+            <div>
+
+                <label>
+                    اسم العميل
+                </label>
+
+                <input
+                    id="editName"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    رقم الهاتف
+                </label>
+
+                <input
+                    id="editPhone"
+                    inputmode="numeric"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    العنوان
+                </label>
+
+                <input
+                    id="editAddress"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    نوع العميل
+                </label>
+
+                <select id="editType">
+
+                    <option value="A">
+                        A - مهم
+                    </option>
+
+                    <option value="B">
+                        B - متوسط
+                    </option>
+
+                    <option value="C">
+                        C - عادي
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    تاريخ الاتصال
+                </label>
+
+                <input
+                    id="editDate"
+                    type="date"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    ميعاد الاتصال
+                </label>
+
+                <input
+                    id="editTime"
+                    type="time"
+                >
+
+            </div>
+
+
+            <div class="full">
+
+                <label>
+                    الملاحظات
+                </label>
+
+                <textarea
+                    id="editNotes"
+                ></textarea>
+
+            </div>
+
+
+            <div class="full">
+
+                <label>
+                    حالة الطلبية
+                </label>
+
+                <select id="editOrderStatus">
+
+                    <option value="none">
+                        لم يتم تحديدها
+                    </option>
+
+                    <option value="yes">
+                        📦 أخذ طلبية
+                    </option>
+
+                    <option value="no">
+                        ❌ لم يأخذ طلبية
+                    </option>
+
+                    <option value="later1">
+                        ⏰ بعد ساعة
+                    </option>
+
+                    <option value="later2">
+                        ⏰ بعد ساعتين
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="action save"
+                onclick="saveEdit()"
+            >
+                💾 حفظ التعديل
+            </button>
+
+
+            <button
+                class="action close"
+                onclick="closeEdit()"
+            >
+                إلغاء
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="message"></div>
+
+
+
+<script>
+
+/* =====================================================
+   قاعدة البيانات الجديدة
+===================================================== */
+
+const DB_NAME =
+    "ahmed_fayed_customers_v2";
+
+
+let customers = [];
+
+let editId = null;
+
+
+/* =====================================================
+   العملاء الـ 38
+   بدون أرقام التسلسل
+===================================================== */
+
+const DEFAULT_CUSTOMERS = [
+
+    {
+        name:"ص د ابو المكارم الزحاليق",
+        phone:"2799272"
+    },
+
+    {
+        name:"ص د احمد منصور الجديدة/الحامول",
+        phone:"01065205327"
+    },
+
+    {
+        name:"ص د اسامة احمد /// اكو",
+        phone:"01225065158"
+    },
+
+    {
+        name:"ص د اسماء كرتينه/رشيد",
+        phone:"01092378708"
+    },
+
+    {
+        name:"ص د الاء درويش/الحمراوي",
+        phone:"01003262324"
+    },
+
+    {
+        name:"ص د انعام المسكاوي * الرحمانية",
+        phone:"01012240515"
+    },
+
+    {
+        name:"ص د ايمان جليل/الطرفايه",
+        phone:"01099512171"
+    },
+
+    {
+        name:"ص د ايناس خطاب العمار الجديدة",
+        phone:"01098866613"
+    },
+
+    {
+        name:"ص د بسام الدباجي/قطور",
+        phone:"01012600410"
+    },
+
+    {
+        name:"ص د رامي جمال الجديدة/محله ابو علي",
+        phone:"01064378312"
+    },
+
+    {
+        name:"ص د رانيا عبد الجواد زايد",
+        phone:"01027550887"
+    },
+
+    {
+        name:"ص د سارة الشريف /جماجمون",
+        phone:"2595026/2591668"
+    },
+
+    {
+        name:"ص د سامح ابو العطا خميس الكبرى",
+        phone:"01002775433"
+    },
+
+    {
+        name:"ص د شيماء عادل موسى/السحايد",
+        phone:"01096056679"
+    },
+
+    {
+        name:"ص د شيماء محمد ابو الحسن/54",
+        phone:"01000931885"
+    },
+
+    {
+        name:"ص د صفية كمال الدين ( عثمان ) \\ مطوبس",
+        phone:"01019614433"
+    },
+
+    {
+        name:"ص د ضحى عبد الواحد /القن",
+        phone:"01024614518"
+    },
+
+    {
+        name:"ص د عبد السلام تير/تيروه",
+        phone:"01226818402"
+    },
+
+    {
+        name:"ص د عبد الله منصور/المنشأة",
+        phone:"01092081073"
+    },
+
+    {
+        name:"ص د عماد الدين/مطوبس",
+        phone:"01094050839"
+    },
+
+    {
+        name:"ص د عمار مرزوق/إبيلا",
+        phone:"01090794504"
+    },
+
+    {
+        name:"ص د غادة كمال سيدي سالم",
+        phone:"01023220455"
+    },
+
+    {
+        name:"ص د غادة شاكر/الرياض",
+        phone:"01009280683"
+    },
+
+    {
+        name:"ص د محمد اسماعيل/المنصورة",
+        phone:"01024460458"
+    },
+
+    {
+        name:"ص د محمد جمعة/اول طريق الحامول بلطيم",
+        phone:"01016483709"
+    },
+
+    {
+        name:"ص د محمد عبد الرحيم // الملاحة",
+        phone:"01009058458"
+    },
+
+    {
+        name:"ص د محمد علي بسيوني",
+        phone:"01001910186"
+    },
+
+    {
+        name:"ص د محمد عنتر /الفرسق",
+        phone:"01061016654"
+    },
+
+    {
+        name:"ص د محمد فتحي عطا الله / بسيون",
+        phone:"01019848076"
+    },
+
+    {
+        name:"ص د محمود ابراهيم الصافية / الصافية",
+        phone:"0472592607"
+    },
+
+    {
+        name:"ص د محمود زيتون",
+        phone:"01148308016"
+    },
+
+    {
+        name:"ص د مصطفى المنسي /ام الكبرى",
+        phone:"01063898580"
+    },
+
+    {
+        name:"ص د منى دومة // رشيد",
+        phone:"01011399984"
+    },
+
+    {
+        name:"ص د نعيم سعيد السيد/اكو",
+        phone:"01118075730"
+    },
+
+    {
+        name:"ص د هدر هاشم/ أبو عيسى",
+        phone:""
+    },
+
+    {
+        name:"ص د هشام شاهين /امنية قليين",
+        phone:""
+    },
+
+    {
+        name:"ص د هيثم مبروك/المنصورة",
+        phone:"01097579201"
+    },
+
+    {
+        name:"ص د ياسر عبده/م ابو علي",
+        phone:"0472591264"
+    }
+
+];
+
+
+/* =====================================================
+   رسالة
+===================================================== */
+
+function showMessage(text){
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = text;
+
+    box.style.display = "block";
+
+    setTimeout(function(){
+
+        box.style.display = "none";
+
+    },2200);
+
+}
+
+
+/* =====================================================
+   إنشاء عميل جاهز
+===================================================== */
+
+function createCustomer(data){
+
+    return {
+
+        id:
+            Date.now().toString() +
+            Math.random()
+                .toString(36)
+                .substring(2,8),
+
+        name:
+            data.name || "",
+
+        phone:
+            data.phone || "",
+
+        address:"",
+
+        type:"C",
+
+        date:"",
+
+        time:"",
+
+        notes:"",
+
+        orderStatus:"none",
+
+        calls:{},
+
+        noAnswer:{},
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+}
+
+
+/* =====================================================
+   تحميل العملاء
+===================================================== */
+
+function loadCustomers(){
+
+    const data =
+        localStorage.getItem(DB_NAME);
+
+
+    if(!data){
+
+        customers =
+            DEFAULT_CUSTOMERS.map(
+                createCustomer
+            );
+
+        saveCustomers();
+
+        return;
+
+    }
+
+
+    try{
+
+        const parsed =
+            JSON.parse(data);
+
+
+        if(Array.isArray(parsed)){
+
+            customers = parsed;
+
+        }else{
+
+            customers = [];
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        customers = [];
+
+    }
+
+
+    /* تأمين البيانات القديمة */
+
+    customers.forEach(function(customer){
+
+        if(!customer.calls){
+            customer.calls = {};
+        }
+
+        if(!customer.noAnswer){
+            customer.noAnswer = {};
+        }
+
+        if(!customer.type){
+            customer.type = "C";
+        }
+
+        if(!customer.orderStatus){
+            customer.orderStatus = "none";
+        }
+
+        if(!customer.address){
+            customer.address = "";
+        }
+
+        if(!customer.notes){
+            customer.notes = "";
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   حفظ
+===================================================== */
+
+function saveCustomers(){
+
+    try{
+
+        localStorage.setItem(
+            DB_NAME,
+            JSON.stringify(customers)
+        );
+
+        return true;
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "حصل خطأ أثناء حفظ البيانات."
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   تاريخ اليوم
+===================================================== */
+
+function getToday(){
+
+    const d =
+        new Date();
+
+
+    return (
+
+        d.getFullYear() +
+
+        "-" +
+
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0") +
+
+        "-" +
+
+        String(
+            d.getDate()
+        ).padStart(2,"0")
+
+    );
+
+}
+
+
+/* =====================================================
+   تنظيف النص
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value || "")
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   إضافة عميل جديد
+===================================================== */
+
+function addCustomer(){
+
+    const name =
+        document
+            .getElementById("name")
+            .value
+            .trim();
+
+
+    const phone =
+        document
+            .getElementById("phone")
+            .value
+            .trim();
+
+
+    const address =
+        document
+            .getElementById("address")
+            .value
+            .trim();
+
+
+    const type =
+        document
+            .getElementById("type")
+            .value;
+
+
+    const date =
+        document
+            .getElementById("date")
+            .value;
+
+
+    const time =
+        document
+            .getElementById("time")
+            .value;
+
+
+    const notes =
+        document
+            .getElementById("notes")
+            .value
+            .trim();
+
+
+    const orderStatus =
+        document
+            .getElementById("orderStatus")
+            .value;
+
+
+    if(name === ""){
+
+        alert(
+            "من فضلك اكتب اسم العميل"
+        );
+
+        document
+            .getElementById("name")
+            .focus();
+
+        return;
+
+    }
+
+
+    if(phone === ""){
+
+        alert(
+            "من فضلك اكتب رقم الهاتف"
+        );
+
+        document
+            .getElementById("phone")
+            .focus();
+
+        return;
+
+    }
+
+
+    const customer = {
+
+        id:
+            Date.now().toString(),
+
+        name:name,
+
+        phone:phone,
+
+        address:address,
+
+        type:type,
+
+        date:date,
+
+        time:time,
+
+        notes:notes,
+
+        orderStatus:orderStatus,
+
+        calls:{},
+
+        noAnswer:{},
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    customers.push(customer);
+
+
+    if(!saveCustomers()){
+
+        customers.pop();
+
+        return;
+
+    }
+
+
+    clearAddForm();
+
+    renderCustomers();
+
+
+    showMessage(
+        "✅ تم إضافة العميل بنجاح"
+    );
+
+}
+
+
+/* =====================================================
+   تنظيف نموذج الإضافة
+===================================================== */
+
+function clearAddForm(){
+
+    document.getElementById("name").value = "";
+
+    document.getElementById("phone").value = "";
+
+    document.getElementById("address").value = "";
+
+    document.getElementById("date").value = "";
+
+    document.getElementById("time").value = "";
+
+    document.getElementById("notes").value = "";
+
+    document.getElementById("orderStatus").value =
+        "none";
+
+    document.getElementById("type").value =
+        "C";
+
+}
+
+
+/* =====================================================
+   مكالمات اليوم
+===================================================== */
+
+function getCallsToday(customer){
+
+    if(!customer.calls){
+
+        customer.calls = {};
+
+    }
+
+
+    return Number(
+        customer.calls[getToday()] || 0
+    );
+
+}
+
+
+/* =====================================================
+   تسجيل مكالمة
+===================================================== */
+
+function addCall(id){
+
+    const customer =
+        customers.find(
+            item => item.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    if(!customer.calls){
+
+        customer.calls = {};
+
+    }
+
+
+    const today =
+        getToday();
+
+
+    customer.calls[today] =
+        Number(
+            customer.calls[today] || 0
+        ) + 1;
+
+
+    /*
+       لو سجلنا مكالمة
+       يبقى لم يرد القديمة لليوم
+       يتم إزالتها
+    */
+
+    if(customer.noAnswer){
+
+        delete customer.noAnswer[today];
+
+    }
+
+
+    saveCustomers();
+
+    renderCustomers();
+
+}
+
+
+/* =====================================================
+   اتصال
+===================================================== */
+
+function callCustomer(id){
+
+    const customer =
+        customers.find(
+            item => item.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    if(!customer.phone){
+
+        alert(
+            "هذا العميل لا يوجد له رقم هاتف"
+        );
+
+        return;
+
+    }
+
+
+    addCall(id);
+
+
+    window.location.href =
+        "tel:" +
+        customer.phone;
+
+}
+
+
+/* =====================================================
+   واتساب
+===================================================== */
+
+function whatsapp(id){
+
+    const customer =
+        customers.find(
+            item => item.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    if(!customer.phone){
+
+        alert(
+            "هذا العميل لا يوجد له رقم هاتف"
+        );
+
+        return;
+
+    }
+
+
+    let number =
+        customer.phone
+            .replace(/\D/g,"");
+
+
+    if(number.startsWith("01")){
+
+        number =
+            "20" +
+            number.substring(1);
+
+    }
+
+
+    window.open(
+        "https://wa.me/" +
+        number,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   تم الاتصال
+===================================================== */
+
+function markCalled(id){
+
+    addCall(id);
+
+    showMessage(
+        "✅ تم تسجيل الاتصال"
+    );
+
+}
+
+
+/* =====================================================
+   لم يرد
+===================================================== */
+
+function markNoAnswer(id){
+
+    const customer =
+        customers.find(
+            item => item.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    if(!customer.noAnswer){
+
+        customer.noAnswer = {};
+
+    }
+
+
+    customer.noAnswer[getToday()] =
+        true;
+
+
+    saveCustomers();
+
+    renderCustomers();
+
+
+    showMessage(
+        "❌ تم تسجيل لم يرد"
+    );
+
+}
+
+
+/* =====================================================
+   الطلبية
+===================================================== */
+
+function setOrder(id,status){
+
+    const customer =
+        customers.find(
+            item => item.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    customer.orderStatus =
+        status;
+
+
+    saveCustomers();
+
+    renderCustomers();
+
+
+    showMessage(
+        "📦 تم تحديث حالة الطلبية"
+    );
+
+}
+
+
+/* =====================================================
+   تعديل
+===================================================== */
+
+function editCustomer(id){
+
+    const customer =
+        customers.find(
+            item => item.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    editId = id;
+
+
+    document
+        .getElementById("editName")
+        .value =
+        customer.name || "";
+
+
+    document
+        .getElementById("editPhone")
+        .value =
+        customer.phone || "";
+
+
+    document
+        .getElementById("editAddress")
+        .value =
+        customer.address || "";
+
+
+    document
+        .getElementById("editType")
+        .value =
+        customer.type || "C";
+
+
+    document
+        .getElementById("editDate")
+        .value =
+        customer.date || "";
+
+
+    document
+        .getElementById("editTime")
+        .value =
+        customer.time || "";
+
+
+    document
+        .getElementById("editNotes")
+        .value =
+        customer.notes || "";
+
+
+    document
+        .getElementById("editOrderStatus")
+        .value =
+        customer.orderStatus || "none";
+
+
+    document
+        .getElementById("editModal")
+        .classList
+        .add("show");
+
+}
+
+
+/* =====================================================
+   حفظ التعديل
+===================================================== */
+
+function saveEdit(){
+
+    const customer =
+        customers.find(
+            item => item.id === editId
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    const name =
+        document
+            .getElementById("editName")
+            .value
+            .trim();
+
+
+    const phone =
+        document
+            .getElementById("editPhone")
+            .value
+            .trim();
+
+
+    if(name === ""){
+
+        alert(
+            "اكتب اسم العميل"
+        );
+
+        return;
+
+    }
+
+
+    if(phone === ""){
+
+        alert(
+            "اكتب رقم الهاتف"
+        );
+
+        return;
+
+    }
+
+
+    customer.name =
+        name;
+
+
+    customer.phone =
+        phone;
+
+
+    customer.address =
+        document
+            .getElementById("editAddress")
+            .value
+            .trim();
+
+
+    customer.type =
+        document
+            .getElementById("editType")
+            .value;
+
+
+    customer.date =
+        document
+            .getElementById("editDate")
+            .value;
+
+
+    customer.time =
+        document
+            .getElementById("editTime")
+            .value;
+
+
+    customer.notes =
+        document
+            .getElementById("editNotes")
+            .value
+            .trim();
+
+
+    customer.orderStatus =
+        document
+            .getElementById("editOrderStatus")
+            .value;
+
+
+    saveCustomers();
+
+    closeEdit();
+
+    renderCustomers();
+
+
+    showMessage(
+        "✅ تم تعديل بيانات العميل"
+    );
+
+}
+
+
+/* =====================================================
+   إغلاق التعديل
+===================================================== */
+
+function closeEdit(){
+
+    editId = null;
+
+
+    document
+        .getElementById("editModal")
+        .classList
+        .remove("show");
+
+}
+
+
+/* =====================================================
+   حذف
+===================================================== */
+
+function deleteCustomer(id){
+
+    const customer =
+        customers.find(
+            item => item.id === id
+        );
+
+
+    if(!customer){
+
+        return;
+
+    }
+
+
+    const ok =
+        confirm(
+            "هل تريد حذف العميل:\n\n" +
+            customer.name +
+            " ؟"
+        );
+
+
+    if(!ok){
+
+        return;
+
+    }
+
+
+    customers =
+        customers.filter(
+            item => item.id !== id
+        );
+
+
+    saveCustomers();
+
+    renderCustomers();
+
+
+    showMessage(
+        "🗑️ تم حذف العميل"
+    );
+
+}
+
+
+/* =====================================================
+   حالة الطلبية
+===================================================== */
+
+function getOrderBadge(status){
+
+    if(status === "yes"){
+
+        return `
+            <span class="badge blue">
+                📦 أخذ طلبية
+            </span>
+        `;
+
+    }
+
+
+    if(status === "no"){
+
+        return `
+            <span class="badge red">
+                ❌ لم يأخذ طلبية
+            </span>
+        `;
+
+    }
+
+
+    if(status === "later1"){
+
+        return `
+            <span class="badge orange">
+                ⏰ كلمني بعد ساعة
+            </span>
+        `;
+
+    }
+
+
+    if(status === "later2"){
+
+        return `
+            <span class="badge orange">
+                ⏰ كلمني بعد ساعتين
+            </span>
+        `;
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =====================================================
+   عرض العملاء
+===================================================== */
+
+function renderCustomers(){
+
+    const container =
+        document
+            .getElementById("customers");
+
+
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const filter =
+        document
+            .getElementById("filter")
+            .value;
+
+
+    const today =
+        getToday();
+
+
+    /* ================= الإحصائيات ================= */
+
+    document
+        .getElementById("total")
+        .textContent =
+        customers.length;
+
+
+    document
+        .getElementById("calledCount")
+        .textContent =
+        customers.filter(
+            customer =>
+                getCallsToday(customer) > 0
+        ).length;
+
+
+    document
+        .getElementById("notCalledCount")
+        .textContent =
+        customers.filter(
+            customer =>
+                getCallsToday(customer) === 0
+        ).length;
+
+
+    document
+        .getElementById("ordersCount")
+        .textContent =
+        customers.filter(
+            customer =>
+                customer.orderStatus === "yes"
+        ).length;
+
+
+    /* ================= الفلترة ================= */
+
+    const result =
+        customers.filter(
+            customer => {
+
+
+                const text =
+                    (
+                        customer.name +
+                        " " +
+                        customer.phone +
+                        " " +
+                        (customer.address || "") +
+                        " " +
+                        (customer.notes || "")
+                    )
+                    .toLowerCase();
+
+
+                if(
+                    search &&
+                    !text.includes(search)
+                ){
+
+                    return false;
+
+                }
+
+
+                const calls =
+                    getCallsToday(customer);
+
+
+                if(
+                    filter === "notCalled" &&
+                    calls > 0
+                ){
+
+                    return false;
+
+                }
+
+
+                if(
+                    filter === "called" &&
+                    calls === 0
+                ){
+
+                    return false;
+
+                }
+
+
+                if(
+                    filter === "noAnswer" &&
+                    !(
+                        customer.noAnswer &&
+                        customer.noAnswer[today]
+                    )
+                ){
+
+                    return false;
+
+                }
+
+
+                if(
+                    filter === "orders" &&
+                    customer.orderStatus !== "yes"
+                ){
+
+                    return false;
+
+                }
+
+
+                if(
+                    filter === "noOrders" &&
+                    customer.orderStatus !== "no"
+                ){
+
+                    return false;
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+    /* ================= لا يوجد نتائج ================= */
+
+    if(result.length === 0){
+
+        container.innerHTML = `
+
+            <div class="card empty">
+
+                👥
+
+                <br><br>
+
+                لا يوجد عملاء مطابقين للبحث
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* ================= عرض العملاء ================= */
+
+    container.innerHTML =
+
+        result.map(
+            customer => {
+
+
+                const calls =
+                    getCallsToday(customer);
+
+
+                const called =
+                    calls > 0;
+
+
+                const noAnswer =
+                    customer.noAnswer &&
+                    customer.noAnswer[today];
+
+
+                const type =
+                    customer.type || "C";
+
+
+                return `
+
+                <div
+                    class="customer"
+                    id="customer-${customer.id}"
+                >
+
+
+                    <div class="customer-title">
+
+
+                        <div class="customer-name">
+
+                            👤
+
+                            ${escapeHTML(
+                                customer.name
+                            )}
+
+                        </div>
+
+
+                        <div
+                            class="type type-${escapeHTML(type)}"
+                        >
+
+                            ${escapeHTML(type)}
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="customer-body">
+
+
+                        <div class="info">
+
+                            <span>
+                                📞 الهاتف:
+                            </span>
+
+                            <b>
+                                ${escapeHTML(
+                                    customer.phone ||
+                                    "لا يوجد رقم"
+                                )}
+                            </b>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span>
+                                📍 العنوان:
+                            </span>
+
+                            <b>
+
+                                ${
+                                    escapeHTML(
+                                        customer.address ||
+                                        "غير محدد"
+                                    )
+                                }
+
+                            </b>
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <span>
+                                📅 موعد الاتصال:
+                            </span>
+
+                            <b>
+
+                                ${
+                                    customer.date
+                                    ?
+                                    escapeHTML(
+                                        customer.date
+                                    )
+                                    :
+                                    "غير محدد"
+                                }
+
+                                ${
+                                    customer.time
+                                    ?
+                                    " - " +
+                                    escapeHTML(
+                                        customer.time
+                                    )
+                                    :
+                                    ""
+                                }
+
+                            </b>
+
+                        </div>
+
+
+                        <div class="notes">
+
+                            ${
+                                customer.notes
+                                ?
+                                escapeHTML(
+                                    customer.notes
+                                )
+                                :
+                                "لا توجد ملاحظات"
+                            }
+
+                        </div>
+
+
+                        <div class="badges">
+
+
+                            <span
+                                class="badge ${
+                                    called
+                                    ?
+                                    "green"
+                                    :
+                                    "orange"
+                                }"
+                            >
+
+                                ${
+                                    called
+                                    ?
+                                    "✅ تم الاتصال اليوم"
+                                    :
+                                    "⏳ لم أتصل اليوم"
+                                }
+
+                            </span>
+
+
+                            <span class="badge blue">
+
+                                📞 رنات اليوم:
+
+                                ${calls}
+
+                            </span>
+
+
+                            ${
+                                noAnswer
+                                ?
+                                `
+                                <span class="badge red">
+                                    ❌ لم يرد
+                                </span>
+                                `
+                                :
+                                ""
+                            }
+
+
+                            ${getOrderBadge(
+                                customer.orderStatus
+                            )}
+
+
+                        </div>
+
+
+                        <div class="actions">
+
+
+                            <button
+                                class="action call"
+                                onclick="callCustomer('${customer.id}')"
+                            >
+
+                                📞 اتصال + رن
+
+                            </button>
+
+
+                            <button
+                                class="action whatsapp"
+                                onclick="whatsapp('${customer.id}')"
+                            >
+
+                                💬 واتساب
+
+                            </button>
+
+
+                            <button
+                                class="action called"
+                                onclick="markCalled('${customer.id}')"
+                            >
+
+                                ✅ تم الاتصال
+
+                            </button>
+
+
+                            <button
+                                class="action noanswer"
+                                onclick="markNoAnswer('${customer.id}')"
+                            >
+
+                                ❌ لم يرد
+
+                            </button>
+
+
+                            <button
+                                class="action order"
+                                onclick="setOrder('${customer.id}','yes')"
+                            >
+
+                                📦 أخذ طلبية
+
+                            </button>
+
+
+                            <button
+                                class="action noorder"
+                                onclick="setOrder('${customer.id}','no')"
+                            >
+
+                                🚫 لم يأخذ
+
+                            </button>
+
+
+                            <button
+                                class="action follow"
+                                onclick="setOrder('${customer.id}','later1')"
+                            >
+
+                                ⏰ بعد ساعة
+
+                            </button>
+
+
+                            <button
+                                class="action follow"
+                                onclick="setOrder('${customer.id}','later2')"
+                            >
+
+                                ⏰ بعد ساعتين
+
+                            </button>
+
+
+                            <button
+                                class="action edit"
+                                onclick="editCustomer('${customer.id}')"
+                            >
+
+                                ✏️ تعديل
+
+                            </button>
+
+
+                            <button
+                                class="action delete"
+                                onclick="deleteCustomer('${customer.id}')"
+                            >
+
+                                🗑️ حذف
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                `;
+
+            }
+
+        ).join("");
+
+}
+
+
+/* =====================================================
+   تشغيل البرنامج
+===================================================== */
+
+loadCustomers();
+
+renderCustomers();
+
+
+/* =====================================================
+   إغلاق نافذة التعديل بالضغط خارجها
+===================================================== */
+
+document
+    .getElementById("editModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(event.target === this){
+
+                closeEdit();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   Enter لإضافة العميل
+===================================================== */
+
+document
+    .getElementById("phone")
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(event.key === "Enter"){
+
+                addCustomer();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+  </html>
