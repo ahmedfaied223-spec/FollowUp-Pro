@@ -1,66 +1,518 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تجربة تخمين كلمة السر</title>
+
+    <title>جهات اتصالي</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Tahoma, sans-serif;
+            background: #f1f5f9;
+            color: #111827;
+        }
+
+        .container {
+            width: min(700px, 94%);
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .description {
+            text-align: center;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        input[type="file"],
+        input[type="text"] {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            border: 0;
+            border-radius: 10px;
+            background: #111827;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: .9;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 14px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .contact {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 15px 0;
+        }
+
+        .contact:last-child {
+            border-bottom: none;
+        }
+
+        .name {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .phone {
+            direction: ltr;
+            text-align: right;
+            color: #475569;
+        }
+
+        .empty {
+            text-align: center;
+            color: #64748b;
+            padding: 30px;
+        }
+
+        .danger {
+            background: #dc2626;
+        }
+
+        .success {
+            color: #15803d;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
 </head>
-<body dir="rtl">
 
-    <h2>تجربة Brute Force تعليمية</h2>
+<body>
 
-    <input id="target" value="abc7" placeholder="كلمة السر التجريبية">
-    <button onclick="start()">ابدأ التجربة</button>
+<div class="container">
 
-    <p id="status">اضغط ابدأ</p>
+    <div class="card">
 
-    <script>
-        function start() {
-            const target = document.getElementById("target").value;
-            const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        <h1>📱 جهات اتصالي</h1>
 
-            let attempts = 0;
-            let found = false;
-            const startTime = performance.now();
+        <p class="description">
+            اختر ملف جهات الاتصال من هاتفك بصيغة VCF
+            لعرض الأسماء والأرقام هنا.
+        </p>
 
-            document.getElementById("status").textContent =
-                "جاري التجربة...";
+        <input
+            type="file"
+            id="fileInput"
+            accept=".vcf,text/vcard"
+        >
 
-            for (let length = 1; length <= target.length && !found; length++) {
-                const total = Math.pow(chars.length, length);
+        <button onclick="readContacts()">
+            📂 قراءة جهات الاتصال
+        </button>
 
-                for (let number = 0; number < total; number++) {
-                    let n = number;
-                    let guess = "";
+        <div id="message"></div>
 
-                    for (let i = 0; i < length; i++) {
-                        guess = chars[n % chars.length] + guess;
-                        n = Math.floor(n / chars.length);
-                    }
+    </div>
 
-                    attempts++;
 
-                    if (guess === target) {
-                        const time =
-                            ((performance.now() - startTime) / 1000).toFixed(4);
+    <div class="card">
 
-                        document.getElementById("status").innerHTML =
-                            "تم العثور عليها: <b>" + guess +
-                            "</b><br>عدد المحاولات: " + attempts +
-                            "<br>الوقت: " + time + " ثانية";
+        <input
+            type="text"
+            id="search"
+            placeholder="🔎 ابحث عن اسم أو رقم..."
+            oninput="searchContacts()"
+        >
 
-                        found = true;
-                        break;
-                    }
-                }
-            }
+        <div class="stats">
 
-            if (!found) {
-                document.getElementById("status").textContent =
-                    "لم يتم العثور على كلمة السر.";
+            <span>
+                إجمالي الأرقام:
+            </span>
+
+            <strong id="count">
+                0
+            </strong>
+
+        </div>
+
+        <div id="contacts">
+
+            <div class="empty">
+                لا توجد جهات اتصال حتى الآن.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <button onclick="downloadVCF()">
+            📥 تحميل جهات الاتصال
+        </button>
+
+        <button
+            class="danger"
+            onclick="deleteContacts()">
+            🗑️ حذف البيانات
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let contacts = [];
+
+
+/* ============================
+   قراءة ملف VCF
+============================ */
+
+function readContacts() {
+
+    const input =
+        document.getElementById("fileInput");
+
+    const message =
+        document.getElementById("message");
+
+    if (!input.files.length) {
+
+        message.innerHTML =
+            '<p class="success" style="color:#dc2626">اختار ملف VCF أولاً.</p>';
+
+        return;
+    }
+
+    const file =
+        input.files[0];
+
+    const reader =
+        new FileReader();
+
+    reader.onload = function(event) {
+
+        const text =
+            event.target.result;
+
+        contacts =
+            parseVCF(text);
+
+        localStorage.setItem(
+            "contacts",
+            JSON.stringify(contacts)
+        );
+
+        renderContacts();
+
+        message.innerHTML =
+            `<p class="success">
+                تم تحميل ${contacts.length} جهة اتصال بنجاح ✅
+            </p>`;
+    };
+
+    reader.onerror = function() {
+
+        message.innerHTML =
+            '<p style="color:red;text-align:center">حدث خطأ أثناء قراءة الملف.</p>';
+    };
+
+    reader.readAsText(file);
+}
+
+
+/* ============================
+   تحليل VCF
+============================ */
+
+function parseVCF(text) {
+
+    const result = [];
+
+    const cards =
+        text.split(/BEGIN:VCARD/i);
+
+    for (let card of cards) {
+
+        if (!card.trim()) {
+            continue;
+        }
+
+        const nameMatch =
+            card.match(
+                /(?:^|\n)FN(?:;[^:]*)?:([^\r\n]*)/i
+            );
+
+        const phoneMatches =
+            [...card.matchAll(
+                /(?:^|\n)TEL(?:;[^:]*)?:([^\r\n]*)/gi
+            )];
+
+        const name =
+            nameMatch
+                ? nameMatch[1].trim()
+                : "بدون اسم";
+
+        for (const match of phoneMatches) {
+
+            const phone =
+                match[1].trim();
+
+            if (phone) {
+
+                result.push({
+                    name: name,
+                    phone: phone
+                });
             }
         }
-    </script>
+    }
+
+    return result;
+}
+
+
+/* ============================
+   عرض جهات الاتصال
+============================ */
+
+function renderContacts(list = contacts) {
+
+    const container =
+        document.getElementById("contacts");
+
+    const count =
+        document.getElementById("count");
+
+    count.textContent =
+        list.length;
+
+    container.innerHTML = "";
+
+    if (list.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty">لا توجد نتائج.</div>';
+
+        return;
+    }
+
+    list.forEach(contact => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "contact";
+
+        const name =
+            document.createElement("div");
+
+        name.className =
+            "name";
+
+        name.textContent =
+            "👤 " + contact.name;
+
+        const phone =
+            document.createElement("div");
+
+        phone.className =
+            "phone";
+
+        phone.textContent =
+            "📞 " + contact.phone;
+
+        div.appendChild(name);
+
+        div.appendChild(phone);
+
+        container.appendChild(div);
+    });
+}
+
+
+/* ============================
+   البحث
+============================ */
+
+function searchContacts() {
+
+    const value =
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
+    if (!value) {
+
+        renderContacts();
+
+        return;
+    }
+
+    const filtered =
+        contacts.filter(contact =>
+
+            contact.name
+                .toLowerCase()
+                .includes(value)
+
+            ||
+
+            contact.phone
+                .toLowerCase()
+                .includes(value)
+        );
+
+    renderContacts(filtered);
+}
+
+
+/* ============================
+   تحميل VCF مرة أخرى
+============================ */
+
+function downloadVCF() {
+
+    if (contacts.length === 0) {
+
+        alert("لا توجد جهات اتصال لتحميلها.");
+
+        return;
+    }
+
+    let vcf = "";
+
+    contacts.forEach(contact => {
+
+        vcf +=
+`BEGIN:VCARD
+VERSION:3.0
+FN:${contact.name}
+TEL:${contact.phone}
+END:VCARD
+`;
+    });
+
+    const blob =
+        new Blob(
+            [vcf],
+            { type: "text/vcard;charset=utf-8" }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href =
+        url;
+
+    link.download =
+        "contacts.vcf";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+}
+
+
+/* ============================
+   حذف البيانات
+============================ */
+
+function deleteContacts() {
+
+    const confirmDelete =
+        confirm(
+            "هل أنت متأكد من حذف جهات الاتصال من هذه الصفحة؟"
+        );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    contacts = [];
+
+    localStorage.removeItem("contacts");
+
+    renderContacts();
+
+    document.getElementById("message").innerHTML =
+        '<p style="text-align:center;color:#dc2626">تم حذف البيانات.</p>';
+}
+
+
+/* ============================
+   استرجاع البيانات عند فتح الصفحة
+============================ */
+
+window.onload = function() {
+
+    const saved =
+        localStorage.getItem("contacts");
+
+    if (saved) {
+
+        try {
+
+            contacts =
+                JSON.parse(saved);
+
+            renderContacts();
+
+        } catch (error) {
+
+            contacts = [];
+
+        }
+    }
+};
+
+</script>
 
 </body>
 </html>
+
+
