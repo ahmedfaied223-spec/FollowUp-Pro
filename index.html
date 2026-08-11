@@ -1,31 +1,66 @@
-import itertools
-import string
-import time
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تجربة تخمين كلمة السر</title>
+</head>
+<body dir="rtl">
 
-# كلمة السر التجريبية
-target = "abc7"
+    <h2>تجربة Brute Force تعليمية</h2>
 
-# الأحرف المسموح بتجربتها
-characters = string.ascii_lowercase + string.digits
+    <input id="target" value="abc7" placeholder="كلمة السر التجريبية">
+    <button onclick="start()">ابدأ التجربة</button>
 
-attempts = 0
-start = time.time()
+    <p id="status">اضغط ابدأ</p>
 
-for length in range(1, len(target) + 1):
-    for guess_tuple in itertools.product(characters, repeat=length):
-        guess = ''.join(guess_tuple)
-        attempts += 1
+    <script>
+        function start() {
+            const target = document.getElementById("target").value;
+            const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-        print(f"\rمحاولة رقم {attempts}: {guess}", end="")
+            let attempts = 0;
+            let found = false;
+            const startTime = performance.now();
 
-        if guess == target:
-            elapsed = time.time() - start
+            document.getElementById("status").textContent =
+                "جاري التجربة...";
 
-            print("\n\nتم العثور على كلمة السر!")
-            print(f"كلمة السر: {guess}")
-            print(f"عدد المحاولات: {attempts}")
-            print(f"الوقت: {elapsed:.4f} ثانية")
+            for (let length = 1; length <= target.length && !found; length++) {
+                const total = Math.pow(chars.length, length);
 
-            raise SystemExit
+                for (let number = 0; number < total; number++) {
+                    let n = number;
+                    let guess = "";
 
-print("\nلم يتم العثور على كلمة السر.")
+                    for (let i = 0; i < length; i++) {
+                        guess = chars[n % chars.length] + guess;
+                        n = Math.floor(n / chars.length);
+                    }
+
+                    attempts++;
+
+                    if (guess === target) {
+                        const time =
+                            ((performance.now() - startTime) / 1000).toFixed(4);
+
+                        document.getElementById("status").innerHTML =
+                            "تم العثور عليها: <b>" + guess +
+                            "</b><br>عدد المحاولات: " + attempts +
+                            "<br>الوقت: " + time + " ثانية";
+
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!found) {
+                document.getElementById("status").textContent =
+                    "لم يتم العثور على كلمة السر.";
+            }
+        }
+    </script>
+
+</body>
+</html>
